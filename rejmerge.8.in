@@ -1,8 +1,11 @@
 .TH rejmerge 8 "" "pkgutils #VERSION#" ""
+
 .SH NAME
 rejmerge \- merge files that were rejected during package upgrades
+
 .SH SYNOPSIS
 \fBrejmerge [options]\fP
+
 .SH DESCRIPTION
 \fBrejmerge\fP is a \fIpackage management\fP utility that helps you merge files that were rejected
 during package upgrades. For each rejected file found in \fI/var/lib/pkg/rejected/\fP, \fBrejmerge\fP
@@ -21,6 +24,7 @@ Print version and exit.
 .TP
 .B "\-h, \-\-help"
 Print help and exit.
+
 .SH CONFIGURATION
 When \fBrejmerge\fP is started it will source \fI/etc/rejmerge.conf\fP.
 This file can be used to alter the way \fBrejmerge\fP displays file differences and performs file
@@ -42,9 +46,8 @@ This function also has the option to set the variable \fB$REJMERGE_MERGE_INFO\fP
 variable will be displayed as informational text after a merge has been performed. Its purpose is to provide
 information about the merge, e.g. "5 merge conflicts found".
 
+.SH EXAMPLE
 .PP
-Example:
-
 .nf
 #
 # /etc/rejmerge.conf: rejmerge(8) configuration
@@ -52,7 +55,10 @@ Example:
 
 rejmerge_diff() {
 	# Use diff(1) to produce side-by-side output
-	diff -y $1 $2 > $3
+	#diff -y $1 $2 > $3
+
+	# Use diff(1) to produce unified and colorized output
+	diff -u --color=always $1 $2 > $3
 }
 
 rejmerge_merge() {
@@ -70,9 +76,15 @@ Configuration file.
 .TP
 .B "/var/lib/pkg/rejected/"
 Directory where rejected files are stored.
+
 .SH SEE ALSO
 pkgadd(8), pkgrm(8), pkginfo(8), pkgmk(8)
+
 .SH COPYRIGHT
-rejmerge (pkgutils) is Copyright (c) 2000-2005 Per Liden and Copyright (c) 2006-2017 CRUX team (http://crux.nu).
-rejmerge (pkgutils) is licensed through the GNU General Public License.
+Copyright (c) 2000-2005 Per Liden.
+.br
+Copyright (c) 2006-2017 CRUX team (http://crux.nu).
+
+rejmerge is licensed through the GNU General Public License.
+.br
 Read the COPYING file for the complete license.
