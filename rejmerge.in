@@ -204,7 +204,7 @@ file_menu() {
 
 print_help() {
 	cat <<EOF
-usage: $REJMERGE_COMMAND [options]
+usage: #NAME# [options]
 options:
   -r, --root <path>   specify alternative root
   -v, --version       print version and exit
@@ -217,7 +217,7 @@ parse_options() {
 		case $1 in
 		-r|--root)
 			if [ ! "$2" ]; then
-				echo "$REJMERGE_COMMAND: option $1 requires an argument"
+				echo "#NAME#: option $1 requires an argument"
 				exit 1
 			fi
 			REJMERGE_ROOT="$2"
@@ -225,20 +225,20 @@ parse_options() {
 			REJECTED_DIR="$2$REJECTED_DIR"
 			shift ;;
 		-v|--version)
-			echo "$REJMERGE_COMMAND (pkgutils) $REJMERGE_VERSION"
+			echo "#NAME# (pkgutils) #VERSION#"
 			exit 0 ;;
 		-h|--help)
 			print_help
 			exit 0 ;;
 		*)
-			echo "$REJMERGE_COMMAND: invalid option $1"
+			echo "#NAME#: invalid option $1"
 			exit 1 ;;
 		esac
 		shift
 	done
 
 	if [ ! -d "$REJECTED_DIR" ]; then
-		echo "$REJMERGE_COMMAND: $REJECTED_DIR not found"
+		echo "#NAME#: $REJECTED_DIR not found"
 		exit 1
 	fi
 }
@@ -253,7 +253,7 @@ main() {
 	parse_options "$@"
 
 	if [ "$UID" != "0" ]; then
-		echo "$REJMERGE_COMMAND: only root can merge rejected files"
+		echo "#NAME#: only root can merge rejected files"
 		exit 1
 	fi
 
@@ -325,8 +325,6 @@ trap "atexit" EXIT
 
 export LC_ALL=POSIX
 
-readonly REJMERGE_VERSION="#VERSION#"
-readonly REJMERGE_COMMAND="${0##*/}"
 REJMERGE_ROOT=""
 REJMERGE_CONF="/etc/rejmerge.conf"
 REJECTED_DIR="/var/lib/pkg/rejected"
@@ -336,4 +334,4 @@ TMPFILE=$(mktemp) || exit 1
 
 main "$@"
 
-# End of file
+# End of file.

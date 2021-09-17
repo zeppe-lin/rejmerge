@@ -9,14 +9,17 @@ VERSION = 5.40.7
 
 all: rejmerge rejmerge.8 rejmerge.conf.5
 
+%: %.scd
+	sed -e "s/#VERSION#/$(VERSION)/g" $< | scdoc > $@
+
 %: %.in
-	sed -e "s/#VERSION#/$(VERSION)/" $< > $@
+	sed -e "s/#VERSION#/$(VERSION)/g" -e "s/#NAME#/$(NAME)/g" $< > $@
 
 install: all
-	install -m 755 -D rejmerge        $(DESTDIR)$(BINDIR)/rejmerge
-	install -m 644 -D rejmerge.conf   $(DESTDIR)$(ETCDIR)/rejmerge.conf
-	install -m 644 -D rejmerge.8      $(DESTDIR)$(MANDIR)/man8/rejmerge.8
-	install -m 644 -D rejmerge.conf.5 $(DESTDIR)$(MANDIR)/man5/rejmerge.conf.5
+	install -m 755 -D $(NAME)              $(DESTDIR)$(BINDIR)/$(NAME)
+	install -m 644 -D $(NAME).conf.example $(DESTDIR)$(ETCDIR)/$(NAME).conf
+	install -m 644 -D $(NAME).8            $(DESTDIR)$(MANDIR)/man8/$(NAME).8
+	install -m 644 -D $(NAME).conf.5       $(DESTDIR)$(MANDIR)/man5/$(NAME).conf.5
 
 uninstall:
 	rm -f $(DESTDIR)$(BINDIR)/rejmerge

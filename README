@@ -6,6 +6,15 @@ that were rejected during package upgrades.
 
 It's a fork of CRUX' rejmerge.
 
+
+Dependencies
+------------
+
+- bash
+- diffutils
+- scdoc
+
+
 License and Copyright
 ---------------------
 
