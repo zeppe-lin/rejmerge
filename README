@@ -10,7 +10,8 @@ It's a fork of CRUX' rejmerge.
 Dependencies
 ------------
 
-- bash
+- posix sh
+- coreutils or suckless' sbase
 - diffutils
 - scdoc
 

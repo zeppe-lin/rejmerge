@@ -1,28 +1,48 @@
-#!/bin/bash
-#
-#  rejmerge (pkgutils)
-# 
-#  Copyright (c) 2000-2005 Per Liden
-#  Copyright (c) 2006-2017 by CRUX team (http://crux.nu)
-# 
-#  This program is free software; you can redistribute it and/or modify
-#  it under the terms of the GNU General Public License as published by
-#  the Free Software Foundation; either version 2 of the License, or
-#  (at your option) any later version.
-#
-#  This program is distributed in the hope that it will be useful,
-#  but WITHOUT ANY WARRANTY; without even the implied warranty of
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#  GNU General Public License for more details.
-#
-#  You should have received a copy of the GNU General Public License
-#  along with this program; if not, write to the Free Software
-#  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, 
-#  USA.
-#
+#!/bin/sh
+
+# POSIX "read -n1" implementation.
+readc() { # arg: <variable-name>
+	if [ -t 0 ]; then
+		# if stdin is a tty device, put it out of icanon, set min and
+		# time to sane value, but don't otherwise touch other input or
+		# or local settings (echo, isig, icrnl...). Take a backup of the
+		# previous settings beforehand.
+		saved_tty_settings=$(stty -g)
+		stty -icanon min 1 time 0
+	fi
+	eval "$1="
+	while
+		# read one byte, using a work around for the fact that command
+		# substitution strips the last character.
+		c=$(dd bs=1 count=1 2> /dev/null; echo .)
+		c=${c%.}
+
+		# break out of the loop on empty input (eof) or if a full character
+		# has been accumulated in the output variable (using "wc -m" to count
+		# the number of characters).
+		[ -n "$c" ] &&
+		eval "$1=\${$1}"'$c [ "$(($(printf %s "${'"$1"'}" | wc -m)))" -eq 0 ]'; do
+			continue
+	done
+	if [ -t 0 ]; then
+		# restore settings saved earlier if stdin is a tty device.
+		stty "$saved_tty_settings"
+	fi
+}
+
+readch() { # arg: <variable name>
+	if /bin/sh --help 2>/dev/null | grep -q GNU; then
+		read -n1 "$1"
+	else
+		# In POSIX -n in read -n 1 y is undefined
+		readc "$1"
+	fi
+}
 
 info_n() {
-	echo -n "=======> $1"
+	# Intentional: /bin/echo has -n option.
+        # shellcheck disable=3037
+	/bin/echo -n "=======> $1"
 }
 
 info() {
@@ -70,7 +90,7 @@ permissions_menu() {
 		fi
 		while true; do
 			info_n "[K]eep [U]pgrade [D]iff [S]kip? "
-			read -n1 CMD
+			readch CMD
 			echo
 
 			case "$CMD" in
@@ -79,8 +99,8 @@ permissions_menu() {
 					chown --reference="$1" "$2"
 					chmod --reference="$1" "$2"
 				else
-					chown $(stat -t "$1" | awk '{print $5":"$6}') "$2"
-					chmod $(stat -t "$1" | awk '{print $4}')      "$2"
+					chown "$(stat -t "$1" | awk '{print $5":"$6}')" "$2"
+					chmod "$(stat -t "$1" | awk '{print $4}')"      "$2"
 				fi
 				break 2
 				;;
@@ -89,8 +109,8 @@ permissions_menu() {
 					chown --reference="$2" "$1"
 					chmod --reference="$2" "$1"
 				else
-					chown $(stat -t "$2" | awk '{print $5":"$6}') "$1"
-					chmod $(stat -t "$2" | awk '{print $4}')      "$1"
+					chown "$(stat -t "$2" | awk '{print $5":"$6}')" "$1"
+					chmod "$(stat -t "$2" | awk '{print $4}')"      "$1"
 				fi
 				break 2
 				;;
@@ -117,7 +137,7 @@ merge_menu() {
 
 		while true; do
 			info_n "[I]nstall [E]dit [V]iew [S]kip? "
-			read -n1 CMD
+			readch CMD
 			echo
 
 			case "$CMD" in
@@ -125,7 +145,7 @@ merge_menu() {
 				if chmod --help 2>/dev/null | grep -q GNU; then
 					chmod --reference="$1" "$TMPFILE"
 				else
-					chmod $(stat $1 | awk '{print $4}') "$TMPFILE"
+					chmod "$(stat "$1" | awk '{print $4}')" "$TMPFILE"
 				fi
 				mv -f "$TMPFILE" "$1"
 				rm -f "$2"
@@ -153,7 +173,7 @@ diff_menu() {
 		$PAGER "$TMPFILE"
 		while true; do
 			info_n "[K]eep [U]pgrade [M]erge [D]iff [S]kip? "
-			read -n1 CMD
+			readch CMD
 			echo
 
 			case "$CMD" in
@@ -183,7 +203,7 @@ file_menu() {
 		file "$1" "$2"
 		while true; do
 			info_n "[K]eep [U]pgrade [D]iff [S]kip? "
-			read -n1 CMD
+			readch CMD
 			echo
 
 			case "$CMD" in
@@ -202,37 +222,23 @@ file_menu() {
 	done
 }
 
-print_help() {
-	cat <<EOF
-usage: #NAME# [options]
-options:
-  -r, --root <path>   specify alternative root
-  -v, --version       print version and exit
-  -h, --help          print help and exit
-EOF
-}
-
 parse_options() {
 	while [ "$1" ]; do
 		case $1 in
-		-r|--root)
+		-r)
 			if [ ! "$2" ]; then
 				echo "#NAME#: option $1 requires an argument"
 				exit 1
 			fi
-			REJMERGE_ROOT="$2"
-			REJMERGE_CONF="$2$REJMERGE_CONF"
-			REJECTED_DIR="$2$REJECTED_DIR"
-			shift ;;
-		-v|--version)
-			echo "#NAME# (pkgutils) #VERSION#"
-			exit 0 ;;
-		-h|--help)
-			print_help
-			exit 0 ;;
+			REJMERGE_ROOT="${2}"
+			REJMERGE_CONF="${2}${REJMERGE_CONF}"
+			REJECTED_DIR="${2}${REJECTED_DIR}"
+			shift
+			;;
 		*)
-			echo "#NAME#: invalid option $1"
-			exit 1 ;;
+			echo "usage: #NAME# [-r path]"
+			exit 1
+			;;
 		esac
 		shift
 	done
@@ -252,7 +258,7 @@ files_regular() {
 main() {
 	parse_options "$@"
 
-	if [ "$UID" != "0" ]; then
+	if [ "$(id -u)" != "0" ]; then
 		echo "#NAME#: only root can merge rejected files"
 		exit 1
 	fi
@@ -266,7 +272,7 @@ main() {
 
 	# Check files
 	for REJECTED_FILE in $(find $REJECTED_DIR ! -type d); do
-		INSTALLED_FILE="$REJMERGE_ROOT${REJECTED_FILE##$REJECTED_DIR}"
+		INSTALLED_FILE="${REJMERGE_ROOT}${REJECTED_FILE##$REJECTED_DIR}"
 
 		# Remove rejected file if there is no installed version
 		if [ ! -e "$INSTALLED_FILE" ]; then
@@ -275,8 +281,8 @@ main() {
 		fi
 
 		# Check permissions
-		local STAT_FILE1
-		local STAT_FILE2
+		STAT_FILE1=""
+		STAT_FILE2=""
 		if stat --help 2>/dev/null | grep -q GNU; then
 			STAT_FILE1=$(stat -c '%A %U %G' "$INSTALLED_FILE")
 			STAT_FILE2=$(stat -c '%A %U %G' "$REJECTED_FILE")
@@ -309,7 +315,7 @@ main() {
 	# Remove empty directories
 	find "$REJECTED_DIR" -depth -type d | while read -r DIR; do
 		if [ "$DIR" != "$REJECTED_DIR" ]; then
-			rmdir "$DIR" &> /dev/null
+			rmdir "$DIR" >/dev/null 2>&1
 		fi
 	done
 
@@ -320,7 +326,7 @@ main() {
 	exit 0
 }
 
-trap "interrupted" SIGHUP SIGINT SIGQUIT SIGTERM
+trap "interrupted" HUP INT QUIT TERM
 trap "atexit" EXIT
 
 export LC_ALL=POSIX

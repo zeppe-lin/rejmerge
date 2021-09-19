@@ -6,7 +6,7 @@ rejmerge - merge files that were rejected during package upgrades
 
 # SYNOPSIS
 
-*rejmerge* [options]
+*rejmerge* [*-r* _path_]
 
 # DESCRIPTION
 
@@ -21,27 +21,21 @@ version or perform a merge of the two.
 
 # OPTIONS
 
-*-r*, *--root* <_PATH_>
+*-r* _path_
+	Specify alternative root (default is "/").
 
-	Specify alternative root (default is "/").  This should be used if you
-	want to merge rejected files on a temporary mounted partition, which is
-	"owned" by another system.
-
-*-v*, *--version*
-
-	Print version and exit.
-
-*-h*, *--help*
-
-	Print help and exit.
+	This should be used if you want to merge rejected files on a temporary
+	mounted partition, which is "owned" by another system.
 
 # ENVIRONMENT
 
 ## EDITOR
+
 _/bin/vi_ if unset.
 
 ## PAGER
-/bin/more if unset.
+
+_/bin/more_ if unset.
 
 # FILES
 
@@ -58,9 +52,10 @@ _/bin/vi_ if unset.
 # COPYRIGHT
 
 Copyright (c) 2000-2005 Per Liden++
-Copyright (c) 2006-2017 CRUX Team (https://crux.nu)
+Copyright (c) 2006-2017 CRUX team (https://crux.nu)
 
-*rejmerge* is licensed through the GNU General Public License v2+,++
+*rejmerge* is licensed through the GNU General Public License v2+,
 read the COPYING file for the complete license.
 
+; vim:ft=scdoc:cc=80
 ; End of file.

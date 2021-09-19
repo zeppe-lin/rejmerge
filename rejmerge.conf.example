@@ -1,9 +1,8 @@
 #
-# /etc/rejmerge.conf: rejmerge(8) configuration file
+# /etc/rejmerge.conf: configuration file for rejmerge(8)
 #
 # See rejmerge.conf(5) for more information.
 #
-
 
 # Use vim(1) as editor instead of the default vi(1).
 #EDITOR="/usr/bin/vim"
@@ -19,6 +18,5 @@
 
 # Use sdiff(1) to merge instead of the default diff(1).
 #rejmerge_merge() { sdiff -o $3 $1 $2; }
-
 
 # End of file.
