@@ -1,41 +1,15 @@
 #!/bin/sh
 
-# POSIX "read -n1" implementation.
-readc() { # arg: <variable-name>
-	if [ -t 0 ]; then
-		# if stdin is a tty device, put it out of icanon, set min and
-		# time to sane value, but don't otherwise touch other input or
-		# or local settings (echo, isig, icrnl...). Take a backup of the
-		# previous settings beforehand.
-		saved_tty_settings=$(stty -g)
-		stty -icanon min 1 time 0
-	fi
-	eval "$1="
-	while
-		# read one byte, using a work around for the fact that command
-		# substitution strips the last character.
-		c=$(dd bs=1 count=1 2> /dev/null; echo .)
-		c=${c%.}
-
-		# break out of the loop on empty input (eof) or if a full character
-		# has been accumulated in the output variable (using "wc -m" to count
-		# the number of characters).
-		[ -n "$c" ] &&
-		eval "$1=\${$1}"'$c [ "$(($(printf %s "${'"$1"'}" | wc -m)))" -eq 0 ]'; do
-			continue
-	done
-	if [ -t 0 ]; then
-		# restore settings saved earlier if stdin is a tty device.
-		stty "$saved_tty_settings"
-	fi
-}
-
 readch() { # arg: <variable name>
 	if /bin/sh --help 2>/dev/null | grep -q GNU; then
-		read -n1 "$1"
+		# Intentional: use on GNU bash interpreter
+		# shellcheck disable=3045
+		read -r -n1 "$1"
 	else
-		# In POSIX -n in read -n 1 y is undefined
-		readc "$1"
+		# POSIX 'read -n1' implementation
+		stty -icanon -echo
+		eval "$1=\$(dd bs=1 count=1 2>/dev/null)"
+		stty icanon echo
 	fi
 }
 
@@ -222,12 +196,24 @@ file_menu() {
 	done
 }
 
+print_help() {
+	cat <<EOF
+Usage: rejmerge [OPTION]
+Merge files that were rejected during package upgrades.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -r, --root PATH  specify alternative root
+  -v, --version    print version and exit
+  -h, --help       print help and exit
+EOF
+}
+
 parse_options() {
 	while [ "$1" ]; do
 		case $1 in
-		-r)
+		-r|--root)
 			if [ ! "$2" ]; then
-				echo "#NAME#: option $1 requires an argument"
+				echo "rejmerge: option $1 requires an argument"
 				exit 1
 			fi
 			REJMERGE_ROOT="${2}"
@@ -235,8 +221,16 @@ parse_options() {
 			REJECTED_DIR="${2}${REJECTED_DIR}"
 			shift
 			;;
+		-v|--version)
+			echo "rejmerge @VERSION@"
+			exit 0
+			;;
+		-h|--help)
+			print_help
+			exit 0
+			;;
 		*)
-			echo "usage: #NAME# [-r path]"
+			echo "rejmerge: invalid option $1"
 			exit 1
 			;;
 		esac
@@ -244,7 +238,7 @@ parse_options() {
 	done
 
 	if [ ! -d "$REJECTED_DIR" ]; then
-		echo "#NAME#: $REJECTED_DIR not found"
+		echo "rejmerge: $REJECTED_DIR not found"
 		exit 1
 	fi
 }
@@ -259,7 +253,7 @@ main() {
 	parse_options "$@"
 
 	if [ "$(id -u)" != "0" ]; then
-		echo "#NAME#: only root can merge rejected files"
+		echo "rejmerge: only root can merge rejected files"
 		exit 1
 	fi
 
