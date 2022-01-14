@@ -1,26 +1,26 @@
-rejmerge
-========
+ABOUT
 
-rejmerge is  a package management utility that helps you merge files
-that were rejected during package upgrades.
+    This directory contains rejmerge, a package management utility that
+    helps you merge files that were rejected during package upgrades.
 
-It's a fork of CRUX' rejmerge.
+    This is a fork of CRUX' rejmerge (which is a part of pkgutils). It
+    was rewritten in POSIX shell with support of suckless core.
+    The original sources can be downloaded from:
 
+    1. https://crux.nu/gitweb/?p=tools/pkgutils.git;a=summary
+    2. git://crux.nu/tools/pkgutils.git
 
-Dependencies
-------------
+DEPENDENCIES
 
-- posix sh
-- coreutils or suckless' sbase
-- diffutils
-- scdoc
+    * POSIX shell
+    * sbase / coreutils
+    * diffutils
+    * pod2man(1pm)
 
+LICENSE
 
-License and Copyright
----------------------
+    Copyright (c) 2000-2005 Per Liden
+    Copyright (c) 2006-2017 CRUX team (http://crux.nu)
 
-Copyright (c) 2000-2005 Per Liden and
-Copyright (c) 2006-2017 CRUX team (http://crux.nu).
-
-rejmerge is licensed through the GNU General Public License v2.
-Read the COPYING file for the complete license.
+    rejmerge is licensed through the GNU General Public License v2
+    or later. Read the COPYING file for the complete license.
