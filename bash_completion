@@ -1,4 +1,5 @@
 # Bash programmable completion for rejmerge(8).
+# This file is a part of rejmerge.
 # See COPYING and COPYRIGHT files for corresponding information.
 
 _rejmerge()
@@ -19,15 +20,14 @@ _rejmerge()
     if [ -z $BASH_COMPLETION ]; then
       _filedir
     else
-      COMPREPLY=( $( compgen -f $cur ) )
+      COMPREPLY=($(compgen -f $cur))
     fi
     return 0
     ;;
   esac
 
-  COMPREPLY=( $( compgen -W \
-    "$( rejmerge --help | awk '/--/ { printf "%2s ", $2 }' )" \
-    -- $cur ) )
+  COMPREPLY=($(compgen -W \
+    "$(rejmerge --help | awk '/--/{ printf "%2s ", $2 }')" -- $cur))
 }
 complete -F _rejmerge -o filenames rejmerge
 
