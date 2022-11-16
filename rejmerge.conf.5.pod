@@ -1,3 +1,4 @@
+# This file is a part of rejmerge.
 # See COPYING and COPYRIGHT files for corresponding information.
 
 =pod
@@ -50,7 +51,8 @@ F</bin/vi> if unset.
 
 =head2 I<PAGER>
 
-This variable defines the pager used in C<diff> and C<merge> operations.
+This variable defines the pager used in C<diff> and C<merge>
+operations.
 
 F</bin/more> if unset.
 
@@ -59,7 +61,7 @@ F</bin/more> if unset.
   #
   # /etc/rejmerge.conf: rejmerge(8) configuration
   #
-  # See rejmerge.conf(5) manual page for more information.
+  # See rejmerge.conf(5) for more information.
   #
 
   # Use diff(1) to produce side-by-side output.

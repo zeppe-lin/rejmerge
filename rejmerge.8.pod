@@ -1,3 +1,4 @@
+# This file is a part of rejmerge.
 # See COPYING and COPYRIGHT files for corresponding information.
 
 =pod
