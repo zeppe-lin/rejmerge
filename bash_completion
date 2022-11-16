@@ -1,33 +1,35 @@
 # Bash programmable completion for rejmerge(8).
+# See COPYING and COPYRIGHT files for corresponding information.
 
 _rejmerge()
 {
-	local cur prev
-	COMPREPLY=()
-	cur=${COMP_WORDS[COMP_CWORD]}
-	prev=${COMP_WORDS[COMP_CWORD-1]}
+  local cur prev
+  COMPREPLY=()
+  cur=${COMP_WORDS[COMP_CWORD]}
+  prev=${COMP_WORDS[COMP_CWORD-1]}
 
-	case "$prev" in
-	-h|--help)
-		return 0
-		;;
-	-v|--version)
-		return 0
-		;;
-	-r|--root)
-		if [ -z $BASH_COMPLETION ]; then
-			_filedir
-		else
-			COMPREPLY=( $( compgen -f $cur ) )
-		fi
-		return 0
-		;;
-	esac
+  case "$prev" in
+  -h|--help)
+    return 0
+    ;;
+  -v|--version)
+    return 0
+    ;;
+  -r|--root)
+    if [ -z $BASH_COMPLETION ]; then
+      _filedir
+    else
+      COMPREPLY=( $( compgen -f $cur ) )
+    fi
+    return 0
+    ;;
+  esac
 
-	COMPREPLY=( $( compgen -W \
-		"$( rejmerge --help | awk '/--/ { printf "%2s ", $2 }' )" \
-		-- $cur ) )
+  COMPREPLY=( $( compgen -W \
+    "$( rejmerge --help | awk '/--/ { printf "%2s ", $2 }' )" \
+    -- $cur ) )
 }
 complete -F _rejmerge -o filenames rejmerge
 
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 # End of file.
