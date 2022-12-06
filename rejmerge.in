@@ -1,5 +1,4 @@
 #!/bin/sh
-# This file is a part of rejmerge.
 # See COPYING and COPYRIGHT files for corresponding information.
 
 readch() { # arg: <variable name>
@@ -16,9 +15,7 @@ readch() { # arg: <variable name>
 }
 
 info_n() {
-  # Intentional: /bin/echo has -n option.
-  # shellcheck disable=3037
-  /bin/echo -n "=======> $1"
+  printf "=======> %s" "$1"
 }
 
 info() {
