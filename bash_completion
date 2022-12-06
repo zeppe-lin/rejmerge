@@ -1,9 +1,7 @@
 # Bash programmable completion for rejmerge(8).
-# This file is a part of rejmerge.
 # See COPYING and COPYRIGHT files for corresponding information.
 
-_rejmerge()
-{
+_rejmerge() {
   local cur prev
   COMPREPLY=()
   cur=${COMP_WORDS[COMP_CWORD]}
