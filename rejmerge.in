@@ -1,13 +1,19 @@
 #!/bin/sh
 # See COPYING and COPYRIGHT files for corresponding information.
 
-readch() { # arg: <variable name>
+######################################################################
+# GENERAL HELPERS
+######################################################################
+
+readch() {
+  # arg: <variable name>
+
   if /bin/sh --help 2>/dev/null | grep -q GNU; then
-    # Intentional: use on GNU bash interpreter
+    # Intentional: this is a GNU bash interpreter.
     # shellcheck disable=3045
     read -r -n1 "$1"
   else
-    # POSIX 'read -n1' implementation
+    # POSIX 'read -n1' implementation.
     stty -icanon -echo
     eval "$1=\$(dd bs=1 count=1 2>/dev/null)"
     stty icanon echo
@@ -24,8 +30,9 @@ info() {
 }
 
 interrupted() {
-  echo ""
+  echo
   info "Aborted."
+
   # Get back normal I/O processing if rejmerge was interrupted on
   # readch().
   stty icanon echo
@@ -37,6 +44,10 @@ atexit() {
     rm -f "$TMPFILE"
   fi
 }
+
+######################################################################
+# REJMERGE' ROUTINES
+######################################################################
 
 rejmerge_diff() {
   diff -u "$1" "$2" > "$3"
@@ -60,9 +71,11 @@ permissions_menu() {
   while true; do
     info "Access permissions $1"
     if stat --help 2>/dev/null | grep -q GNU; then
+      # gnu coreutils stat
       stat -c '%A  %U %G  %n' "$1"
       stat -c '%A  %U %G  %n' "$2"
     else
+      # suckless sbase stat
       stat -t "$1" | awk '{print $1": Access: "$4" Uid: "$5" Gid: "$6}'
       stat -t "$2" | awk '{print $1": Access: "$4" Uid: "$5" Gid: "$6}'
     fi
@@ -74,9 +87,11 @@ permissions_menu() {
       case "$CMD" in
       k|K)
         if chown --help 2>/dev/null | grep -q GNU; then
+          # gnu coreutils chown & chmod XXX FIXME
           chown --reference="$1" "$2"
           chmod --reference="$1" "$2"
         else
+          # suckless sbase chown & chmod XXX FIXME
           chown "$(stat -t "$1" | awk '{print $5":"$6}')" "$2"
           chmod "$(stat -t "$1" | awk '{print $4}')"      "$2"
         fi
@@ -84,9 +99,11 @@ permissions_menu() {
         ;;
       u|U)
         if chown --help 2>/dev/null | grep -q GNU; then
+          # gnu coreutils chown & chmod XXX FIXME
           chown --reference="$2" "$1"
           chmod --reference="$2" "$1"
         else
+          # suckless sbase chown && chmod XXX FIXME
           chown "$(stat -t "$2" | awk '{print $5":"$6}')" "$1"
           chmod "$(stat -t "$2" | awk '{print $4}')"      "$1"
         fi
@@ -121,8 +138,10 @@ merge_menu() {
       case "$CMD" in
       i|I)
         if chmod --help 2>/dev/null | grep -q GNU; then
+          # gnu coreutils chmod
           chmod --reference="$1" "$TMPFILE"
         else
+          # suckless sbase chmod
           chmod "$(stat "$1" | awk '{print $4}')" "$TMPFILE"
         fi
         mv -f "$TMPFILE" "$1"
@@ -156,18 +175,18 @@ diff_menu() {
 
       case "$CMD" in
       k|K)  rm -f "$2"
-        break 2
-        ;;
+            break 2
+            ;;
       u|U)  mv -f "$2" "$1"
-        break 2
-        ;;
+            break 2
+            ;;
       m|M)  merge_menu "$1" "$2"
-        break 2
-        ;;
+            break 2
+            ;;
       d|D)  break 1
-        ;;
+            ;;
       s|S)  break 2
-        ;;
+            ;;
       esac
     done
   done
@@ -186,15 +205,15 @@ file_menu() {
 
       case "$CMD" in
       k|K)  rm -f "$2"
-        break 2
-        ;;
+            break 2
+            ;;
       u|U)  mv -f "$2" "$1"
-        break 2
-        ;;
+            break 2
+            ;;
       d|D)  break 1
-        ;;
+            ;;
       s|S)  break 2
-        ;;
+            ;;
       esac
     done
   done
@@ -247,6 +266,10 @@ parse_options() {
   fi
 }
 
+######################################################################
+# MAIN AND MAIN-HELPERS
+######################################################################
+
 files_regular() {
   test -f "$1" || return 1
   test -f "$2" || return 1
@@ -261,7 +284,7 @@ main() {
     exit 1
   fi
 
-  # Read configuration
+  # Read configuration.
   if [ -f "$REJMERGE_CONF" ]; then
     # shellcheck source=/etc/rejmerge.conf
     . "$REJMERGE_CONF"
@@ -269,23 +292,25 @@ main() {
 
   REJECTED_FILES_FOUND="no"
 
-  # Check files
+  # Check files.
   for REJECTED_FILE in $(find $REJECTED_DIR ! -type d); do
     INSTALLED_FILE="${REJMERGE_ROOT}${REJECTED_FILE##$REJECTED_DIR}"
 
-    # Remove rejected file if there is no installed version
+    # Remove rejected file if there is no installed version.
     if [ ! -e "$INSTALLED_FILE" ]; then
       rm -f "$REJECTED_FILE"
       continue
     fi
 
-    # Check permissions
+    # Check permissions.
     STAT_FILE1=""
     STAT_FILE2=""
     if stat --help 2>/dev/null | grep -q GNU; then
+      # gnu coreutils stat
       STAT_FILE1=$(stat -c '%A %U %G' "$INSTALLED_FILE")
       STAT_FILE2=$(stat -c '%A %U %G' "$REJECTED_FILE")
     else
+      # suckless sbase stat
       STAT_FILE1=$(stat -t "$INSTALLED_FILE" | awk '{print $4" "$5" "$6}')
       STAT_FILE2=$(stat -t "$REJECTED_FILE"  | awk '{print $4" "$5" "$6}')
     fi
@@ -295,9 +320,9 @@ main() {
       permissions_menu "$INSTALLED_FILE" "$REJECTED_FILE"
     fi
 
-    # Check file types
+    # Check file types.
     if files_regular "$INSTALLED_FILE" "$REJECTED_FILE"; then
-      # Both files are regular
+      # Both files are regular.
       if cmp -s "$INSTALLED_FILE" "$REJECTED_FILE"; then
         rm -f "$REJECTED_FILE"
       else
@@ -305,13 +330,13 @@ main() {
         diff_menu "$INSTALLED_FILE" "$REJECTED_FILE"
       fi
     else
-      # At least one file is non-regular
+      # At least one file is non-regular.
       REJECTED_FILES_FOUND="yes"
       file_menu "$INSTALLED_FILE" "$REJECTED_FILE"
     fi
   done
 
-  # Remove empty directories
+  # Remove empty directories.
   find "$REJECTED_DIR" -depth -type d | while read -r DIR; do
     if [ "$DIR" != "$REJECTED_DIR" ]; then
       rmdir "$DIR" >/dev/null 2>&1
@@ -327,6 +352,10 @@ main() {
 
 trap "interrupted" HUP INT QUIT TERM
 trap "atexit" EXIT
+
+######################################################################
+# DEFAULT CONFIGURATION
+######################################################################
 
 export LC_ALL=POSIX
 
