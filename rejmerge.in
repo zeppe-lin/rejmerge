@@ -263,6 +263,7 @@ main() {
 
   # Read configuration
   if [ -f "$REJMERGE_CONF" ]; then
+    # shellcheck source=/etc/rejmerge.conf
     . "$REJMERGE_CONF"
   fi
 
