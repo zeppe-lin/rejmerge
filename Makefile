@@ -19,10 +19,10 @@ install: all
 	mkdir -p ${DESTDIR}${BINDIR}
 	mkdir -p ${DESTDIR}${MANDIR}/man5
 	mkdir -p ${DESTDIR}${MANDIR}/man8
-	cp rejmerge ${DESTDIR}${BINDIR}/
-	chmod 0755  ${DESTDIR}${BINDIR}/rejmerge
-	cp rejmerge.conf.5 ${DESTDIR}${MANDIR}/man5/
-	cp rejmerge.8      ${DESTDIR}${MANDIR}/man8/
+	cp -f rejmerge ${DESTDIR}${BINDIR}/
+	chmod 0755     ${DESTDIR}${BINDIR}/rejmerge
+	cp -f rejmerge.conf.5 ${DESTDIR}${MANDIR}/man5/
+	cp -f rejmerge.8      ${DESTDIR}${MANDIR}/man8/
 
 uninstall:
 	rm -f ${DESTDIR}${BINDIR}/rejmerge
