@@ -1,5 +1,4 @@
-# See COPYING and COPYRIGHT files for corresponding information.
-
+# rejmerge version
 VERSION = 5.41
 
 PREFIX  = /usr/local
@@ -14,6 +13,10 @@ all: rejmerge rejmerge.8 rejmerge.conf.5
 %: %.pod
 	pod2man --nourls -r ${VERSION} -c ' ' -n $(basename $@) \
 		-s $(subst .,,$(suffix $@)) $<  >  $@
+
+check:
+	@podchecker *.pod
+	@grep -Eiho "https?://[^\"\\'> ]+" *.* | httpx -silent -fc 200 -sc
 
 install: all
 	mkdir -p ${DESTDIR}${BINDIR}
