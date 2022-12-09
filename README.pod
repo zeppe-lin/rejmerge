@@ -61,19 +61,19 @@ distribution
 =head3 Runtime
 
 =over
- 
+
 =item *
- 
+
 L<sh(1p)|https://www.mankier.com/1p/sh>,
 L<awk(1p)|https://www.mankier.com/1p/awk>,
 and standard POSIX utilities
- 
+
 =item *
- 
+
 sbase or coreutils
- 
+
 =item *
- 
+
 diffutils
 
 =back
