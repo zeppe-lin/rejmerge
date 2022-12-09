@@ -1,51 +1,115 @@
-rejmerge - merge files that were rejected during package upgrades
-=================================================================
+=pod
+
+=encoding UTF-8
+
+=head1 rejmerge - merge files that were rejected during package upgrades
+
 rejmerge is a package management utility that helps you to merge files
 that were rejected during package upgrades.
 
 This rejmerge distribution is a fork of CRUX' rejmerge utility (which
 is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
-17 2018).  It was rewritten in POSIX sh(1p) and added support of the
-suckless' sbase utilities.  The man page have been rewritten in POD
-(Plain Old Documentation) and split into two man pages: rejmerge(8)
-and rejmerge.conf(5).  Bash completion and COPYRIGHT files have also
-been added..
+17 2018).  It was rewritten in POSIX
+L<sh(1p)|https://www.mankier.com/1p/sh> and added support of the
+L<suckless' sbase|https://git.suckless.org/sbase/> utilities.  The man
+page have been rewritten in POD (Plain Old Documentation) and split
+into two man pages:
+L<rejmerge(8)|https://zeppe-lin.github.io/rejmerge.8.html> and
+L<rejmerge.conf(5)|https://zeppe-lin.github.io/rejmerge.conf.5.html>.
+Added bash completion.
 
 The original sources can be downloaded from:
 
-  1.
-    git clone git://crux.nu/tools/pkgutils.git
-    git checkout 9ca0da6
-  2. https://crux.nu/gitweb/?p=tools/pkgutils.git;a=summary
+=over
 
+=item git
 
-Dependencies
-------------
-Build time:
-- POSIX' make(1p) and utilities like mkdir(1p), cp(1p), chmod(1p),
-  rm(1p)
-- podchecker(1pm) and pod2man(1pm) from perl distribution
+  git clone git://crux.nu/tools/pkgutils.git
+  git checkout 9ca0da6
 
-Runtime:
-- sh(1p)
-- suckless' sbase or coreutils
-- diffutils
-- POSIX utilities
+=item web
 
+  https://crux.nu/gitweb/?p=tools/pkgutils.git;a=summary
 
-Install
--------
-The shell commands `make; make install` should build and install this
-package.  See `Makefile` for configuration parameters.
+=back
 
+=head2 Dependencies
 
-License and Copyright
----------------------
+=head3 Build time
+
+=over
+
+=item
+
+L<make(1p)|https://www.mankier.com/1p/make>,
+L<sh(1p)|https://www.mankier.com/1p/sh>,
+and standard POSIX utilities like
+L<sed(1p)|https://www.mankier.com/1p/sed>,
+L<mkdir(1p)|https://www.mankier.com/1p/mkdir>,
+L<cp(1p)|https://www.mankier.com/1p/cp>,
+L<cd(1p)|https://www.mankier.com/1p/cd>,
+L<rm(1p)|https://www.mankier.com/1p/rm>,
+L<chmod(1p)|https://www.mankier.com/1p/chmod>
+
+=item *
+
+L<pod2man(1pm)|https://www.mankier.com/1/pod2man> from perl
+distribution
+
+=back
+
+=head3 Runtime
+
+=over
+ 
+=item *
+ 
+L<sh(1p)|https://www.mankier.com/1p/sh>,
+L<awk(1p)|https://www.mankier.com/1p/awk>,
+and standard POSIX utilities
+ 
+=item *
+ 
+sbase or coreutils
+ 
+=item *
+ 
+diffutils
+
+=back
+
+=head3 Tests
+
+Tests require B<Build time> dependencies and the following:
+
+=over
+
+=item * L<podchecker(1pm)|https://www.mankier.com/1/podchecker>
+
+Check POD for errors.
+
+=item * L<httpx(1)|https://github.com/projectdiscovery/httpx>
+
+Check for broken URLs.
+
+=back
+
+=head2 Install
+
+The shell commands C<make; make install> should build and install this
+package.  See F<Makefile> for configuration parameters.
+
+The shell commands C<make; make check> should build and start some
+tests.  See F<Makefile> for more information.
+
+=head2 License and Copyright
+
 rejmerge is licensed through the GNU General Public License v2 or
 later <https://gnu.org/licenses/gpl.html>.
 Read the COPYING file for copying conditions.
 Read the COPYRIGHT file for copyright notices.
 
+=cut
 
-<!-- vim:ft=markdown:sw=2:ts=2:sts=2:et:cc=72:tw=70
-End of file. -->
+# vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
+# End of file.
