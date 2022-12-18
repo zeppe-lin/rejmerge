@@ -1,18 +1,26 @@
 # rejmerge version
 VERSION = 5.41
 
-PREFIX  = /usr/local
-BINDIR  = ${PREFIX}/sbin
-MANDIR  = ${PREFIX}/share/man
+# paths
+PREFIX = /usr/local
+BINDIR = ${PREFIX}/sbin
+ETCDIR = ${PREFIX}/etc
+MANDIR = ${PREFIX}/share/man
 
 all: rejmerge rejmerge.8 rejmerge.conf.5
 
-%: %.in
-	sed "s/@VERSION@/${VERSION}/" $^ > $@
-
 %: %.pod
-	pod2man --nourls -r ${VERSION} -c ' ' -n $(basename $@) \
-		-s $(subst .,,$(suffix $@)) $<  >  $@
+	sed "s|@ETCDIR@|${ETCDIR}|g" $< | pod2man --nourls \
+		-r ${VERSION} \
+		-c ' ' \
+		-n $(basename $@) \
+		-s $(subst .,,$(suffix $@)) \
+		- > $@
+
+%: %.in
+	sed -e "s|@VERSION@|${VERSION}|g" \
+	    -e "s|@ETCDIR@|${ETCDIR}|g" \
+	    $< > $@
 
 check:
 	@podchecker *.pod

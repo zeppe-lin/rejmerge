@@ -10,7 +10,7 @@ rejmerge.conf - configuration file for rejmerge
 
 =head1 SYNOPSIS
 
-B</etc/rejmerge.conf>
+B<@ETCDIR/rejmerge.conf>
 
 =head1 DESCRIPTION
 
@@ -59,7 +59,7 @@ F</bin/more> if unset.
 =head1 EXAMPLE
 
   #
-  # /etc/rejmerge.conf: rejmerge(8) configuration
+  # @ETCDIR@/rejmerge.conf: rejmerge(8) configuration
   #
   # See rejmerge.conf(5) for more information.
   #
@@ -86,7 +86,7 @@ F</bin/more> if unset.
 
 =over 8
 
-=item F</etc/rejmerge.conf>
+=item F<@ETCDIR@/rejmerge.conf>
 
 Configuration file for
 L<rejmerge(8)|https://zeppe-lin.github.io/rejmerge.8.html>.

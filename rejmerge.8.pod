@@ -65,7 +65,7 @@ F</bin/more> if unset.
 
 =over 8
 
-=item F</etc/rejmerge.conf>
+=item F<@ETCDIR@/rejmerge.conf>
 
 Configuration file.
 

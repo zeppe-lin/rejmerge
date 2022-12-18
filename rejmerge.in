@@ -360,7 +360,7 @@ trap "atexit" EXIT
 export LC_ALL=POSIX
 
 REJMERGE_ROOT=""
-REJMERGE_CONF="/etc/rejmerge.conf"
+REJMERGE_CONF="@ETCDIR@/rejmerge.conf"
 REJECTED_DIR="/var/lib/pkg/rejected"
 EDITOR=${EDITOR:-/bin/vi}
 PAGER=${PAGER:-/bin/more}
