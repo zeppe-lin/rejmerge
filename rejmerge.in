@@ -361,7 +361,7 @@ export LC_ALL=POSIX
 
 REJMERGE_ROOT=""
 REJMERGE_CONF="@ETCDIR@/rejmerge.conf"
-REJECTED_DIR="/var/lib/pkg/rejected"
+REJECTED_DIR="@LIBDIR@/rejmerge/rejected"
 EDITOR=${EDITOR:-/bin/vi}
 PAGER=${PAGER:-/bin/more}
 TMPFILE=$(mktemp) || exit 1
