@@ -10,7 +10,7 @@ rejmerge.conf - configuration file for rejmerge
 
 =head1 SYNOPSIS
 
-B<@ETCDIR/rejmerge.conf>
+B<@ETCDIR@/rejmerge.conf>
 
 =head1 DESCRIPTION
 
