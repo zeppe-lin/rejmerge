@@ -239,7 +239,7 @@ Usage: rejmerge [OPTION]
 Merge files that were rejected during package upgrades.
 
 Mandatory arguments to long options are mandatory for short options too.
-  -r, --root PATH  specify alternative root
+  -r, --root=PATH  specify alternative root
   -v, --version    print version and exit
   -h, --help       print help and exit
 EOF
@@ -257,6 +257,18 @@ parse_options() {
       REJMERGE_CONF="${2}${REJMERGE_CONF}"
       REJECTED_DIR="${2}${REJECTED_DIR}"
       shift
+      ;;
+    --root=*)
+      _opt=$(echo "$1" | cut -d= -f1)
+      _arg=$(echo "$1" | cut -d= -f2)
+      if [ ! "$_arg" ]; then
+        echo "rejmerge: option $_opt requires an argument"
+        exit 1
+      fi
+      REJMERGE_ROOT="${_arg}"
+      REJMERGE_CONF="${_arg}${REJMERGE_CONF}"
+      REJECTED_DIR="${_arg}${REJECTED_DIR}"
+      unset -v _opt _arg
       ;;
     -v|--version)
       echo "rejmerge @VERSION@"
