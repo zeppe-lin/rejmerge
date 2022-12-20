@@ -2,15 +2,14 @@
 VERSION = 5.41
 
 # paths
-PREFIX = /usr/local
-BINDIR = ${PREFIX}/sbin
-ETCDIR = ${PREFIX}/etc
-MANDIR = ${PREFIX}/share/man
+PREFIX     = /usr/local
+MANPREFIX  = ${PREFIX}/share/man
+SYSCONFDIR = ${PREFIX}/etc
 
 all: rejmerge rejmerge.8 rejmerge.conf.5
 
 %: %.pod
-	sed "s|@ETCDIR@|${ETCDIR}|g" $< | pod2man --nourls \
+	sed "s|@SYSCONFDIR@|${SYSCONFDIR}|g" $< | pod2man --nourls \
 		-r ${VERSION} \
 		-c ' ' \
 		-n $(basename $@) \
@@ -19,7 +18,7 @@ all: rejmerge rejmerge.8 rejmerge.conf.5
 
 %: %.in
 	sed -e "s|@VERSION@|${VERSION}|g" \
-	    -e "s|@ETCDIR@|${ETCDIR}|g" \
+	    -e "s|@SYSCONFDIR@|${SYSCONFDIR}|g" \
 	    $< > $@
 
 check:
@@ -27,23 +26,20 @@ check:
 	@grep -Eiho "https?://[^\"\\'> ]+" *.* | httpx -silent -fc 200 -sc
 
 install: all
-	mkdir -p ${DESTDIR}${BINDIR}
-	mkdir -p ${DESTDIR}${MANDIR}/man5
-	mkdir -p ${DESTDIR}${MANDIR}/man8
-	cp -f rejmerge ${DESTDIR}${BINDIR}/
-	chmod 0755     ${DESTDIR}${BINDIR}/rejmerge
-	cp -f rejmerge.conf.5 ${DESTDIR}${MANDIR}/man5/
-	cp -f rejmerge.8      ${DESTDIR}${MANDIR}/man8/
+	mkdir -p ${DESTDIR}${PREFIX}/sbin
+	mkdir -p ${DESTDIR}${MANPREFIX}/man5
+	mkdir -p ${DESTDIR}${MANPREFIX}/man8
+	cp -f rejmerge ${DESTDIR}${PREFIX}/sbin/
+	chmod 0755 ${DESTDIR}${PREFIX}/sbin/rejmerge
+	cp -f rejmerge.conf.5 ${DESTDIR}${MANPREFIX}/man5/
+	cp -f rejmerge.8      ${DESTDIR}${MANPREFIX}/man8/
 
 uninstall:
-	rm -f ${DESTDIR}${BINDIR}/rejmerge
-	rm -f ${DESTDIR}${MANDIR}/man8/rejmerge.8
-	rm -f ${DESTDIR}${MANDIR}/man5/rejmerge.conf.5
+	rm -f ${DESTDIR}${PREFIX}/sbin/rejmerge
+	rm -f ${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
+	rm -f ${DESTDIR}${MANPREFIX}/man8/rejmerge.8
 
 clean:
 	rm -f rejmerge rejmerge.8 rejmerge.conf.5
 
 .PHONY: install uninstall clean
-
-# vim:cc=72:tw=70
-# End of file.
