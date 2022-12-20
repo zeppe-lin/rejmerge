@@ -69,7 +69,7 @@ F</bin/more> if unset.
 
 Configuration file.
 
-=item F</var/lib/rejected/>
+=item F</var/lib/pkg/rejected/>
 
 Directory where rejected files are stored.
 
