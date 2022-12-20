@@ -17,9 +17,9 @@ B<rejmerge> [I<OPTION>]
 B<rejmerge> is a package management utility that helps you merge files
 that were rejected during package upgrades.
 
-For each rejected file found in F<@LIBDIR@/rejmerge/rejected/>,
-B<rejmerge> will display difference between installed version and the
-rejected version.
+For each rejected file found in F</var/lib/pkg/rejected/>, B<rejmerge>
+will display difference between installed version and the rejected
+version.
 
 The user can the choose to keep the installed version, upgrade to the
 rejected or perform a merge of the two.
@@ -69,7 +69,7 @@ F</bin/more> if unset.
 
 Configuration file.
 
-=item F<@LIBDIR@/rejmerge/rejected/>
+=item F</var/lib/rejected/>
 
 Directory where rejected files are stored.
 
