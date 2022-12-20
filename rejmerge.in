@@ -1,8 +1,11 @@
 #!/bin/sh
+#
+# rejmerge - merge files that were rejected during package upgrades.
 # See COPYING and COPYRIGHT files for corresponding information.
+#
 
 ######################################################################
-# GENERAL HELPERS
+# read(1p) helper that implements non-posix -n1 option
 ######################################################################
 
 readch() {
@@ -20,6 +23,10 @@ readch() {
   fi
 }
 
+######################################################################
+# notification helpers
+######################################################################
+
 info_n() {
   printf "=======> %s" "$1"
 }
@@ -28,6 +35,10 @@ info() {
   info_n "$1"
   echo
 }
+
+######################################################################
+# exit hooks
+######################################################################
 
 interrupted() {
   echo
@@ -46,7 +57,7 @@ atexit() {
 }
 
 ######################################################################
-# REJMERGE' ROUTINES
+# rejmerge routines
 ######################################################################
 
 rejmerge_diff() {
@@ -136,25 +147,24 @@ merge_menu() {
       echo
 
       case "$CMD" in
-      i|I)
-        if chmod --help 2>/dev/null | grep -q GNU; then
-          # gnu coreutils chmod
-          chmod --reference="$1" "$TMPFILE"
-        else
-          # suckless sbase chmod
-          chmod "$(stat "$1" | awk '{print $4}')" "$TMPFILE"
-        fi
-        mv -f "$TMPFILE" "$1"
-        rm -f "$2"
-        break 2
-        ;;
+      i|I)  if chmod --help 2>/dev/null | grep -q GNU; then
+              # gnu coreutils chmod
+              chmod --reference="$1" "$TMPFILE"
+            else
+              # suckless sbase chmod
+              chmod "$(stat "$1" | awk '{print $4}')" "$TMPFILE"
+            fi
+            mv -f "$TMPFILE" "$1"
+            rm -f "$2"
+            break 2
+            ;;
       e|E)  $EDITOR "$TMPFILE"
-        break 1
-        ;;
+            break 1
+            ;;
       v|V)  break 1
-        ;;
+            ;;
       s|S)  break 2
-        ;;
+            ;;
       esac
     done
   done
@@ -219,6 +229,10 @@ file_menu() {
   done
 }
 
+######################################################################
+# main and its helpers
+######################################################################
+
 print_help() {
   cat <<EOF
 Usage: rejmerge [OPTION]
@@ -265,10 +279,6 @@ parse_options() {
     exit 1
   fi
 }
-
-######################################################################
-# MAIN AND MAIN-HELPERS
-######################################################################
 
 files_regular() {
   test -f "$1" || return 1
@@ -350,11 +360,12 @@ main() {
   exit 0
 }
 
+# Set exit hooks.
 trap "interrupted" HUP INT QUIT TERM
 trap "atexit" EXIT
 
 ######################################################################
-# DEFAULT CONFIGURATION
+# default configuration
 ######################################################################
 
 export LC_ALL=POSIX
@@ -365,6 +376,8 @@ REJECTED_DIR="/var/lib/pkg/rejected"
 EDITOR=${EDITOR:-/bin/vi}
 PAGER=${PAGER:-/bin/more}
 TMPFILE=$(mktemp) || exit 1
+
+######################################################################
 
 main "$@"
 
