@@ -36,6 +36,11 @@ info() {
   echo
 }
 
+dfatal() {
+  echo "rejmerge: $1" >/dev/stderr
+  exit 1
+}
+
 ######################################################################
 # exit hooks
 ######################################################################
@@ -250,8 +255,7 @@ parse_options() {
     case $1 in
     -r|--root)
       if [ ! "$2" ]; then
-        echo "rejmerge: option $1 requires an argument"
-        exit 1
+        dfatal "option $1 requires an argument"
       fi
       REJMERGE_ROOT="${2}"
       REJMERGE_CONF="${2}${REJMERGE_CONF}"
@@ -262,8 +266,7 @@ parse_options() {
       __opt=$(echo "$1" | cut -d= -f1)
       __arg=$(echo "$1" | cut -d= -f2-)
       if [ ! "$__arg" ]; then
-        echo "rejmerge: option $__opt requires an argument"
-        exit 1
+        dfatal "option $__opt requires an argument"
       fi
       REJMERGE_ROOT="${__arg}"
       REJMERGE_CONF="${__arg}${REJMERGE_CONF}"
@@ -279,16 +282,14 @@ parse_options() {
       exit 0
       ;;
     *)
-      echo "rejmerge: invalid option $1"
-      exit 1
+      dfatal "invalid option $1"
       ;;
     esac
     shift
   done
 
   if [ ! -d "$REJECTED_DIR" ]; then
-    echo "rejmerge: $REJECTED_DIR not found"
-    exit 1
+    dfatal "$REJECTED_DIR not found"
   fi
 }
 
@@ -302,8 +303,7 @@ main() {
   parse_options "$@"
 
   if [ "$(id -u)" != "0" ]; then
-    echo "rejmerge: only root can merge rejected files"
-    exit 1
+    dfatal "only root can merge rejected files"
   fi
 
   # Read configuration.
