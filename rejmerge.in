@@ -263,15 +263,12 @@ parse_options() {
       shift
       ;;
     --root=*)
-      __opt=$(echo "$1" | cut -d= -f1)
-      __arg=$(echo "$1" | cut -d= -f2-)
-      if [ ! "$__arg" ]; then
-        dfatal "option $__opt requires an argument"
+      REJMERGE_ROOT=$(echo "$1" | cut -d= -f2-)
+      if [ ! "$REJMERGE_ROOT" ]; then
+        dfatal "option --root requires an argument"
       fi
-      REJMERGE_ROOT="${__arg}"
-      REJMERGE_CONF="${__arg}${REJMERGE_CONF}"
-      REJECTED_DIR="${__arg}${REJECTED_DIR}"
-      unset -v __opt __arg
+      REJMERGE_CONF="${REJMERGE_ROOT}${REJMERGE_CONF}"
+      REJECTED_DIR="${REJMERGE_ROOT}${REJECTED_DIR}"
       ;;
     -v|--version)
       echo "rejmerge @VERSION@"
