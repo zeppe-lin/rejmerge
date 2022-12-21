@@ -260,7 +260,7 @@ parse_options() {
       ;;
     --root=*)
       _opt=$(echo "$1" | cut -d= -f1)
-      _arg=$(echo "$1" | cut -d= -f2)
+      _arg=$(echo "$1" | cut -d= -f2-)
       if [ ! "$_arg" ]; then
         echo "rejmerge: option $_opt requires an argument"
         exit 1
