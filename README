@@ -19,7 +19,6 @@ ABOUT rejmerge
     1. git://crux.nu/tools/pkgutils.git                         (git)
     2. https://crux.nu/gitweb/?p=tools/pkgutils.git;a=summary   (web)
 
-
 REQUIREMENTS
 
     Build time:
@@ -32,11 +31,8 @@ REQUIREMENTS
     * GNU diffutils
 
     Tests:
-    * podchecker(1pm)
-      check PODs for errors
-    * httpx(1)
-      check for non-200 response code
-
+    * podchecker(1pm) to check PODs for errors
+    * httpx(1) to check for non-200 response code
 
 INSTALL
 
@@ -45,7 +41,6 @@ INSTALL
 
     The shell commands "make && make check" should build and start
     some tests.  See "Makefile" for additional information.
-
 
 LICENSE
 
