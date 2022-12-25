@@ -1,8 +1,5 @@
 #!/bin/sh
-#
-# rejmerge - merge files that were rejected during package upgrades.
 # See COPYING and COPYRIGHT files for corresponding information.
-#
 
 ######################################################################
 # read(1p) helper that implements non-posix -n1 option
@@ -380,7 +377,7 @@ trap "atexit" EXIT
 export LC_ALL=POSIX
 
 REJMERGE_ROOT=""
-REJMERGE_CONF="@SYSCONFDIR@/rejmerge.conf"
+REJMERGE_CONF="/etc/rejmerge.conf"
 REJECTED_DIR="/var/lib/pkg/rejected"
 EDITOR=${EDITOR:-/bin/vi}
 PAGER=${PAGER:-/bin/more}
