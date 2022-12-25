@@ -5,7 +5,7 @@ all: rejmerge rejmerge.8 rejmerge.conf.5
 
 %: %.pod
 	pod2man --nourls -r ${VERSION} -c ' ' -n $(basename $@) \
-		-s $(subst .,,$(suffix $@)) @< > $@
+		-s $(subst .,,$(suffix $@)) $< > $@
 
 %: %.in
 	sed -e "s|@VERSION@|${VERSION}|g" $< > $@
