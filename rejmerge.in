@@ -1,8 +1,7 @@
 #!/bin/sh
-# See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
-# read(1p) helper that implements non-posix -n1 option
+# read(1p) helper that implements non-posix -n1 option               #
 ######################################################################
 
 readch() {
@@ -21,7 +20,7 @@ readch() {
 }
 
 ######################################################################
-# notification helpers
+# notification helpers                                               #
 ######################################################################
 
 info_n() {
@@ -39,7 +38,7 @@ dfatal() {
 }
 
 ######################################################################
-# exit hooks
+# exit hooks                                                         #
 ######################################################################
 
 interrupted() {
@@ -59,7 +58,7 @@ atexit() {
 }
 
 ######################################################################
-# rejmerge routines
+# rejmerge routines                                                  #
 ######################################################################
 
 rejmerge_diff() {
@@ -232,7 +231,7 @@ file_menu() {
 }
 
 ######################################################################
-# main and its helpers
+# main and its helpers                                               #
 ######################################################################
 
 print_help() {
@@ -259,10 +258,10 @@ parse_options() {
       REJECTED_DIR="${2}${REJECTED_DIR}"
       shift
       ;;
-    --root=*)
-      REJMERGE_ROOT=$(echo "$1" | cut -d= -f2-)
+    -r*|--root=*)
+      REJMERGE_ROOT=$(echo "$1" | sed 's/^-\(-root=\|r\)//')
       if [ ! "$REJMERGE_ROOT" ]; then
-        dfatal "option --root requires an argument"
+        dfatal "option -r (--root) requires an argument"
       fi
       REJMERGE_CONF="${REJMERGE_ROOT}${REJMERGE_CONF}"
       REJECTED_DIR="${REJMERGE_ROOT}${REJECTED_DIR}"
@@ -371,7 +370,7 @@ trap "interrupted" HUP INT QUIT TERM
 trap "atexit" EXIT
 
 ######################################################################
-# default configuration
+# default configuration                                              #
 ######################################################################
 
 export LC_ALL=POSIX
