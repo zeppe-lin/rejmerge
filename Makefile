@@ -11,7 +11,9 @@ all: rejmerge rejmerge.8 rejmerge.conf.5
 	sed -e "s|@VERSION@|${VERSION}|g" $< > $@
 
 check:
+	@echo "=======> Check PODs for errors"
 	@podchecker *.pod
+	@echo "=======> Check URLs for non-200 response code"
 	@grep -Eiho "https?://[^\"\\'> ]+" *.* | httpx -silent -fc 200 -sc
 
 install: all
