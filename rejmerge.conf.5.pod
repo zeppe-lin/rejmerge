@@ -45,14 +45,15 @@ purpose is to provide information about the merge, e.g.
 
 =head2 I<EDITOR>
 
-This variable defines the editor used in merge operation.
+This variable defines the editor used in B<merge> (C<rejmerge_merge>)
+operation.
 
 F</bin/vi> if unset.
 
 =head2 I<PAGER>
 
-This variable defines the pager used in C<diff> and C<merge>
-operations.
+This variable defines the pager used in B<diff> (C<rejmerge_diff>) and
+B<merge> (C<rejmerge_merge>) operations.
 
 F</bin/more> if unset.
 
