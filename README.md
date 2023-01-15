@@ -12,7 +12,7 @@ This *rejmerge* distribution is a fork of CRUX' *rejmerge* utility
   * man page have been rewritten in POD format
   * man page have been split in two man pages:
     rejmerge(8) and rejmerge.conf(5)
-  * gnu-style option parsing
+  * added GNU-style options and help message
   * added bash completion
 
 See git log for further differences.
