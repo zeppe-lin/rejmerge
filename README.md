@@ -1,10 +1,10 @@
 ABOUT
 -----
-This directory contains *rejmerge*, a package management utility
+This directory contains _rejmerge_, a package management utility
 that helps to merge files that were rejected during package upgrades.
 
-This *rejmerge* distribution is a fork of CRUX' *rejmerge* utility
-(which is part of CRUX' *pkgutils* distribution) as of commit 9ca0da6
+This _rejmerge_ distribution is a fork of CRUX' _rejmerge_ utility
+(which is part of CRUX' _pkgutils_ distribution) as of commit 9ca0da6
 (Sat Nov 17 2018) with the following differences:
 
   * rewritten in POSIX sh(1p)
@@ -45,10 +45,10 @@ The shell command `make check` should start some tests.
 
 LICENSE
 -------
-*rejmerge* is licensed through the GNU General Public License v2 or
+_rejmerge_ is licensed through the GNU General Public License v2 or
 later <https://gnu.org/licenses/gpl.html>.
-Read the *COPYING* file for copying conditions.
-Read the *COPYRIGHT* file for copyright notices.
+Read the _COPYING_ file for copying conditions.
+Read the _COPYRIGHT_ file for copyright notices.
 
 <!-- vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 End of file. -->
