@@ -1,3 +1,5 @@
+.POSIX:
+
 # rejmerge version
 VERSION = 5.41
 
