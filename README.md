@@ -6,7 +6,6 @@ that helps to merge files that were rejected during package upgrades.
 This _rejmerge_ distribution is a fork of CRUX' _rejmerge_ utility
 (which is part of CRUX' _pkgutils_ distribution) as of commit 9ca0da6
 (Sat Nov 17 2018) with the following differences:
-
   * rewritten in POSIX sh(1p)
   * added support of suckless' sbase utilities
   * man page have been rewritten in POD format
@@ -15,7 +14,7 @@ This _rejmerge_ distribution is a fork of CRUX' _rejmerge_ utility
   * added GNU-style options and help message
   * added bash completion
 
-See git log for further differences.
+See git log for complete/further differences.
 
 The original sources can be downloaded from:
   1. git://crux.nu/tools/pkgutils.git                         (git)
