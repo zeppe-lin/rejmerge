@@ -1,7 +1,6 @@
 .POSIX:
 
-# rejmerge version
-VERSION = 5.41
+include config.mk
 
 all: rejmerge rejmerge.8 rejmerge.conf.5
 
@@ -19,19 +18,23 @@ check:
 	@grep -Eiho "https?://[^\"\\'> ]+" *.* | xargs -P10 -I{} \
 		curl -o /dev/null -sw "[%{http_code}] %{url}\n" '{}'
 
-install: all
-	mkdir -p ${DESTDIR}/usr/sbin
-	mkdir -p ${DESTDIR}/usr/share/man/man5
-	mkdir -p ${DESTDIR}/usr/share/man/man8
-	cp -f rejmerge ${DESTDIR}/usr/sbin/
-	chmod 0755     ${DESTDIR}/usr/sbin/rejmerge
-	cp -f rejmerge.conf.5 ${DESTDIR}/usr/share/man/man5/
-	cp -f rejmerge.8      ${DESTDIR}/usr/share/man/man8/
+install-dirs:
+	mkdir -p ${DESTDIR}${PREFIX}/sbin
+	mkdir -p ${DESTDIR}${MANPREFIX}/man5
+	mkdir -p ${DESTDIR}${MANPREFIX}/man8
+
+install: all install-dirs
+	cp -f rejmerge        ${DESTDIR}${PREFIX}/sbin/
+	chmod 0755            ${DESTDIR}${PREFIX}/sbin/rejmerge
+	cp -f rejmerge.conf.5 ${DESTDIR}${MANPREFIX}/man5/
+	chmod 0644            ${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
+	cp -f rejmerge.8      ${DESTDIR}${MANPREFIX}/man8/
+	chmod 0644            ${DESTDIR}${MANPREFIX}/man8/rejmerge.8
 
 uninstall:
-	rm -f ${DESTDIR}/usr/sbin/rejmerge
-	rm -f ${DESTDIR}/usr/share/man/man5/rejmerge.conf.5
-	rm -f ${DESTDIR}/usr/share/man/man8/rejmerge.8
+	rm -f ${DESTDIR}${PREFIX}/sbin/rejmerge
+	rm -f ${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
+	rm -f ${DESTDIR}${MANPREFIX}/man8/rejmerge.8
 
 clean:
 	rm -f rejmerge rejmerge.8 rejmerge.conf.5
