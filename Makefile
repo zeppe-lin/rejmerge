@@ -25,10 +25,10 @@ install-dirs:
 
 install: all install-dirs
 	cp -f rejmerge        ${DESTDIR}${PREFIX}/sbin/
-	chmod 0755            ${DESTDIR}${PREFIX}/sbin/rejmerge
 	cp -f rejmerge.conf.5 ${DESTDIR}${MANPREFIX}/man5/
-	chmod 0644            ${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
 	cp -f rejmerge.8      ${DESTDIR}${MANPREFIX}/man8/
+	chmod 0755            ${DESTDIR}${PREFIX}/sbin/rejmerge
+	chmod 0644            ${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
 	chmod 0644            ${DESTDIR}${MANPREFIX}/man8/rejmerge.8
 
 uninstall:
