@@ -49,6 +49,9 @@ Print help and exit.
 
 =head1 ENVIRONMENT
 
+If the following environment variable exists it will be utilized by
+B<rejmerge>:
+
 =over 8
 
 =item B<EDITOR>
