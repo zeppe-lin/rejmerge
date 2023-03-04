@@ -9,7 +9,7 @@ all: rejmerge rejmerge.8 rejmerge.conf.5
 		-s $(subst .,,$(suffix $@)) $< > $@
 
 %: %.in
-	sed -e "s|@VERSION@|${VERSION}|g" $< > $@
+	sed -e "s/@VERSION@/${VERSION}/g" $< > $@
 
 check:
 	@echo "=======> Check PODs for errors"
