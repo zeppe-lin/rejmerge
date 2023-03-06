@@ -1,4 +1,4 @@
-ABOUT rejmerge
+OVERVIEW
 
 	This directory contains rejmerge, a package management utility that
 	helps to merge files that were rejected during package upgrades.
