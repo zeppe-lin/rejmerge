@@ -42,4 +42,4 @@ uninstall:
 clean:
 	rm -f rejmerge rejmerge.8 rejmerge.conf.5
 
-.PHONY: all check install uninstall clean
+.PHONY: all check install-dirs install uninstall clean
