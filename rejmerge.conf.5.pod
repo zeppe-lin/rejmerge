@@ -15,10 +15,9 @@ B</etc/rejmerge.conf>
 =head1 DESCRIPTION
 
 This manual page describes the format of the F<rejmerge.conf> file.
-This file can be used to alter the way
-L<rejmerge(8)|https://zeppe-lin.github.io/rejmerge.8.html> displays
-file differences and performs file merges.  Changing the default
-behaviour is done by re-defining the shell functions I<rejmerge_diff>,
+This file can be used to alter the way L<rejmerge(8)> displays file
+differences and performs file merges.  Changing the default behaviour
+is done by re-defining the shell functions I<rejmerge_diff>,
 I<rejmerge_merge> and shell variables I<EDITOR>, I<PAGER>.
 
 =head2 I<rejmerge_diff>
@@ -89,14 +88,13 @@ F</bin/more> if unset.
 
 =item F</etc/rejmerge.conf>
 
-Configuration file for
-L<rejmerge(8)|https://zeppe-lin.github.io/rejmerge.8.html>.
+Configuration file for L<rejmerge(8)>.
 
 =back
 
 =head1 SEE ALSO
 
-L<rejmerge(8)|https://zeppe-lin.github.io/rejmerge.8.html>
+L<rejmerge(8)>
 
 =cut
 
