@@ -5,7 +5,7 @@ include config.mk
 all: rejmerge rejmerge.8 rejmerge.conf.5
 
 %: %.pod
-	pod2man --nourls -r "${NAME} ${VERSION}" -c ' ' \
+	pod2man -r "${NAME} ${VERSION}" -c ' ' \
 		-n $(basename $@) -s $(subst .,,$(suffix $@)) $< > $@
 
 %: %.in
