@@ -1,4 +1,5 @@
-# rejmerge version
+# project metadata
+NAME = rejmerge
 VERSION = 5.41
 
 # paths
