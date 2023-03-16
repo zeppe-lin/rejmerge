@@ -11,12 +11,10 @@ all: rejmerge rejmerge.8 rejmerge.conf.5
 %: %.in
 	sed "s/@VERSION@/${VERSION}/g" $< > $@
 
-install-dirs:
-	mkdir -p ${DESTDIR}${PREFIX}/sbin
-	mkdir -p ${DESTDIR}${MANPREFIX}/man5
-	mkdir -p ${DESTDIR}${MANPREFIX}/man8
-
-install: all install-dirs
+install: all
+	mkdir -p              ${DESTDIR}${PREFIX}/sbin
+	mkdir -p              ${DESTDIR}${MANPREFIX}/man5
+	mkdir -p              ${DESTDIR}${MANPREFIX}/man8
 	cp -f rejmerge        ${DESTDIR}${PREFIX}/sbin/
 	cp -f rejmerge.conf.5 ${DESTDIR}${MANPREFIX}/man5/
 	cp -f rejmerge.8      ${DESTDIR}${MANPREFIX}/man8/
@@ -32,4 +30,4 @@ uninstall:
 clean:
 	rm -f rejmerge rejmerge.8 rejmerge.conf.5
 
-.PHONY: all install-dirs install uninstall clean
+.PHONY: all install uninstall clean
