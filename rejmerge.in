@@ -1,4 +1,5 @@
 #!/bin/sh
+# See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
 # read(1p) helper that implements non-posix -n1 option               #
