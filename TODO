@@ -3,4 +3,6 @@ TODO rejmerge
 	[ ] add -c, --config=FILE option
 	use alternative configuration file
 
+	[ ] rewrite the choose of suckless or coreutils utilities variants.
+
 End of file.
