@@ -288,7 +288,7 @@ parse_options() {
   fi
 }
 
-files_regular() {
+regular_files() {
   test -f "$1" || return 1
   test -f "$2" || return 1
   return 0
@@ -338,7 +338,7 @@ main() {
     fi
 
     # Check file types.
-    if files_regular "$INSTALLED_FILE" "$REJECTED_FILE"; then
+    if regular_files "$INSTALLED_FILE" "$REJECTED_FILE"; then
       # Both files are regular.
       if cmp -s "$INSTALLED_FILE" "$REJECTED_FILE"; then
         rm -f "$REJECTED_FILE"
