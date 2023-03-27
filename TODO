@@ -3,6 +3,9 @@ TODO rejmerge
 	[ ] add -c, --config=FILE option
 	use alternative configuration file
 
-	[ ] rewrite the choose of suckless or coreutils utilities variants.
+	[ ] rewrite the ugly choosing between suckless or coreutils utilities
+
+	[ ] don't create temp file on startup, even if --help message is
+	invoked
 
 End of file.
