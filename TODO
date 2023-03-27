@@ -8,4 +8,9 @@ TODO rejmerge
 	[ ] don't create temp file on startup, even if --help message is
 	invoked
 
+	[ ] add github workflow:
+		1. shellcheck
+		2. podchecker
+	See pkgmaint for example.
+
 End of file.
