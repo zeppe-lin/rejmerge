@@ -8,6 +8,7 @@
 readch() {
   # arg: <variable name>
 
+  # XXX is this need if shebang interpreter directive is /bin/sh?
   if /bin/sh --help 2>/dev/null | grep -q GNU; then
     # Intentional: this is a GNU bash interpreter.
     # shellcheck disable=3045
