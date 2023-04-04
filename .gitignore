@@ -1,3 +1,7 @@
+# build artefacts
 *.8
 *.5
 rejmerge
+
+# vim undo
+.*.un~
