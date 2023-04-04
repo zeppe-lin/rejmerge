@@ -42,8 +42,9 @@ dfatal() {
 # exit hooks                                                         #
 ######################################################################
 
-# Don't warn about unreachable commands in these functions, see
-# trap(1p).
+# Don't warn about unreachable commands in these functions.  See
+# trap(1p) for more information.
+
 # shellcheck disable=2317
 interrupted() {
   echo
@@ -54,6 +55,7 @@ interrupted() {
   stty icanon echo
   exit 1
 }
+
 # shellcheck disable=2317
 atexit() {
   [ -e "$TMPFILE" ] && rm -f "$TMPFILE"
