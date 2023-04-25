@@ -1,11 +1,11 @@
 OVERVIEW
 --------
-This directory contains rejmerge, a package management utility that helps to
-merge files that were rejected during package upgrades.
+This directory contains rejmerge, a package management utility that
+helps to merge files that were rejected during package upgrades.
 
-This rejmerge distribution is a fork of CRUX' rejmerge utility (which is part
-of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov 17 2018) with the
-following differences:
+This rejmerge distribution is a fork of CRUX' rejmerge utility (which
+is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
+17 2018) with the following differences:
 - rewritten in POSIX sh(1p)
 - added support of suckless' sbase utilities
 - man page have been rewritten in POD format
@@ -35,13 +35,13 @@ REQUIREMENTS
 
 INSTALL
 -------
-The shell commands `make && make install` should build and install this
-package.
+The shell commands `make && make install` should build and install
+this package.
 
 
 LICENSE
 -------
-rejmerge is licensed through the GNU General Public License v2 or later
-<https://gnu.org/licenses/gpl.html>.
+rejmerge is licensed through the GNU General Public License v2 or
+later <https://gnu.org/licenses/gpl.html>.
 Read the COPYING file for copying conditions.
 Read the COPYRIGHT file for copyright notices.
