@@ -14,7 +14,7 @@ jobs:
           channel: '#zeppe-lin'
           nickname: zeppbot
           message: |-
-            ${{ github.actor }} pushed ${{ github.event.repository.name }}:${{ github.event.ref.name }}
+            ${{ github.actor }} pushed ${{ github.event.repository.name }}:${{ github.event.ref }}
             ${{ join(github.event.commits.*.message, '
             ') }}
             ${{ github.event.compare }}
