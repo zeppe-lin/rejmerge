@@ -314,6 +314,9 @@ main() {
 
   # Check files.
   for REJECTED_FILE in $(find $REJECTED_DIR ! -type d); do
+
+    # Intentional.
+    # shellcheck disable=2295
     INSTALLED_FILE="${REJMERGE_ROOT}${REJECTED_FILE##$REJECTED_DIR}"
 
     # Remove rejected file if there is no installed version.
