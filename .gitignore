@@ -5,3 +5,6 @@ rejmerge
 
 # vim undo
 .*.un~
+
+# backup files
+*.bak
