@@ -1,10 +1,13 @@
-# build artefacts
+# build files and artefacts
 *.8
 *.5
 rejmerge
 
-# vim undo
+# vim undo files
 .*.un~
 
 # backup files
 *.bak
+
+# dist tarballs
+*.tar.gz
