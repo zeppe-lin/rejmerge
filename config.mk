@@ -1,9 +1,9 @@
 # project metadata
-NAME = rejmerge
+NAME    = rejmerge
 VERSION = 5.42
-DIST = ${NAME}-${VERSION}
+DIST    = ${NAME}-${VERSION}
 
 # paths
-PREFIX = /usr
-MANPREFIX = ${PREFIX}/share/man
+PREFIX      = /usr
+MANPREFIX   = ${PREFIX}/share/man
 BASHCOMPDIR = ${PREFIX}/share/bash-completion/completions
