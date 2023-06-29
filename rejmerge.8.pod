@@ -37,6 +37,13 @@ Specify alternate root (default is C</>).  This should be used if you
 want to merge rejected files on a temporary mounted partition, which
 is "owned" by another system.
 
+=item B<-c>, B<--config>=I<FILE>
+
+Specify an alternative configuration file.
+
+Default: I<PATH>F</etc/rejmerge.conf> if B<-r>/B<--root> is specified
+and F</etc/rejmerge.conf> otherwise.
+
 =item B<-v>, B<--version>
 
 Print version and exit.
