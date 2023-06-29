@@ -328,15 +328,13 @@ main() {
 
     # Check file types.
     if regular_files "$INSTALLED_FILE" "$REJECTED_FILE"; then
-      # Both files are regular.
       if cmp -s "$INSTALLED_FILE" "$REJECTED_FILE"; then
-        rm -f "$REJECTED_FILE"
+        rm -f "$REJECTED_FILE" # both files are identical
       else
         REJECTED_FILES_FOUND="yes"
         diff_menu "$INSTALLED_FILE" "$REJECTED_FILE"
       fi
     else
-      # At least one file is non-regular.
       REJECTED_FILES_FOUND="yes"
       file_menu "$INSTALLED_FILE" "$REJECTED_FILE"
     fi
