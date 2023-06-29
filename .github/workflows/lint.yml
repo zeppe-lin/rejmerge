@@ -16,11 +16,10 @@ jobs:
     - name: Install shellcheck
       run: sudo apt-get install -y shellcheck
 
+    - name: Check shell scripts for errors
+      run: shellcheck -s sh -x rejmerge.in
+
     - name: Check PODs for errors
       run: podchecker *.pod
-
-    # TODO
-    #- name: Check shell scripts for errors
-    #  run: shellcheck -s sh -x rejmerge.in
 
 # End of file.
