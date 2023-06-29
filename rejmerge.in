@@ -184,6 +184,7 @@ diff_menu() {
   while true; do
     info "$1"
     $PAGER "$TMPFILE"
+
     while true; do
       info_n "[K]eep [U]pgrade [M]erge [D]iff [S]kip? "
       readch CMD
@@ -255,9 +256,7 @@ parse_options() {
   while [ "$1" ]; do
     case $1 in
     -r|--root)
-      if [ ! "$2" ]; then
-        dfatal "option $1 requires an argument"
-      fi
+      [ "$2" ] || dfatal "option $1 requires an argument"
       REJMERGE_ROOT="${2}"
       REJMERGE_CONF="${2}${REJMERGE_CONF}"
       REJECTED_DIR="${2}${REJECTED_DIR}"
@@ -265,9 +264,7 @@ parse_options() {
       ;;
     -r*|--root=*)
       REJMERGE_ROOT=$(echo "$1" | sed 's/^-\(-root=\|r\)//')
-      if [ ! "$REJMERGE_ROOT" ]; then
-        dfatal "option -r (--root) requires an argument"
-      fi
+      [ "$REJMERGE_ROOT" ] || dfatal "option -r (--root) requires an argument"
       REJMERGE_CONF="${REJMERGE_ROOT}${REJMERGE_CONF}"
       REJECTED_DIR="${REJMERGE_ROOT}${REJECTED_DIR}"
       ;;
@@ -286,9 +283,7 @@ parse_options() {
     shift
   done
 
-  if [ ! -d "$REJECTED_DIR" ]; then
-    dfatal "$REJECTED_DIR not found"
-  fi
+  [ -d "$REJECTED_DIR" ] || dfatal "$REJECTED_DIR not found"
 }
 
 regular_files() {
@@ -300,15 +295,11 @@ regular_files() {
 main() {
   parse_options "$@"
 
-  if [ "$(id -u)" != "0" ]; then
-    dfatal "only root can merge rejected files"
-  fi
+  [ "$(id -u)" = 0 ] || dfatal "only root can merge rejected files"
 
   # Read configuration.
-  if [ -f "$REJMERGE_CONF" ]; then
-    # shellcheck source=/etc/rejmerge.conf
-    . "$REJMERGE_CONF"
-  fi
+  # shellcheck source=/etc/rejmerge.conf
+  [ -f "$REJMERGE_CONF" ] && . "$REJMERGE_CONF"
 
   REJECTED_FILES_FOUND="no"
 
@@ -361,14 +352,10 @@ main() {
 
   # Remove empty directories.
   find "$REJECTED_DIR" -depth -type d | while read -r DIR; do
-    if [ "$DIR" != "$REJECTED_DIR" ]; then
-      rmdir "$DIR" >/dev/null 2>&1
-    fi
+    [ "$DIR" = "$REJECTED_DIR" ] || rmdir "$DIR" >/dev/null 2>&1
   done
 
-  if [ "$REJECTED_FILES_FOUND" = "no" ]; then
-    echo "Nothing to merge"
-  fi
+  [ "$REJECTED_FILES_FOUND" = "yes" ] || echo "Nothing to merge"
 
   exit 0
 }
