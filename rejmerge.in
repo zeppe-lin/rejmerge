@@ -309,8 +309,7 @@ main() {
     fi
 
     # Check permissions.
-    STAT_FILE1=""
-    STAT_FILE2=""
+    unset STAT_FILE1 STAT_FILE2
     if stat --help 2>/dev/null | grep -q GNU; then
       # gnu coreutils stat
       STAT_FILE1=$(stat -c '%A %U %G' "$INSTALLED_FILE")
