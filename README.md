@@ -7,12 +7,14 @@ This rejmerge distribution is a fork of CRUX' rejmerge utility (which
 is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
 17 2018) with the following differences:
 - rewritten in POSIX sh(1p)
-- added support of suckless' sbase utilities
 - man page have been rewritten in POD format
 - man page have been split in 2 (two) man pages: rejmerge(8) and
   rejmerge.conf(5)
 - added GNU-style options and help message
 - added bash completion
+
+For support of suckless' sbase utilities look at the following commit:
+f27f59a19c1e6533b50550cb209d8918a8940300
 
 See git log for complete/further differences.
 
