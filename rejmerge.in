@@ -306,7 +306,6 @@ main() {
     fi
 
     # Check permissions.
-    unset STAT_FILE1 STAT_FILE2
     STAT_FILE1=$(stat -c '%A %U %G' "$INSTALLED_FILE")
     STAT_FILE2=$(stat -c '%A %U %G' "$REJECTED_FILE")
 
