@@ -348,9 +348,6 @@ trap "atexit"      EXIT
 # default configuration                                              #
 ######################################################################
 
-# Exit if command fails.
-set -e
-
 export LC_ALL=POSIX
 
 EDITOR=${EDITOR:-/bin/vi}
