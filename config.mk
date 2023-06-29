@@ -1,6 +1,6 @@
 # project metadata
 NAME         = rejmerge
-VERSION      = 5.42
+VERSION      = 5.43
 DIST         = ${NAME}-${VERSION}
 
 # paths
