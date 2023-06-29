@@ -11,6 +11,8 @@ is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
 - man page have been split in 2 (two) man pages: rejmerge(8) and
   rejmerge.conf(5)
 - added GNU-style options and help message
+- added `-c/--config` option to specify an alternative configuration
+  file
 - added bash completion
 
 For support of suckless' sbase utilities look at the following commit:
