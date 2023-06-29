@@ -80,15 +80,8 @@ permissions_menu() {
   while true; do
     info "Access permissions $1"
 
-    if stat --help 2>/dev/null | grep -q GNU; then
-      # gnu coreutils stat
-      stat -c '%A  %U %G  %n' "$1"
-      stat -c '%A  %U %G  %n' "$2"
-    else
-      # suckless sbase stat
-      stat -t "$1" | awk '{print $1": Access: "$4" Uid: "$5" Gid: "$6}'
-      stat -t "$2" | awk '{print $1": Access: "$4" Uid: "$5" Gid: "$6}'
-    fi
+    stat -c '%A  %U %G  %n' "$1"
+    stat -c '%A  %U %G  %n' "$2"
 
     while true; do
       info_n "[K]eep [U]pgrade [D]iff [S]kip? "
@@ -96,34 +89,18 @@ permissions_menu() {
       echo
 
       case "$CMD" in
-      k|K)
-        if chown --help 2>/dev/null | grep -q GNU; then
-          # gnu coreutils chown & chmod XXX FIXME
-          chown --reference="$1" "$2"
-          chmod --reference="$1" "$2"
-        else
-          # suckless sbase chown & chmod XXX FIXME
-          chown "$(stat -t "$1" | awk '{print $5":"$6}')" "$2"
-          chmod "$(stat -t "$1" | awk '{print $4}')"      "$2"
-        fi
-        break 2
-        ;;
-      u|U)
-        if chown --help 2>/dev/null | grep -q GNU; then
-          # gnu coreutils chown & chmod XXX FIXME
-          chown --reference="$2" "$1"
-          chmod --reference="$2" "$1"
-        else
-          # suckless sbase chown && chmod XXX FIXME
-          chown "$(stat -t "$2" | awk '{print $5":"$6}')" "$1"
-          chmod "$(stat -t "$2" | awk '{print $4}')"      "$1"
-        fi
-        break 2
-        ;;
+      k|K)  chown --reference="$1" "$2"
+            chmod --reference="$1" "$2"
+            break 2
+            ;;
+      u|U)  chown --reference="$2" "$1"
+            chmod --reference="$2" "$1"
+            break 2
+            ;;
       d|D)  break 1
-        ;;
+            ;;
       s|S)  break 2
-        ;;
+            ;;
       esac
     done
   done
@@ -147,13 +124,7 @@ merge_menu() {
       echo
 
       case "$CMD" in
-      i|I)  if chmod --help 2>/dev/null | grep -q GNU; then
-              # gnu coreutils chmod
-              chmod --reference="$1" "$TMPFILE"
-            else
-              # suckless sbase chmod
-              chmod "$(stat "$1" | awk '{print $4}')" "$TMPFILE"
-            fi
+      i|I)  chmod --reference="$1" "$TMPFILE"
             mv -f "$TMPFILE" "$1"
             rm -f "$2"
             break 2
@@ -313,15 +284,8 @@ main() {
 
     # Check permissions.
     unset STAT_FILE1 STAT_FILE2
-    if stat --help 2>/dev/null | grep -q GNU; then
-      # gnu coreutils stat
-      STAT_FILE1=$(stat -c '%A %U %G' "$INSTALLED_FILE")
-      STAT_FILE2=$(stat -c '%A %U %G' "$REJECTED_FILE")
-    else
-      # suckless sbase stat
-      STAT_FILE1=$(stat -t "$INSTALLED_FILE" | awk '{print $4" "$5" "$6}')
-      STAT_FILE2=$(stat -t "$REJECTED_FILE"  | awk '{print $4" "$5" "$6}')
-    fi
+    STAT_FILE1=$(stat -c '%A %U %G' "$INSTALLED_FILE")
+    STAT_FILE2=$(stat -c '%A %U %G' "$REJECTED_FILE")
 
     if [ "$STAT_FILE1" != "$STAT_FILE2" ]; then
       REJECTED_FILES_FOUND="yes"
