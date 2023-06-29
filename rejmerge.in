@@ -212,28 +212,41 @@ Usage: rejmerge [OPTION]
 Merge files that were rejected during package upgrades.
 
 Mandatory arguments to long options are mandatory for short options too.
-  -r, --root=PATH  specify alternative root
-  -v, --version    print version and exit
-  -h, --help       print help and exit
+  -c, --config=FILE  specify an alternative configuration file
+  -r, --root=PATH    specify an alternative root directory
+  -v, --version      print version and exit
+  -h, --help         print help and exit
 EOF
 }
 
 parse_options() {
   while [ "$1" ]; do
     case $1 in
+
     -r|--root)
-      [ "$2" ] || dfatal "option $1 requires an argument"
-      REJMERGE_ROOT="${2}"
-      REJMERGE_CONF="${2}${REJMERGE_CONF}"
-      REJECTED_DIR="${2}${REJECTED_DIR}"
+      REJMERGE_ROOT=$2
+      [ "$REJMERGE_ROOT" ] ||
+        dfatal "option -r/--root requires an argument"
       shift
       ;;
     -r*|--root=*)
-      REJMERGE_ROOT=$(echo "$1" | sed 's/^-\(-root=\|r\)//')
-      [ "$REJMERGE_ROOT" ] || dfatal "option -r (--root) requires an argument"
-      REJMERGE_CONF="${REJMERGE_ROOT}${REJMERGE_CONF}"
-      REJECTED_DIR="${REJMERGE_ROOT}${REJECTED_DIR}"
+      REJMERGE_ROOT="$(echo "$1" | sed 's/^-\(-root=\|r\)//')"
+      [ "$REJMERGE_ROOT" ] ||
+        dfatal "option -r/--root requires an argument"
       ;;
+
+    -c|--config)
+      REJMERGE_CONF=$2
+      [ "$REJMERGE_CONF" ] ||
+        dfatal "option -c/--config requires an argument"
+      shift
+      ;;
+    -c*|--config=*)
+      REJMERGE_CONF="$(echo "$1" | sed 's/^-\(-config=\|c\)//')"
+      [ "$REJMERGE_CONF" ] ||
+        dfatal "option -c/--config requires an argument"
+      ;;
+
     -v|--version)
       echo "rejmerge @VERSION@"
       exit 0
@@ -249,7 +262,9 @@ parse_options() {
     shift
   done
 
-  [ -d "$REJECTED_DIR" ] || dfatal "$REJECTED_DIR not found"
+  REJMERGE_ROOT=${REJMERGE_ROOT:-""}
+  REJMERGE_CONF=${REJMERGE_CONF:-"$REJMERGE_ROOT/etc/rejmerge.conf"}
+  readonly REJECTED_DIR="$REJMERGE_ROOT/var/lib/pkg/rejected"
 }
 
 regular_files() {
@@ -261,7 +276,11 @@ regular_files() {
 main() {
   parse_options "$@"
 
-  [ "$(id -u)" = 0 ] || dfatal "only root can merge rejected files"
+  # sanity checks
+  [ "$(id -u)" = 0      ] || dfatal "only root can merge rejected files"
+  [ -d "$REJMERGE_ROOT" ] || dfatal "$REJMERGE_ROOT not found"
+  [ -f "$REJMERGE_CONF" ] || dfatal "$REJMERGE_CONF not found"
+  [ -d "$REJECTED_DIR"  ] || dfatal "$REJECTED_DIR not found"
 
   # Read configuration.
   # shellcheck source=/etc/rejmerge.conf
@@ -330,14 +349,8 @@ trap "atexit"      EXIT
 
 export LC_ALL=POSIX
 
-REJMERGE_ROOT=""
-REJMERGE_CONF="/etc/rejmerge.conf"
-REJECTED_DIR="/var/lib/pkg/rejected"
 EDITOR=${EDITOR:-/bin/vi}
 PAGER=${PAGER:-/bin/more}
-TMPFILE=
-
-######################################################################
 
 main "$@"
 
