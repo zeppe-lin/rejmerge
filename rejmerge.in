@@ -8,17 +8,9 @@
 readch() {
   # arg: <variable name>
 
-  # XXX is this need if shebang interpreter directive is /bin/sh?
-  if /bin/sh --help 2>/dev/null | grep -q GNU; then
-    # Intentional: this is a GNU bash interpreter.
-    # shellcheck disable=3045
-    read -r -n1 "$1"
-  else
-    # POSIX 'read -n1' implementation.
-    stty -icanon -echo
-    eval "$1=\$(dd bs=1 count=1 2>/dev/null)"
-    stty icanon echo
-  fi
+  stty -icanon -echo
+  eval "$1=\$(dd bs=1 count=1 2>/dev/null)"
+  stty icanon echo
 }
 
 ######################################################################
