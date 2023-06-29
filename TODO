@@ -1,16 +1,20 @@
 TODO rejmerge
 
-	[ ] add -c, --config=FILE option
+	[x] add -c, --config=FILE option
 	use alternative configuration file
+	Done: Thu Jun 29 06:18:44 PM EEST 2023
 
-	[ ] rewrite the ugly choosing between suckless or coreutils utilities
+	[x] rewrite the ugly choosing between suckless or coreutils utilities
+	Obsolete: Add a note about commit message.
+	Done: Thu Jun 29 06:18:44 PM EEST 2023
 
-	[ ] don't create temp file on startup, even if --help message is
+	[x] don't create temp file on startup, even if --help message is
 	invoked
+	Done: Thu Jun 29 06:18:44 PM EEST 2023
 
-	[ ] add github workflow:
+	[x] add github workflow (see pkgmaint for example):
 		1. shellcheck
 		2. podchecker
-	See pkgmaint for example.
+	Done: Thu Jun 29 06:18:44 PM EEST 2023
 
 End of file.
