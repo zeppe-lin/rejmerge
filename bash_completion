@@ -13,6 +13,10 @@ _rejmerge()
     _filedir -d
     return
     ;;
+  --config | -!(-*)c)
+    _filedir
+    return
+    ;;
   esac
 
   $split && return
