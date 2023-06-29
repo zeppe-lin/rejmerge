@@ -278,7 +278,6 @@ main() {
 
   # sanity checks
   [ "$(id -u)" = 0      ] || dfatal "only root can merge rejected files"
-  [ -d "$REJMERGE_ROOT" ] || dfatal "$REJMERGE_ROOT not found"
   [ -f "$REJMERGE_CONF" ] || dfatal "$REJMERGE_CONF not found"
   [ -d "$REJECTED_DIR"  ] || dfatal "$REJECTED_DIR not found"
 
