@@ -212,8 +212,8 @@ Usage: rejmerge [OPTION]
 Merge files that were rejected during package upgrades.
 
 Mandatory arguments to long options are mandatory for short options too.
-  -c, --config=FILE  specify an alternative configuration file
   -r, --root=PATH    specify an alternative root directory
+  -c, --config=FILE  specify an alternative configuration file
   -v, --version      print version and exit
   -h, --help         print help and exit
 EOF
