@@ -267,6 +267,10 @@ main() {
   # shellcheck source=/etc/rejmerge.conf
   [ -f "$REJMERGE_CONF" ] && . "$REJMERGE_CONF"
 
+  # https://tldp.org/LDP/abs/html/exitcodes.html
+  # 126 - Command invoked cannot execute.
+  TMPFILE=$(mktemp) || exit 126
+
   REJECTED_FILES_FOUND="no"
 
   # Check files.
@@ -331,7 +335,7 @@ REJMERGE_CONF="/etc/rejmerge.conf"
 REJECTED_DIR="/var/lib/pkg/rejected"
 EDITOR=${EDITOR:-/bin/vi}
 PAGER=${PAGER:-/bin/more}
-TMPFILE=$(mktemp) || exit 1
+TMPFILE=
 
 ######################################################################
 
