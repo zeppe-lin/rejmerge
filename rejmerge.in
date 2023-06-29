@@ -225,26 +225,26 @@ parse_options() {
 
     -r|--root)
       REJMERGE_ROOT=$2
-      [ "$REJMERGE_ROOT" ] ||
-        dfatal "option -r/--root requires an argument"
+      [ -n "$REJMERGE_ROOT" ] || dfatal "option $1 requires an argument"
+      [ -d "$REJMERGE_ROOT" ] || dfatal "root directory '$REJMERGE_ROOT' not found"
       shift
       ;;
     -r*|--root=*)
       REJMERGE_ROOT="$(echo "$1" | sed 's/^-\(-root=\|r\)//')"
-      [ "$REJMERGE_ROOT" ] ||
-        dfatal "option -r/--root requires an argument"
+      [ -n "$REJMERGE_ROOT" ] || dfatal "option $1 requires an argument"
+      [ -d "$REJMERGE_ROOT" ] || dfatal "root directory '$REJMERGE_ROOT' not found"
       ;;
 
     -c|--config)
       REJMERGE_CONF=$2
-      [ "$REJMERGE_CONF" ] ||
-        dfatal "option -c/--config requires an argument"
+      [ -n "$REJMERGE_CONF" ] || dfatal "option $1 requires an argument"
+      [ -f "$REJMERGE_CONF" ] || dfatal "configuration file '$REJMERGE_CONF' not found"
       shift
       ;;
     -c*|--config=*)
       REJMERGE_CONF="$(echo "$1" | sed 's/^-\(-config=\|c\)//')"
-      [ "$REJMERGE_CONF" ] ||
-        dfatal "option -c/--config requires an argument"
+      [ -n "$REJMERGE_CONF" ] || dfatal "option $1 requires an argument"
+      [ -f "$REJMERGE_CONF" ] || dfatal "configuration file '$REJMERGE_CONF' not found"
       ;;
 
     -v|--version)
@@ -265,6 +265,7 @@ parse_options() {
   REJMERGE_ROOT=${REJMERGE_ROOT:-""}
   REJMERGE_CONF=${REJMERGE_CONF:-"$REJMERGE_ROOT/etc/rejmerge.conf"}
   readonly REJECTED_DIR="$REJMERGE_ROOT/var/lib/pkg/rejected"
+  [ -d "$REJECTED_DIR" ] || "directory '$REJECTED_DIR' not found"
 }
 
 regular_files() {
@@ -276,10 +277,7 @@ regular_files() {
 main() {
   parse_options "$@"
 
-  # sanity checks
-  [ "$(id -u)" = 0      ] || dfatal "only root can merge rejected files"
-  [ -f "$REJMERGE_CONF" ] || dfatal "$REJMERGE_CONF not found"
-  [ -d "$REJECTED_DIR"  ] || dfatal "$REJECTED_DIR not found"
+  [ "$(id -u)" = 0 ] || dfatal "only root can merge rejected files"
 
   # Read configuration.
   # shellcheck source=/etc/rejmerge.conf
@@ -349,6 +347,9 @@ trap "atexit"      EXIT
 ######################################################################
 # default configuration                                              #
 ######################################################################
+
+# Exit if command fails.
+set -e
 
 export LC_ALL=POSIX
 
