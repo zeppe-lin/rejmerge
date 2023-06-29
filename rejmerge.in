@@ -73,12 +73,13 @@ rejmerge_merge() {
   "$1" "$2" > "$3"
 
   REJMERGE_MERGE_INFO="$(grep -c '^<<<<< END MERGE CONFLICT >>>>>$' \
-                        "$3") merge conflict(s)."
+                         "$3") merge conflict(s)."
 }
 
 permissions_menu() {
   while true; do
     info "Access permissions $1"
+
     if stat --help 2>/dev/null | grep -q GNU; then
       # gnu coreutils stat
       stat -c '%A  %U %G  %n' "$1"
@@ -88,6 +89,7 @@ permissions_menu() {
       stat -t "$1" | awk '{print $1": Access: "$4" Uid: "$5" Gid: "$6}'
       stat -t "$2" | awk '{print $1": Access: "$4" Uid: "$5" Gid: "$6}'
     fi
+
     while true; do
       info_n "[K]eep [U]pgrade [D]iff [S]kip? "
       readch CMD
@@ -207,6 +209,7 @@ file_menu() {
   while true; do
     info "$1"
     file "$1" "$2"
+
     while true; do
       info_n "[K]eep [U]pgrade [D]iff [S]kip? "
       readch CMD
@@ -350,8 +353,8 @@ main() {
 }
 
 # Set exit hooks.
-trap "interrupted" HUP INT QUIT TERM
-trap "atexit" EXIT
+trap "interrupted" HUP  INT  QUIT  TERM
+trap "atexit"      EXIT
 
 ######################################################################
 # default configuration                                              #
