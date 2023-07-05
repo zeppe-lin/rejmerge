@@ -6,11 +6,15 @@
 ######################################################################
 
 readch() {
-  # arg: <variable name>
+  # arg: <var name>
 
-  stty -icanon -echo
-  eval "$1=\$(dd bs=1 count=1 2>/dev/null)"
-  stty icanon echo
+  if [ "$DRY_RUN" = 1 ]; then
+    eval "$1=S" # set arg to [S]kip all actions
+  else
+    stty -icanon -echo
+    eval "$1=\$(dd bs=1 count=1 2>/dev/null)"
+    stty icanon echo
+  fi
 }
 
 ######################################################################
@@ -214,6 +218,7 @@ Merge files that were rejected during package upgrades.
 Mandatory arguments to long options are mandatory for short options too.
   -r, --root=PATH    specify an alternative root directory
   -c, --config=FILE  specify an alternative configuration file
+  -n, --dry-run      dry run, no execution
   -v, --version      print version and exit
   -h, --help         print help and exit
 EOF
@@ -247,6 +252,10 @@ parse_options() {
       [ -f "$REJMERGE_CONF" ] || dfatal "configuration file '$REJMERGE_CONF' not found"
       ;;
 
+    -n|--dry-run)
+      DRY_RUN=1
+      ;;
+
     -v|--version)
       echo "rejmerge @VERSION@"
       exit 0
@@ -262,6 +271,7 @@ parse_options() {
     shift
   done
 
+  DRY_RUN=${DRY_RUN:-0}
   REJMERGE_ROOT=${REJMERGE_ROOT:-""}
   REJMERGE_CONF=${REJMERGE_CONF:-"$REJMERGE_ROOT/etc/rejmerge.conf"}
   readonly REJECTED_DIR="$REJMERGE_ROOT/var/lib/pkg/rejected"
@@ -277,11 +287,16 @@ regular_files() {
 main() {
   parse_options "$@"
 
-  [ "$(id -u)" = 0 ] || dfatal "only root can merge rejected files"
-
   # Read configuration.
   # shellcheck source=/etc/rejmerge.conf
   [ -f "$REJMERGE_CONF" ] && . "$REJMERGE_CONF"
+
+  if [ "$DRY_RUN" = 1 ]; then
+    # Redefine PAGER to non-interactive one.
+    PAGER=cat
+  else
+    [ "$(id -u)" = 0 ] || dfatal "only root can merge rejected files"
+  fi
 
   # https://tldp.org/LDP/abs/html/exitcodes.html
   # 126 - Command invoked cannot execute.

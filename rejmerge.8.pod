@@ -44,6 +44,11 @@ Specify an alternative configuration file.
 Default: I<PATH>F</etc/rejmerge.conf> if B<-r>/B<--root> is specified
 and F</etc/rejmerge.conf> otherwise.
 
+=item B<-n>, B<--dry-run>
+
+Print the differences between an installed version and rejected
+version, but do not execute any actions.
+
 =item B<-v>, B<--version>
 
 Print version and exit.
