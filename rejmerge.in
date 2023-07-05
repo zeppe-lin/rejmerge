@@ -293,7 +293,7 @@ main() {
 
   if [ "$DRY_RUN" = 1 ]; then
     # Redefine PAGER to non-interactive one.
-    PAGER=cat
+    export PAGER=cat
   else
     [ "$(id -u)" = 0 ] || dfatal "only root can merge rejected files"
   fi
