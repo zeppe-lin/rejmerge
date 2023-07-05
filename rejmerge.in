@@ -292,7 +292,7 @@ main() {
   [ -f "$REJMERGE_CONF" ] && . "$REJMERGE_CONF"
 
   if [ "$DRY_RUN" = 1 ]; then
-    # Redefine PAGER to non-interactive one.
+    # Redefine PAGER to a non-interactive one.
     export PAGER=cat
   else
     [ "$(id -u)" = 0 ] || dfatal "only root can merge rejected files"
