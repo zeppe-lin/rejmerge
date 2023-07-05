@@ -13,6 +13,9 @@ is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
 - added GNU-style options and help message
 - added `-c/--config` option to specify an alternative configuration
   file
+- added `-n/--dry-run` option to print the differences between an installed
+  version and rejected version, but do not execute any actions (useful for
+  automated reports)
 - added bash completion
 
 For support of suckless' sbase utilities look at the following commit:
