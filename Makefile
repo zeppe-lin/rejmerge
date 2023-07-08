@@ -1,6 +1,7 @@
 .POSIX:
 
 include config.mk
+include utils.mk
 
 all: rejmerge rejmerge.8 rejmerge.conf.5
 
