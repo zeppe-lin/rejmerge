@@ -6,14 +6,14 @@ _rejmerge()
   _init_completion -s || return
 
   case $prev in
-  --help | --version | -!(-*)[hv])
+  --help|--version|-!(-*)[hv])
     return
     ;;
-  --root | -!(-*)r)
+  --root|-!(-*)r)
     _filedir -d
     return
     ;;
-  --config | -!(-*)c)
+  --config|-!(-*)c)
     _filedir
     return
     ;;
