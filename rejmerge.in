@@ -280,11 +280,7 @@ main() {
   # shellcheck source=/etc/rejmerge.conf
   [ -f "$REJMERGE_CONF" ] && . "$REJMERGE_CONF"
 
-  if [ "$DRY_RUN" = 1 ]; then
-    export PAGER=cat # redefine PAGER to a non-interactive one
-  else
-    [ "$(id -u)" = 0 ] || dfatal "only root can merge rejected files"
-  fi
+  [ "$(id -u)" = 0 ] || dfatal "only root can merge rejected files"
 
   # https://tldp.org/LDP/abs/html/exitcodes.html
   # 126 - Command invoked cannot execute.
