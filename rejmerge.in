@@ -261,8 +261,7 @@ main() {
   [ -f "$REJMERGE_CONF" ] && . "$REJMERGE_CONF"
 
   if [ "$DRY_RUN" = 1 ]; then
-    # Redefine PAGER to a non-interactive one.
-    export PAGER=cat
+    export PAGER=cat # redefine PAGER to a non-interactive one
   else
     [ "$(id -u)" = 0 ] || dfatal "only root can merge rejected files"
   fi
@@ -282,7 +281,8 @@ main() {
   # shellcheck disable=2044
   for REJECTED_FILE in $(find "$REJECTED_DIR" ! -type d); do
 
-    # Intentional.
+    # Intentional pattern matching.
+    # https://www.shellcheck.net/wiki/SC2295
     # shellcheck disable=2295
     INSTALLED_FILE="${REJMERGE_ROOT}${REJECTED_FILE##$REJECTED_DIR}"
 
