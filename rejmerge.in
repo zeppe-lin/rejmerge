@@ -343,8 +343,6 @@ main() {
   done
 
   [ "$REJECTED_FILES_FOUND" = "yes" ] || echo "Nothing to merge"
-
-  exit 0
 }
 
 # Set exit hooks.
