@@ -64,10 +64,18 @@ atexit() {
 ######################################################################
 
 rejmerge_diff() {
+  # arg $1: installed file
+  # arg $2: rejected file
+  # arg $3: temporary file
+
   diff -u "$1" "$2" > "$3"
 }
 
 rejmerge_merge() {
+  # arg $1: installed file
+  # arg $2: rejected file
+  # arg $3: temporary file
+
   diff --old-group-format="%<" \
        --new-group-format="%>" \
        --changed-group-format="\
@@ -82,6 +90,9 @@ rejmerge_merge() {
 }
 
 permissions_menu() {
+  # arg $1: installed file
+  # arg $2: rejected file
+
   while true; do
     info "Access permissions $1"
 
@@ -112,6 +123,9 @@ permissions_menu() {
 }
 
 merge_menu() {
+  # arg $1: installed file
+  # arg $2: rejected file
+
   rejmerge_merge "$1" "$2" "$TMPFILE"
 
   while true; do
@@ -149,6 +163,9 @@ merge_menu() {
 }
 
 diff_menu() {
+  # arg $1: installed file
+  # arg $2: rejected file
+
   rejmerge_diff "$1" "$2" "$TMPFILE"
 
   while true; do
@@ -182,6 +199,9 @@ diff_menu() {
 }
 
 file_menu() {
+  # arg $1: installed file
+  # arg $2: rejected file
+
   while true; do
     info "$1"
     file "$1" "$2"
