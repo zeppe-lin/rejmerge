@@ -38,6 +38,7 @@ REQUIREMENTS
 - POSIX sh(1p) and "mandatory utilities"
 - sbase or coreutils
 - GNU diffutils
+- GNU getopt
 
 
 INSTALL
