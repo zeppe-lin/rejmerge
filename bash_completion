@@ -1,4 +1,4 @@
-# rejmerge(8) completion
+# bash completion for rejmerge(8)
 
 _rejmerge()
 {
