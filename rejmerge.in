@@ -295,7 +295,6 @@ parse_options() {
   DRY_RUN=${DRY_RUN:-0}
   REJMERGE_ROOT=${REJMERGE_ROOT:-""}
   REJMERGE_CONF=${REJMERGE_CONF:-"$REJMERGE_ROOT/etc/rejmerge.conf"}
-  readonly REJECTED_DIR="$REJMERGE_ROOT/var/lib/pkg/rejected"
 }
 
 ######################################################################
@@ -309,9 +308,14 @@ main() {
   # shellcheck source=/etc/rejmerge.conf
   [ -f "$REJMERGE_CONF" ] && . "$REJMERGE_CONF"
 
-  # Sanity checks.
-  [ -d "$REJECTED_DIR"  ] || dfatal "directory '$REJECTED_DIR' not found"
-  [ "$(id -u)" = 0      ] || dfatal "only root can merge rejected files"
+  _REJECTED_DIR="$REJMERGE_ROOT/var/lib/pkg/rejected"
+  [ -d "$_REJECTED_DIR" ] || dfatal "directory '$_REJECTED_DIR' not found"
+
+  # Only root can merge rejected files. However, allow to run rejmerge
+  # as a non-root if dry-run option was specified.
+  if [ "$DRY_RUN" = 0 ] && [ "$(id -u)" != 0 ]; then
+    dfatal "only root can merge rejected files"
+  fi
 
   # https://tldp.org/LDP/abs/html/exitcodes.html
   # 126 - Command invoked cannot execute.
@@ -321,25 +325,25 @@ main() {
   REJECTED_FILES_FOUND="no"
   # FIXME https://www.shellcheck.net/wiki/SC2044
   # shellcheck disable=2044
-  for REJECTED_FILE in $(find "$REJECTED_DIR" ! -type d); do
+  for _REJECTED_FILE in $(find "$_REJECTED_DIR" ! -type d); do
 
     # Intentional pattern matching.
     # https://www.shellcheck.net/wiki/SC2295
     # shellcheck disable=2295
-    INSTALLED_FILE="${REJMERGE_ROOT}${REJECTED_FILE##$REJECTED_DIR}"
+    _INSTALLED_FILE="${REJMERGE_ROOT}${_REJECTED_FILE##$_REJECTED_DIR}"
 
     # Remove rejected file if there is no installed version.
-    if [ ! -e "$INSTALLED_FILE" ]; then
-      rm -f "$REJECTED_FILE"
+    if [ ! -e "$_INSTALLED_FILE" ]; then
+      rm -f "$_REJECTED_FILE"
       continue
     fi
 
-    rejmerge_action "$INSTALLED_FILE" "$REJECTED_FILE"
+    rejmerge_action "$_INSTALLED_FILE" "$_REJECTED_FILE"
   done
 
   # Remove empty directories.
-  find "$REJECTED_DIR" -depth -type d | while read -r DIR; do
-    [ "$DIR" = "$REJECTED_DIR" ] || rmdir "$DIR" >/dev/null 2>&1
+  find "$_REJECTED_DIR" -depth -type d | while read -r _DIR; do
+    [ "$_DIR" = "$_REJECTED_DIR" ] || rmdir "$_DIR" >/dev/null 2>&1
   done
 
   [ "$REJECTED_FILES_FOUND" = "yes" ] || echo "Nothing to merge"
