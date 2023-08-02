@@ -275,7 +275,7 @@ parse_options() {
   REJMERGE_ROOT=${REJMERGE_ROOT:-""}
   REJMERGE_CONF=${REJMERGE_CONF:-"$REJMERGE_ROOT/etc/rejmerge.conf"}
   readonly REJECTED_DIR="$REJMERGE_ROOT/var/lib/pkg/rejected"
-  [ -d "$REJECTED_DIR" ] || "directory '$REJECTED_DIR' not found"
+  [ -d "$REJECTED_DIR" ] || dfatal "directory '$REJECTED_DIR' not found"
 }
 
 regular_files() {
