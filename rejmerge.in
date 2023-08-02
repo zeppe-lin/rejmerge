@@ -2,12 +2,13 @@
 # See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
-# read(1p) helper that implements non-posix -n1 option               #
+# Helpers.                                                           #
 ######################################################################
 
+# Implementation of non-POSIX `read -n1`.  See read(1p) for
+# limitations.
+#  arg $1: variable name
 readch() {
-  # arg $1: var name
-
   if [ "$DRY_RUN" = 1 ]; then
     eval "$1=S" # set arg to [S]kip all actions
   else
@@ -17,26 +18,28 @@ readch() {
   fi
 }
 
-######################################################################
-# notification helpers                                               #
-######################################################################
-
+# Print info message to stdout without newline.
+#  arg $1: message
 info_n() {
   printf "=======> %s" "$1"
 }
 
+# Print info message to stdout.
+#  arg $1: message
 info() {
   info_n "$1"
   echo
 }
 
+# Print error message to stderr and terminate the program.
+#  arg $1: message
 dfatal() {
   echo >&2 "rejmerge: $1"
   exit 1
 }
 
 ######################################################################
-# exit hooks                                                         #
+# Exit hooks.                                                        #
 ######################################################################
 
 # Don't warn about unreachable commands in these functions.  See
@@ -60,22 +63,23 @@ atexit() {
 }
 
 ######################################################################
-# rejmerge routines                                                  #
+# Rejmerge routines.                                                 #
 ######################################################################
 
+# Compare installed and rejected files and output a diff file.
+#  arg $1: installed file
+#  arg $2: rejected file
+#  arg $3: temporary file
 rejmerge_diff() {
-  # arg $1: installed file
-  # arg $2: rejected file
-  # arg $3: temporary file
-
   diff -u "$1" "$2" > "$3"
 }
 
+# Compare installed and rejected files and output a merge file.
+#  arg $1: installed file
+#  arg $2: rejected file
+#  arg $3: temporary file
 rejmerge_merge() {
-  # arg $1: installed file
-  # arg $2: rejected file
-  # arg $3: temporary file
-
+  # https://www.gnu.org/software/diffutils/manual/html_node/Line-Group-Formats.html
   diff --old-group-format="%<" \
        --new-group-format="%>" \
        --changed-group-format="\
@@ -89,10 +93,11 @@ rejmerge_merge() {
                          "$3") merge conflict(s)."
 }
 
+# Action menu to change permissions of installed file by reference of
+# rejected one.
+#  arg $1: installed file
+#  arg $2: rejected file
 permissions_menu() {
-  # arg $1: installed file
-  # arg $2: rejected file
-
   while true; do
     info "Access permissions $1"
 
@@ -122,10 +127,11 @@ permissions_menu() {
   done
 }
 
+# Action menu to merge the differences of installed and rejected
+# files, produced by rejmerge_merge.
+#  arg $1: installed file
+#  arg $2: rejected file
 merge_menu() {
-  # arg $1: installed file
-  # arg $2: rejected file
-
   rejmerge_merge "$1" "$2" "$TMPFILE"
 
   while true; do
@@ -162,10 +168,11 @@ merge_menu() {
   : > "$TMPFILE"
 }
 
+# Action menu to show the differences between installed and rejected
+# files and take the corresponding actions, like merge or upgrade.
+#  arg $1: installed file
+#  arg $2: rejected file
 diff_menu() {
-  # arg $1: installed file
-  # arg $2: rejected file
-
   rejmerge_diff "$1" "$2" "$TMPFILE"
 
   while true; do
@@ -178,19 +185,11 @@ diff_menu() {
       echo
 
       case "$CMD" in
-      k|K)  rm -f "$2"
-            break 2
-            ;;
-      u|U)  mv -f "$2" "$1"
-            break 2
-            ;;
-      m|M)  merge_menu "$1" "$2"
-            break 2
-            ;;
-      d|D)  break 1
-            ;;
-      s|S)  break 2
-            ;;
+      k|K)  rm -f "$2"            ; break 2 ;;
+      u|U)  mv -f "$2" "$1"       ; break 2 ;;
+      m|M)  merge_menu "$1" "$2"  ; break 2 ;;
+      d|D)                          break 1 ;;
+      s|S)                          break 2 ;;
       esac
     done
   done
@@ -198,10 +197,13 @@ diff_menu() {
   : > "$TMPFILE"
 }
 
+# Action menu to process non-regular files (installed and/or rejected
+# one), and take corresponding actions.  Since we cannot produce the
+# diff between non-regular files, the actions are limited to keep and
+# upgrade.
+#  arg $1: installed file
+#  arg $2: rejected file
 file_menu() {
-  # arg $1: installed file
-  # arg $2: rejected file
-
   while true; do
     info "$1"
     file "$1" "$2"
@@ -212,23 +214,17 @@ file_menu() {
       echo
 
       case "$CMD" in
-      k|K)  rm -f "$2"
-            break 2
-            ;;
-      u|U)  mv -f "$2" "$1"
-            break 2
-            ;;
-      d|D)  break 1
-            ;;
-      s|S)  break 2
-            ;;
+      k|K)  rm -f "$2"      ; break 2 ;;
+      u|U)  mv -f "$2" "$1" ; break 2 ;;
+      d|D)                    break 1 ;;
+      s|S)                    break 2 ;;
       esac
     done
   done
 }
 
 ######################################################################
-# main and its helpers                                               #
+# Main and command-line helpers.                                     #
 ######################################################################
 
 print_help() {
@@ -251,17 +247,18 @@ print_version() {
 
 parse_options() {
   eval set -- "$(
-    getopt -a -l "root:,config:,dry-run,version,help" -o "r:c:nvh" -- "$@"
+    getopt -n "rejmerge" -a -l "root:,config:,dry-run,version,help" \
+      -o "r:c:nvh" -- "$@"
   )"
   while true; do
     case $1 in
-    -r |   --root)  REJMERGE_ROOT=$2 ; shift  ;;
-    -c | --config)  REJMERGE_CONF=$2 ; shift  ;;
-    -n |--dry-run)  DRY_RUN=1                 ;;
-    -v |--version)  print_version    ; exit 0 ;;
-    -h |   --help)  print_help       ; exit 0 ;;
-               --)  shift            ; break  ;;
-                *)  dfatal "internal error"   ;;
+    -r|   --root)  REJMERGE_ROOT=$2 ; shift  ;;
+    -c| --config)  REJMERGE_CONF=$2 ; shift  ;;
+    -n|--dry-run)  DRY_RUN=1                 ;;
+    -v|--version)  print_version    ; exit 0 ;;
+    -h|   --help)  print_help       ; exit 0 ;;
+              --)  shift            ; break  ;;
+               *)  dfatal "internal error"   ;;
     esac
     shift
   done
