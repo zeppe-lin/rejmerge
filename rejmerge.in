@@ -280,17 +280,15 @@ main() {
   [ -f "$REJMERGE_CONF" ] && . "$REJMERGE_CONF"
 
   # Sanity checks.
-  [ -d "$REJECTED_DIR" ] || dfatal "directory '$REJECTED_DIR' not found"
-  [ "$(id -u)" = 0 ] || dfatal "only root can merge rejected files"
+  [ -d "$REJECTED_DIR"  ] || dfatal "directory '$REJECTED_DIR' not found"
+  [ "$(id -u)" = 0      ] || dfatal "only root can merge rejected files"
 
   # https://tldp.org/LDP/abs/html/exitcodes.html
   # 126 - Command invoked cannot execute.
   TMPFILE=$(mktemp) || exit 126
 
-  REJECTED_FILES_FOUND="no"
-
   # Check files.
-
+  REJECTED_FILES_FOUND="no"
   # FIXME https://www.shellcheck.net/wiki/SC2044
   # shellcheck disable=2044
   for REJECTED_FILE in $(find "$REJECTED_DIR" ! -type d); do
