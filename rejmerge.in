@@ -224,49 +224,24 @@ Mandatory arguments to long options are mandatory for short options too.
 EOF
 }
 
+print_version() {
+  echo "rejmerge @VERSION@"
+}
+
 parse_options() {
-  while [ "$1" ]; do
+  eval set -- "$(
+    getopt -a -l "root:,config:,dry-run,version,help" -o "r:c:nvh" -- "$@"
+  )"
+  while :
+  do
     case $1 in
-
-    -r|--root)
-      REJMERGE_ROOT=$2
-      [ -n "$REJMERGE_ROOT" ] || dfatal "option $1 requires an argument"
-      [ -d "$REJMERGE_ROOT" ] || dfatal "root directory '$REJMERGE_ROOT' not found"
-      shift
-      ;;
-    -r*|--root=*)
-      REJMERGE_ROOT="$(echo "$1" | sed 's/^-\(-root=\|r\)//')"
-      [ -n "$REJMERGE_ROOT" ] || dfatal "option $1 requires an argument"
-      [ -d "$REJMERGE_ROOT" ] || dfatal "root directory '$REJMERGE_ROOT' not found"
-      ;;
-
-    -c|--config)
-      REJMERGE_CONF=$2
-      [ -n "$REJMERGE_CONF" ] || dfatal "option $1 requires an argument"
-      [ -f "$REJMERGE_CONF" ] || dfatal "configuration file '$REJMERGE_CONF' not found"
-      shift
-      ;;
-    -c*|--config=*)
-      REJMERGE_CONF="$(echo "$1" | sed 's/^-\(-config=\|c\)//')"
-      [ -n "$REJMERGE_CONF" ] || dfatal "option $1 requires an argument"
-      [ -f "$REJMERGE_CONF" ] || dfatal "configuration file '$REJMERGE_CONF' not found"
-      ;;
-
-    -n|--dry-run)
-      DRY_RUN=1
-      ;;
-
-    -v|--version)
-      echo "rejmerge @VERSION@"
-      exit 0
-      ;;
-    -h|--help)
-      print_help
-      exit 0
-      ;;
-    *)
-      dfatal "invalid option $1"
-      ;;
+    -r|--root)    REJMERGE_ROOT=$2; shift ;;
+    -c|--config)  REJMERGE_CONF=$2; shift ;;
+    -n|--dry-run) DRY_RUN=1               ;;
+    -v|--version) print_version && exit 0 ;;
+    -h|--help)    print_help    && exit 0 ;;
+    --)           shift         && break  ;;
+    *)            dfatal "internal error" ;;
     esac
     shift
   done
@@ -364,7 +339,6 @@ trap "atexit"      EXIT
 ######################################################################
 
 export LC_ALL=POSIX
-
 EDITOR=${EDITOR:-/bin/vi}
 PAGER=${PAGER:-/bin/more}
 
