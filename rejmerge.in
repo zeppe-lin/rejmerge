@@ -6,7 +6,7 @@
 ######################################################################
 
 readch() {
-  # arg: <var name>
+  # arg $1: var name
 
   if [ "$DRY_RUN" = 1 ]; then
     eval "$1=S" # set arg to [S]kip all actions
