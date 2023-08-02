@@ -22,14 +22,14 @@ install: all
 	chmod 0644            ${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
 	chmod 0644            ${DESTDIR}${MANPREFIX}/man8/rejmerge.8
 
-install-bashcomp:
-	mkdir -p              ${DESTDIR}${BASHCOMPDIR}
-	cp -f bash_completion ${DESTDIR}${BASHCOMPDIR}/rejmerge
-
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/sbin/rejmerge
 	rm -f ${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
 	rm -f ${DESTDIR}${MANPREFIX}/man8/rejmerge.8
+
+install-bashcomp:
+	mkdir -p              ${DESTDIR}${BASHCOMPDIR}
+	cp -f bash_completion ${DESTDIR}${BASHCOMPDIR}/rejmerge
 
 uninstall-bashcomp:
 	rm -f ${DESTDIR}${BASHCOMPDIR}/rejmerge
