@@ -298,7 +298,7 @@ parse_options() {
 }
 
 ######################################################################
-# Main.                                                              #
+# Main entry.                                                        #
 ######################################################################
 
 main() {
@@ -349,14 +349,13 @@ main() {
   [ "$REJECTED_FILES_FOUND" = "yes" ] || echo "Nothing to merge"
 }
 
+######################################################################
+
 # Set exit hooks.
 trap "interrupted" HUP  INT  QUIT  TERM
 trap "atexit"      EXIT
 
-######################################################################
-# default configuration                                              #
-######################################################################
-
+# Default globals.
 export LC_ALL=POSIX
 EDITOR=${EDITOR:-/bin/vi}
 PAGER=${PAGER:-/bin/more}
