@@ -300,6 +300,7 @@ main() {
 
     # Check file types.
     if test -f "$INSTALLED_FILE" && test -f "$REJECTED_FILE"; then
+      # regular files
       if cmp -s "$INSTALLED_FILE" "$REJECTED_FILE"; then
         rm -f "$REJECTED_FILE" # both files are identical
       else
