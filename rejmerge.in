@@ -278,6 +278,7 @@ main() {
   #        find | while read -r ...
   #      modifies REJECTED_FILES_FOUND variable in a subshell.
   #      We need to think about how this can be fixed.
+  # https://www.shellcheck.net/wiki/SC2044
   # shellcheck disable=2044
   for REJECTED_FILE in $(find "$REJECTED_DIR" ! -type d); do
 
