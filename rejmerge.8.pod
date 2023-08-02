@@ -47,7 +47,7 @@ and F</etc/rejmerge.conf> otherwise.
 =item B<-n>, B<--dry-run>
 
 Print the differences between an installed version and rejected
-version, but do not execute any actions.
+one, but do not execute any actions.
 
 =item B<-v>, B<--version>
 
@@ -89,6 +89,25 @@ Configuration file.
 Directory where rejected files are stored.
 
 =back
+
+=head1 CAVEATS
+
+While only root can merge system files, B<-n>/B<--dry-run> option
+allows to run B<rejmerge> as a regular user to just view the
+differences between an installed and rejected files.  Please note that
+running C<rejmerge -n> as a regular user, you may encounter the fact
+that the rejected file has strict permissions (e.g. 0400) that
+prohibit the users to read its content:
+
+ $ PAGER=cat rejmerge -n
+ /usr/bin/diff: /var/lib/pkg/rejected/etc/tor/torrc: Permission denied
+ =======> /etc/tor/torrc
+ =======> [K]eep [U]pgrade [M]erge [D]iff [S]kip?
+ $
+
+Run B<rejmerge> as root if you want to view the diffs for these files.
+These files are mostly not that many, and more often than not, running
+as a normal user will suffice.
 
 =head1 SEE ALSO
 
