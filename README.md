@@ -14,6 +14,7 @@ is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
 - added `-n/--dry-run` option to print the differences between an installed
   version and rejected one, but do not execute any actions
 - added bash completion
+- source code have been documented
 
 For support of suckless' sbase utilities look at the following commit:
 f27f59a19c1e6533b50550cb209d8918a8940300
