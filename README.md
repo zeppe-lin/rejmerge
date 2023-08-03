@@ -8,14 +8,11 @@ is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
 17 2018) with the following differences:
 - rewritten in POSIX sh(1p)
 - man page have been rewritten in POD format
-- man page have been split in 2 (two) man pages: rejmerge(8) and
-  rejmerge.conf(5)
+- man page have been split in 2 man pages: rejmerge(8) and rejmerge.conf(5)
 - added GNU-style options and help message
-- added `-c/--config` option to specify an alternative configuration
-  file
+- added `-c/--config` option to specify an alternative configuration file
 - added `-n/--dry-run` option to print the differences between an installed
-  version and rejected version, but do not execute any actions (useful for
-  automated reports)
+  version and rejected one, but do not execute any actions
 - added bash completion
 
 For support of suckless' sbase utilities look at the following commit:
