@@ -2,7 +2,8 @@
 
 include config.mk
 
-all: rejmerge rejmerge.8 rejmerge.conf.5
+all: rejmerge manpages
+manpages: rejmerge.8 rejmerge.conf.5
 
 %: %.pod
 	pod2man -r "${NAME} ${VERSION}" -c ' ' -n $(basename $@) \
