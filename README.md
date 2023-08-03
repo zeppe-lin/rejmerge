@@ -16,9 +16,6 @@ is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
 - added bash completion
 - source code have been documented
 
-For support of suckless' sbase utilities look at the following commit:
-f27f59a19c1e6533b50550cb209d8918a8940300
-
 See git log for complete/further differences.
 
 The original sources can be downloaded from:
@@ -34,10 +31,10 @@ REQUIREMENTS
 
 **Runtime**:
 - POSIX sh(1p) and "mandatory utilities"
-- sbase or coreutils
-- GNU diffutils
-- GNU getopt
-
+- POSIX vi(1) and more(1) (can be redefined)
+- GNU coreutils (look at f27f59a for suckless sbase support)
+- GNU diff from diffutils package
+- GNU getopt from util-linux package
 
 INSTALL
 -------
