@@ -357,7 +357,7 @@ PAGER=/bin/more
 EDITOR=/bin/vi
 DRY_RUN=0
 REJMERGE_ROOT=""
-REJMERGE_CONF=$REJMERGE_ROOT/etc/rejmerge.conf
+REJMERGE_CONF=/etc/rejmerge.conf
 
 main "$@"
 
