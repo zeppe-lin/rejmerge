@@ -291,10 +291,6 @@ parse_options() {
     esac
     shift
   done
-
-  DRY_RUN=${DRY_RUN:-0}
-  REJMERGE_ROOT=${REJMERGE_ROOT:-""}
-  REJMERGE_CONF=${REJMERGE_CONF:-"$REJMERGE_ROOT/etc/rejmerge.conf"}
 }
 
 ######################################################################
@@ -357,8 +353,11 @@ trap "atexit"      EXIT
 
 # Default globals.
 export LC_ALL=POSIX
-EDITOR=${EDITOR:-/bin/vi}
-PAGER=${PAGER:-/bin/more}
+PAGER=/bin/more
+EDITOR=/bin/vi
+DRY_RUN=0
+REJMERGE_ROOT=""
+REJMERGE_CONF=$REJMERGE_ROOT/etc/rejmerge.conf
 
 main "$@"
 
