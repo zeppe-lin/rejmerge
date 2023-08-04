@@ -353,8 +353,8 @@ trap "atexit"      EXIT
 
 # Default globals.
 export LC_ALL=POSIX
-PAGER=/bin/more
 EDITOR=/bin/vi
+PAGER=/bin/more
 DRY_RUN=0
 REJMERGE_ROOT=""
 REJMERGE_CONF=/etc/rejmerge.conf
