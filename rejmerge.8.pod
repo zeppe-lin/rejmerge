@@ -43,8 +43,7 @@ Default: none.
 
 Specify the pathname of an alternative configuration file.
 
-Default: F</etc/rejmerge.conf>.  If B<-r>/B<--root> is specified, path
-changes to I<ROOT>F</etc/rejmerge.conf>.
+Default: F</etc/rejmerge.conf>.
 
 =item B<-n>, B<--dry-run>
 
