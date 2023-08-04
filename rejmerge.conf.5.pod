@@ -73,12 +73,14 @@ F</bin/more> if unset.
   # Use sdiff(1) to merge instead of the default diff(1).
   rejmerge_merge() { sdiff -o $3 $1 $2 ; }
 
-  # Use vim(1) as editor instead of the default vi(1).
-  EDITOR="/usr/bin/vim"
+  # Use vim(1) as editor instead of the default vi(1), unless EDITOR
+  # was not set from command-line, like: EDITOR=emacs rejmerge.
+  EDITOR="${EDITOR:-/usr/bin/vim}"
 
-  # Use less(1) as pager instead of the default more(1).
-  # -R option is required if diffs above produces raw control chars.
-  PAGER="/usr/bin/less -R"
+  # Use less(1) as pager instead of the default more(1), unless PAGER
+  # was not set from command-line.  -R option is required if diffs
+  # above produces raw control chars.
+  PAGER="${PAGER:-/usr/bin/less -R}"
 
   # End of file.
 
