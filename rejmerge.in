@@ -48,8 +48,8 @@ dfatal() {
 # https://www.shellcheck.net/wiki/SC2317
 # shellcheck disable=2317
 interrupted() {
-  echo ""         >&2
-  info "Aborted." >&2
+  echo >&2 ""
+  echo >&2 "=======> Interrupted."
 
   # Get back normal I/O processing if rejmerge was interrupted on
   # readch().
