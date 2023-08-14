@@ -351,7 +351,7 @@ main() {
 trap "interrupted" HUP  INT  QUIT  TERM
 trap "atexit"      EXIT
 
-# Default globals.
+# Globals.
 export LC_ALL=POSIX
 EDITOR=/bin/vi
 PAGER=/bin/more
