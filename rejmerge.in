@@ -37,7 +37,7 @@ info() {
 
 # Print error message to stderr and terminate the program.
 #   arg $1: message
-dfatal() {
+fatal() {
 	echo >&2 "rejmerge: $1"
 	exit 1
 }
@@ -287,13 +287,13 @@ parse_options() {
 
 	while true; do
 		case $1 in
-		-r|   --root) REJMERGE_ROOT=$2 ; shift  ;;
-		-c| --config) REJMERGE_CONF=$2 ; shift  ;;
-		-n|--dry-run) DRY_RUN=1                 ;;
-		-v|--version) print_version    ; exit 0 ;;
-		-h|   --help) print_help       ; exit 0 ;;
-		          --) shift            ; break  ;;
-		           *) dfatal "internal error"   ;;
+		-r|   --root) REJMERGE_ROOT=$2  ; shift  ;;
+		-c| --config) REJMERGE_CONF=$2  ; shift  ;;
+		-n|--dry-run) DRY_RUN=1                  ;;
+		-v|--version) print_version     ; exit 0 ;;
+		-h|   --help) print_help        ; exit 0 ;;
+		          --) shift             ; break  ;;
+		           *) fatal "unknown option: $1" ;;
 		esac
 		shift
 	done
@@ -312,12 +312,12 @@ main() {
 
 	_REJECTED_DIR="$REJMERGE_ROOT/var/lib/pkg/rejected"
 	[ -d "$_REJECTED_DIR" ] ||
-		dfatal "directory '$_REJECTED_DIR' not found"
+		fatal "directory '$_REJECTED_DIR' not found"
 
 	# Only root can merge rejected files.  However, allow to run
 	# rejmerge as a non-root if dry-run option was specified.
 	if [ "$DRY_RUN" = 0 ] && [ "$(id -u)" != 0 ]; then
-		dfatal "only root can merge rejected files"
+		fatal "only root can merge rejected files"
 	fi
 
 	# https://tldp.org/LDP/abs/html/exitcodes.html
