@@ -38,7 +38,7 @@ info() {
 # Print error message to stderr and terminate the program.
 #   arg $1: message
 fatal() {
-	echo >&2 "rejmerge: $1"
+	echo "rejmerge: $1" 1>&2
 	exit 1
 }
 
@@ -52,8 +52,8 @@ fatal() {
 # https://www.shellcheck.net/wiki/SC2317
 # shellcheck disable=2317
 interrupted() {
-	echo >&2 ""
-	echo >&2 "=======> Interrupted."
+	echo "" 1>&2
+	echo "=======> Interrupted." 1>&2
 
 	# Get back normal I/O processing if rejmerge was interrupted
 	# on readch().
