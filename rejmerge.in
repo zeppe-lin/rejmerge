@@ -1,4 +1,5 @@
 #!/bin/sh
+# rejmerge - merge files that were rejected during package upgrades
 # See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
@@ -309,10 +310,6 @@ parse_options() {
 		shift
 	done
 }
-
-######################################################################
-# Main entry.                                                        #
-######################################################################
 
 main() {
 	parse_options "$@"
