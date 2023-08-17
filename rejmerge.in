@@ -9,7 +9,7 @@
 # limitations.
 #   arg $1: variable name
 readch() {
-	if [ "$DRY_RUN" = 1 ]; then
+	if [ "$DRYRUN" = 1 ]; then
 		eval "$1=S" # set arg to [S]kip all actions
 	else
 		stty -icanon -echo
@@ -298,9 +298,9 @@ parse_options() {
 
 	while true; do
 		case $1 in
-		-r|   --root) REJMERGE_ROOT=$2  ; shift  ;;
-		-c| --config) REJMERGE_CONF=$2  ; shift  ;;
-		-n|--dry-run) DRY_RUN=1                  ;;
+		-r|   --root) ROOT=$2           ; shift  ;;
+		-c| --config) CONF=$2           ; shift  ;;
+		-n|--dry-run) DRYRUN=1                   ;;
 		-v|--version) print_version     ; exit 0 ;;
 		-h|   --help) print_help        ; exit 0 ;;
 		          --) shift             ; break  ;;
@@ -319,15 +319,15 @@ main() {
 
 	# Read configuration.
 	# shellcheck source=/etc/rejmerge.conf
-	[ -f "$REJMERGE_CONF" ] && . "$REJMERGE_CONF"
+	[ -f "$CONF" ] && . "$CONF"
 
-	_REJECTED_DIR="$REJMERGE_ROOT/var/lib/pkg/rejected"
+	_REJECTED_DIR="$ROOT/var/lib/pkg/rejected"
 	[ -d "$_REJECTED_DIR" ] ||
 		fatal "directory '$_REJECTED_DIR' not found"
 
 	# Only root can merge rejected files.  However, allow to run
 	# rejmerge as a non-root if dry-run option was specified.
-	if [ "$DRY_RUN" = 0 ] && [ "$(id -u)" != 0 ]; then
+	if [ "$DRYRUN" = 0 ] && [ "$(id -u)" != 0 ]; then
 		fatal "only root can merge rejected files"
 	fi
 
@@ -344,7 +344,7 @@ main() {
 		# Intentional pattern matching.
 		# https://www.shellcheck.net/wiki/SC2295
 		# shellcheck disable=2295
-		_INSTALLED_FILE="${REJMERGE_ROOT}${_REJECTED_FILE##$_REJECTED_DIR}"
+		_INSTALLED_FILE="${ROOT}${_REJECTED_FILE##$_REJECTED_DIR}"
 
 		# Remove rejected file if there is no installed version.
 		if [ ! -e "$_INSTALLED_FILE" ]; then
@@ -374,9 +374,9 @@ trap "atexit"      EXIT
 export LC_ALL=POSIX
 EDITOR=/bin/vi
 PAGER=/bin/more
-DRY_RUN=0
-REJMERGE_ROOT=""
-REJMERGE_CONF=/etc/rejmerge.conf
+DRYRUN=0
+ROOT=""
+CONF=/etc/rejmerge.conf
 
 ######################################################################
 
