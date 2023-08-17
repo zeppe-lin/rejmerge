@@ -274,7 +274,7 @@ Mandatory arguments to long options are mandatory for short options too.
   -h, --help         print help and exit
 
 Report bugs to: <https://github.com/zeppe-lin/rejmerge/issues/>
-RejMerge home page: <https://github.com/zeppe-lin/rejmerge/>
+rejmerge home page: <https://github.com/zeppe-lin/rejmerge/>
 EOF
 }
 
