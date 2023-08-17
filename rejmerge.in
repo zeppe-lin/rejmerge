@@ -262,7 +262,7 @@ rejmerge_action() {
 
 print_help() {
 	cat <<EOF
-Usage: rejmerge [OPTION]
+Usage: rejmerge [OPTION]...
 Merge files that were rejected during package upgrades.
 
 Mandatory arguments to long options are mandatory for short options too.
