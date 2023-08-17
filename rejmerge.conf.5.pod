@@ -1,3 +1,4 @@
+# rejmerge.conf.5.pod - documentation for rejmerge.conf(5) manual page
 # See COPYING and COPYRIGHT files for corresponding information.
 
 =pod
