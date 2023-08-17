@@ -271,11 +271,22 @@ Mandatory arguments to long options are mandatory for short options too.
   -n, --dry-run      dry run, no execution
   -v, --version      print version and exit
   -h, --help         print help and exit
+
+Report bugs to: <https://github.com/zeppe-lin/rejmerge/issues/>
+RejMerge home page: <https://github.com/zeppe-lin/rejmerge/>
 EOF
 }
 
 print_version() {
-	echo "rejmerge @VERSION@"
+	cat <<EOF
+rejmerge @VERSION@
+Copyright (C) 2000-2005 Per Lidén <per@fukt.bth.se>
+Copyright (C) 2006-2017 CRUX team <http://crux.nu>
+Copyright (C) 2021-2023 Zeppe-Lin <http://zeppel.ink>
+License GPLv2+: GNU GPL version 2 or later <https://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+EOF
 }
 
 parse_options() {
