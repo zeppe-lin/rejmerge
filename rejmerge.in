@@ -291,9 +291,9 @@ EOF
 
 parse_options() {
 	eval set -- "$(
-		getopt  -n "rejmerge" -a                        \
-			-l "root:,config:,dry-run,version,help" \
-			-o "r:c:nvh" -- "$@"
+		getopt -a -n "rejmerge"                         \
+		       -l "root:,config:,dry-run,version,help"  \
+		       -o "r:c:nvh" -- "$@"
 	)"
 
 	while true; do
