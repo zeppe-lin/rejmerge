@@ -36,6 +36,7 @@ REQUIREMENTS
 - GNU coreutils (look at f27f59a for suckless sbase support)
 - GNU diff from diffutils package
 - GNU getopt from util-linux package
+- mktemp(1)
 
 INSTALL
 -------
