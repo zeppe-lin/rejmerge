@@ -64,7 +64,9 @@ interrupted() {
 
 # shellcheck disable=2317
 atexit() {
-	[ -e "$TMPFILE" ] && rm -f "$TMPFILE"
+	if [ -e "$TMPFILE" ]; then
+		rm -f "$TMPFILE"
+	fi
 }
 
 ######################################################################
