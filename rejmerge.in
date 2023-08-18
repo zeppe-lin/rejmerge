@@ -313,11 +313,14 @@ main() {
 
 	# Read configuration.
 	# shellcheck source=/etc/rejmerge.conf
-	[ -f "$CONF" ] && . "$CONF"
+	if [ -f "$CONF" ]; then
+		. "$CONF"
+	fi
 
 	_REJECTED_DIR="$ROOT/var/lib/pkg/rejected"
-	[ -d "$_REJECTED_DIR" ] ||
+	if [ ! -d "$_REJECTED_DIR" ]; then
 		fatal "directory '$_REJECTED_DIR' not found"
+	fi
 
 	# Only root can merge rejected files.  However, allow to run
 	# rejmerge as a non-root if dry-run option was specified.
@@ -351,11 +354,14 @@ main() {
 
 	# Remove empty directories.
 	find "$_REJECTED_DIR" -depth -type d | while read -r _DIR; do
-		[ "$_DIR" = "$_REJECTED_DIR" ] ||
+		if [ "$_DIR" != "$_REJECTED_DIR" ]; then
 			rmdir "$_DIR" >/dev/null 2>&1
+		fi
 	done
 
-	[ "$REJECTED_FILES_FOUND" = "yes" ] || echo "Nothing to merge"
+	if [ "$REJECTED_FILES_FOUND" = "no" ]; then
+		echo "Nothing to merge"
+	fi
 }
 
 ######################################################################
