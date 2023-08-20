@@ -2,22 +2,14 @@
 
 include config.mk
 
-all: rejmerge manpages
-manpages: rejmerge.8 rejmerge.conf.5
+all: rejmerge rejmerge.8 rejmerge.conf.5
 
 %: %.pod
 	pod2man -r "${NAME} ${VERSION}" -c ' ' -n $(basename $@) \
 		-s $(subst .,,$(suffix $@)) $< > $@
 
 %: %.in
-	sed -e "s|@HOMEPAGE@|${HOMEPAGE}|" \
-	    -e "s|@BUGTRACKER@|${BUGTRACKER}|" \
-	    -e "s|@VERSION@|${VERSION}|" \
-	    -e "/^@COPYRIGHT & COPYING.BANNER@/{" \
-	    -e   "r ${CURDIR}/COPYRIGHT" \
-	    -e   "r ${CURDIR}/COPYING.BANNER" \
-	    -e   "d" \
-	    -e "}" $< > $@
+	sed "s/@VERSION@/${VERSION}/" $< > $@
 
 install: all
 	mkdir -p              ${DESTDIR}${PREFIX}/sbin
