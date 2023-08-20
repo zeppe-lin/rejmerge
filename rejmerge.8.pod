@@ -98,6 +98,14 @@ L<rejmerge.conf(5)>
 
 =cut
 
+=head1 AUTHORS
+
+The original implementation of B<rejmerge> was done by Per Lidén
+<L<per@fukt.bth.se>>, the author of CRUX.  B<rejmerge> was maintained
+for years by CRUX team (L<http://crux.nu>), and later extensively
+re-worked for L<Zeppe-Lin|http://zeppel.ink> by Alexandr Savca
+<L<alexandr.savca89@gmail.com>>.
+
 =head1 CAVEATS
 
 While only root can merge system files, the B<-n>/B<--dry-run> option
