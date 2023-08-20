@@ -282,21 +282,16 @@ print_version() {
 }
 
 parse_options() {
-	eval set -- "$(
-		getopt -a -n "rejmerge"                         \
-		       -l "config:,dry-run,root:,version,help"  \
-		       -o "c:nr:vh" -- "$@"
-	)"
-
+	_OPTS=$(getopt -a -n rejmerge -l $LOPTS -o $SOPTS -- "$@") || exit 1
+	eval set -- "$_OPTS"; unset _OPTS
 	while true; do
 		case $1 in
-		-c| --config) CONF=$2           ; shift  ;;
-		-n|--dry-run) DRYRUN=1                   ;;
-		-r|   --root) ROOT=$2           ; shift  ;;
-		-v|--version) print_version     ; exit 0 ;;
-		-h|   --help) print_help        ; exit 0 ;;
-		          --) shift             ; break  ;;
-		           *) fatal "unknown option: $1" ;;
+		-c| --config) CONF=$2       ; shift  ;;
+		-n|--dry-run) DRYRUN=1               ;;
+		-r|   --root) ROOT=$2       ; shift  ;;
+		-v|--version) print_version ; exit 0 ;;
+		-h|   --help) print_help    ; exit 0 ;;
+		          --) shift         ; break  ;;
 		esac
 		shift
 	done
@@ -366,6 +361,8 @@ trap "atexit"      EXIT
 
 # Globals.
 export LC_ALL=POSIX
+readonly LOPTS="config:,dry-run,root:,version,help"
+readonly SOPTS="c:nr:vh"
 EDITOR=/bin/vi
 PAGER=/bin/more
 DRYRUN=0
