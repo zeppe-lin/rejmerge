@@ -92,6 +92,12 @@ Directory where rejected files are stored.
 
 =back
 
+=head1 SEE ALSO
+
+L<rejmerge.conf(5)>
+
+=cut
+
 =head1 CAVEATS
 
 While only root can merge system files, the B<-n>/B<--dry-run> option
@@ -108,12 +114,6 @@ prohibit the users from reading its content:
  $
 
 Run C<rejmerge> as root if you want to view it.
-
-=head1 SEE ALSO
-
-L<rejmerge.conf(5)>
-
-=cut
 
 # vim:sw=2:ts=2:sts=2:et:cc=72:tw=70
 # End of file.
