@@ -32,14 +32,6 @@ too.
 
 =over 8
 
-=item B<-r>, B<--root>=I<PATH>
-
-Specify the pathname of an alternative root directory.  This should be
-used if you want to merge rejected files on a temporary mounted
-partition, which is "owned" by another system.
-
-Default: none.
-
 =item B<-c>, B<--config>=I<FILE>
 
 Specify the pathname of an alternative configuration file.
@@ -50,6 +42,14 @@ Default: F</etc/rejmerge.conf>.
 
 Print the differences between an installed version and rejected
 one, but do not execute any actions.
+
+=item B<-r>, B<--root>=I<PATH>
+
+Specify the pathname of an alternative root directory.  This should be
+used if you want to merge rejected files on a temporary mounted
+partition, which is "owned" by another system.
+
+Default: none.
 
 =item B<-v>, B<--version>
 
