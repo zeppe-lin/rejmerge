@@ -274,17 +274,11 @@ Mandatory arguments to long options are mandatory for short options too.
   -r, --root=PATH    specify an alternate root directory
   -v, --version      print version and exit
   -h, --help         print help and exit
-
-Report bugs to: <@BUGTRACKER@>
-rejmerge home page: <@HOMEPAGE@>
 EOF
 }
 
 print_version() {
-	cat <<EOF
-rejmerge @VERSION@
-@COPYRIGHT & COPYING.BANNER@
-EOF
+	echo "rejmerge @VERSION@"
 }
 
 parse_options() {
