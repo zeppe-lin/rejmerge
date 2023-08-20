@@ -11,7 +11,7 @@ rejmerge - merge files that were rejected during package upgrades
 
 =head1 SYNOPSIS
 
-B<rejmerge> [I<OPTION>]
+B<rejmerge> [I<OPTION>]...
 
 =head1 DESCRIPTION
 
