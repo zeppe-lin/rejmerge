@@ -64,7 +64,7 @@ Print help and exit.
 =head1 ENVIRONMENT
 
 If the following environment variable exists it will be utilized by
-B<rejmerge>:
+B<rejmerge> (unless F</etc/rejmerge.conf> override them):
 
 =over 8
 
