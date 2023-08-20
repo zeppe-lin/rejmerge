@@ -269,9 +269,9 @@ Usage: rejmerge [OPTION]...
 Merge files that were rejected during package upgrades.
 
 Mandatory arguments to long options are mandatory for short options too.
-  -r, --root=PATH    specify an alternative root directory
-  -c, --config=FILE  specify an alternative configuration file
+  -c, --config=FILE  specify an alternate configuration file
   -n, --dry-run      dry run, no execution
+  -r, --root=PATH    specify an alternate root directory
   -v, --version      print version and exit
   -h, --help         print help and exit
 
@@ -290,15 +290,15 @@ EOF
 parse_options() {
 	eval set -- "$(
 		getopt -a -n "rejmerge"                         \
-		       -l "root:,config:,dry-run,version,help"  \
-		       -o "r:c:nvh" -- "$@"
+		       -l "config:,dry-run,root:,version,help"  \
+		       -o "c:nr:vh" -- "$@"
 	)"
 
 	while true; do
 		case $1 in
-		-r|   --root) ROOT=$2           ; shift  ;;
 		-c| --config) CONF=$2           ; shift  ;;
 		-n|--dry-run) DRYRUN=1                   ;;
+		-r|   --root) ROOT=$2           ; shift  ;;
 		-v|--version) print_version     ; exit 0 ;;
 		-h|   --help) print_help        ; exit 0 ;;
 		          --) shift             ; break  ;;
