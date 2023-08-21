@@ -1,5 +1,3 @@
-.POSIX:
-
 include config.mk
 
 all: rejmerge rejmerge.8 rejmerge.conf.5
