@@ -13,7 +13,6 @@ is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
 - `-c/-config` option to specify an alternate config file
 - `-n/-dry-run` option to print the diffs without any action
 - Bash completion
-- Adjust source code to Zeppe-Lin / "GNU Coding Standards"
 
 See git log for complete/further differences.
 
