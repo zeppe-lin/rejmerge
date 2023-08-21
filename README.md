@@ -6,13 +6,13 @@ helps to merge files that were rejected during package upgrades.
 This rejmerge distribution is a fork of CRUX' rejmerge utility (which
 is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
 17 2018) with the following differences:
-- Rewrite in POSIX sh(1p)
-- Manual page in POD format
-- Split one manual page into rejmerge(8) and rejmerge.conf(5)
-- GNU-style options/help/usage
-- `-c/-config` option to specify an alternate config file
-- `-n/-dry-run` option to print the diffs without any action
-- Bash completion
+- POSIX sh(1p) instead of bash
+- man page in POD format
+- split rejmerge(8) into rejmerge(8) and rejmerge.conf(5)
+- command-line options/usage in GNU style
+- new `-c/-config` option to specify an alternate config file
+- new `-n/-dry-run` option to print the diffs without any action
+- bash completion
 
 See git log for complete/further differences.
 
