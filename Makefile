@@ -8,6 +8,7 @@ all: rejmerge rejmerge.8 rejmerge.conf.5
 
 %: %.in
 	sed "s/@VERSION@/${VERSION}/" $< > $@
+	chmod a+x $@
 
 install: all
 	mkdir -p              ${DESTDIR}${PREFIX}/sbin
