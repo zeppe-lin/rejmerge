@@ -30,7 +30,7 @@ rejected or perform a merge of the two.
 Mandatory arguments to long options are mandatory for short options
 too.
 
-=over
+=over 8
 
 =item B<-c>, B<--config>=I<FILE>
 
@@ -114,10 +114,10 @@ Note that you may encounter the situation when the rejected file has
 very strict permissions (e.g., 0400) that prohibit regular users from
 reading its content.  For example:
 
-      $ PAGER=cat rejmerge -n
-      diff: /var/lib/pkg/rejected/etc/tor/torrc: Permission denied
-      =======> /etc/tor/torrc
-      =======> [K]eep [U]pgrade [M]erge [D]iff [S]kip?
+        $ PAGER=cat rejmerge -n
+        diff: /var/lib/pkg/rejected/etc/tor/torrc: Permission denied
+        =======> /etc/tor/torrc
+        =======> [K]eep [U]pgrade [M]erge [D]iff [S]kip?
 
 Just run B<rejmerge> as root if you still want to view the diff.
 
