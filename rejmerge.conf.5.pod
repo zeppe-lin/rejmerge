@@ -1,4 +1,4 @@
-# rejmerge.conf.5.pod - documentation for rejmerge.conf(5) manual page
+# rejmerge.conf(5) manual page
 # See COPYING and COPYRIGHT files for corresponding information.
 
 =pod
@@ -57,33 +57,47 @@ B<merge> (C<rejmerge_merge>) operations.
 
 F</bin/more> if unset.
 
-=head1 EXAMPLE
+=head1 EXAMPLES
 
-  #
-  # /etc/rejmerge.conf: rejmerge(8) configuration
-  #
-  # See rejmerge.conf(5) for more information.
-  #
+The following configuration file reproduces the defaults: installing
+it is equivalent to not having a F</etc/rejmerge.conf> file at all.
 
-  # Use diff(1) to produce side-by-side output.
-  rejmerge_diff() { diff -y $1 $2 > $3 ; }
-  # or ...
-  # Use diff(1) to produce unified and colorized output.
-  rejmerge_diff() { diff -u --color=always $1 $2 > $3 ; }
+	#
+	# /etc/rejmerge.conf: rejmerge(8) configuration
+	#
+	# See rejmerge.conf(5) for more information.
+	#
 
-  # Use sdiff(1) to merge instead of the default diff(1).
-  rejmerge_merge() { sdiff -o $3 $1 $2 ; }
+	EDITOR=/bin/vi
+	PAGER=/bin/more
 
-  # Use vim(1) as editor instead of the default vi(1), unless EDITOR
-  # was not set from command-line, like: EDITOR=emacs rejmerge.
-  EDITOR="${EDITOR:-/usr/bin/vim}"
+	# End of file.
 
-  # Use less(1) as pager instead of the default more(1), unless PAGER
-  # was not set from command-line.  -R option is required if diffs
-  # above produces raw control chars.
-  PAGER="${PAGER:-/usr/bin/less -R}"
+If you want to produce side-by-side output for diffs, add the
+following line to your configuration file:
 
-  # End of file.
+	rejmerge_diff() { diff -y $1 $2 > $3 ; }
+
+If you want to produce unified and colorized output:
+
+	rejmerge_diff() { diff -u --color=always $1 $2 > $3 ; }
+
+If you want to use L<sdiff(1)> to merge files instead of the default
+L<diff(1)>:
+
+	rejmerge_merge() { sdiff -o $3 $1 $2 ; }
+
+Use L<vim(1)> as editor instead of the default L<vi(1)>, unless
+C<EDITOR> was not set from command-line, like: C<EDITOR=emacs
+rejmerge>:
+
+	EDITOR="${EDITOR:-/usr/bin/vim}"
+
+Use L<less(1)> as pager instead of the default L<more(1)>, unless
+C<PAGER> was not set from command-line.  C<-R> option is required if diffs
+above produces raw control chars:
+
+	PAGER="${PAGER:-/usr/bin/less -R}"
 
 =head1 FILES
 
