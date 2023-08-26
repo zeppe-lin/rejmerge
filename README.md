@@ -32,8 +32,8 @@ REQUIREMENTS
 - POSIX sh(1p) and "mandatory utilities"
 - POSIX vi(1) and more(1) (can be redefined)
 - GNU coreutils (look at f27f59a for suckless sbase support)
-- GNU diff from diffutils package
-- GNU getopt from util-linux package
+- GNU diff(1) from diffutils package
+- GNU getopt(1) from util-linux package
 - mktemp(1)
 
 INSTALL
