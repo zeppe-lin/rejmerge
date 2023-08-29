@@ -35,13 +35,14 @@ This function is executed when the user chooses to merge two files.
 Argument I<$1> and I<$2> contains the paths to the installed and
 rejected files.  Argument I<$3> contains the path to a temporary file
 where this function should write its result.  The contents of the
-temporary file will later be presented to the user as the merge result.
+temporary file will later be presented to the user as the merge
+result.
 
 This function also has the option to set the variable
 I<REJMERGE_MERGE_INFO>.  The contents of this variable will be
 displayed as informational text after a merge has been performed.  Its
-purpose is to provide information about the merge, e.g.
-"5 merge conflicts found".
+purpose is to provide information about the merge, e.g.  "5 merge
+conflicts found".
 
 =head2 I<EDITOR>
 
@@ -94,8 +95,8 @@ rejmerge>:
 	EDITOR="${EDITOR:-/usr/bin/vim}"
 
 Use L<less(1)> as pager instead of the default L<more(1)>, unless
-C<PAGER> was not set from command-line.  C<-R> option is required if diffs
-above produces raw control chars:
+C<PAGER> was not set from command-line.  C<-R> option is required if
+diffs above produces raw control chars:
 
 	PAGER="${PAGER:-/usr/bin/less -R}"
 
