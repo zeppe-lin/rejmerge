@@ -1,6 +1,3 @@
-# build files and artefacts
-rejmerge
-
 # vim undo and swap files
 .*.un~
 *.swp
