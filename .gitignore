@@ -1,6 +1,4 @@
 # build files and artefacts
-*.8
-*.5
 rejmerge
 
 # vim undo and swap files
