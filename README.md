@@ -7,7 +7,7 @@ This rejmerge distribution is a fork of CRUX' rejmerge utility (which
 is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
 17 2018) with the following differences:
 - POSIX sh(1p) instead of bash
-- man page in POD format
+- man page in mdoc(7) format
 - split rejmerge(8) into rejmerge(8) and rejmerge.conf(5)
 - command-line options/usage in GNU style
 - new `-c/-config` option to specify an alternate config file
@@ -24,9 +24,7 @@ The original sources can be downloaded from:
 REQUIREMENTS
 ------------
 **Build time**:
-- POSIX sh(1p) and "mandatory utilities"
-- GNU make(1)
-- pod2man(1pm) to build man pages
+- POSIX sh(1p), make(1p) and "mandatory utilities"
 
 **Runtime**:
 - POSIX sh(1p) and "mandatory utilities"
