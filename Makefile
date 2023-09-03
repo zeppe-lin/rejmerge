@@ -1,25 +1,22 @@
+.POSIX:
+
 include config.mk
 
-all: rejmerge rejmerge.8 rejmerge.conf.5
+all:
 
-%: %.pod
-	pod2man -r "${NAME} ${VERSION}" -c ' ' -n $(basename $@) \
-		-s $(subst .,,$(suffix $@)) $< > $@
-
-%: %.in
-	sed "s/@VERSION@/${VERSION}/" $< > $@
-	chmod a+x $@
-
-install: all
-	mkdir -p              ${DESTDIR}${PREFIX}/sbin
-	mkdir -p              ${DESTDIR}${MANPREFIX}/man5
-	mkdir -p              ${DESTDIR}${MANPREFIX}/man8
-	cp -f rejmerge        ${DESTDIR}${PREFIX}/sbin/
-	cp -f rejmerge.conf.5 ${DESTDIR}${MANPREFIX}/man5/
-	cp -f rejmerge.8      ${DESTDIR}${MANPREFIX}/man8/
-	chmod 0755            ${DESTDIR}${PREFIX}/sbin/rejmerge
-	chmod 0644            ${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
-	chmod 0644            ${DESTDIR}${MANPREFIX}/man8/rejmerge.8
+install:
+	mkdir -p ${DESTDIR}${PREFIX}/sbin
+	mkdir -p ${DESTDIR}${MANPREFIX}/man5
+	mkdir -p ${DESTDIR}${MANPREFIX}/man8
+	sed "s/@VERSION@/${VERSION}/" rejmerge > \
+		${DESTDIR}${PREFIX}/sbin/rejmerge
+	sed "s/@VERSION@/${VERSION}/" rejmerge.conf.5 > \
+		${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
+	sed "s/@VERSION@/${VERSION}/" rejmerge.8 > \
+		${DESTDIR}${MANPREFIX}/man8/rejmerge.8
+	chmod 0755 ${DESTDIR}${PREFIX}/sbin/rejmerge
+	chmod 0644 ${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
+	chmod 0644 ${DESTDIR}${MANPREFIX}/man8/rejmerge.8
 
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/sbin/rejmerge
@@ -27,14 +24,13 @@ uninstall:
 	rm -f ${DESTDIR}${MANPREFIX}/man8/rejmerge.8
 
 install-bashcomp:
-	mkdir -p              ${DESTDIR}${BASHCOMPDIR}
+	mkdir -p ${DESTDIR}${BASHCOMPDIR}
 	cp -f bash_completion ${DESTDIR}${BASHCOMPDIR}/rejmerge
 
 uninstall-bashcomp:
 	rm -f ${DESTDIR}${BASHCOMPDIR}/rejmerge
 
 clean:
-	rm -f rejmerge rejmerge.8 rejmerge.conf.5
 	rm -f ${DIST}.tar.gz
 
 dist: clean
