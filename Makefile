@@ -23,11 +23,11 @@ uninstall:
 	rm -f ${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
 	rm -f ${DESTDIR}${MANPREFIX}/man8/rejmerge.8
 
-install-bashcomp:
+install_bashcomp:
 	mkdir -p ${DESTDIR}${BASHCOMPDIR}
 	cp -f bash_completion ${DESTDIR}${BASHCOMPDIR}/rejmerge
 
-uninstall-bashcomp:
+uninstall_bashcomp:
 	rm -f ${DESTDIR}${BASHCOMPDIR}/rejmerge
 
 clean:
@@ -36,4 +36,4 @@ clean:
 dist: clean
 	git archive --format=tar.gz -o ${DIST}.tar.gz --prefix=${DIST}/ HEAD
 
-.PHONY: all install uninstall install-bashcomp uninstall-bashcomp clean dist
+.PHONY: all install uninstall install_bashcomp uninstall_bashcomp clean dist
