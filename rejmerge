@@ -265,7 +265,7 @@ rejmerge_action() {
 
 print_help() {
 	cat <<EOF
-Usage: rejmerge [-c conffile] [-n] [-r rootdir]
+Usage: rejmerge [-n] [-c conffile] [-r rootdir]
        rejmerge [-h]
        rejmerge [-v]
 Merge files that were rejected during package upgrades.
