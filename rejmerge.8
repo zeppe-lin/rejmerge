@@ -3,9 +3,11 @@
 .Dd September 3, 2023
 .Dt REJMERGE 8
 .Os rejmerge @VERSION@
+.\" ==================================================================
 .Sh NAME
 .Nm rejmerge
 .Nd merge files that were rejected during package upgrades
+.\" ==================================================================
 .Sh SYNOPSIS
 .Nm rejmerge
 .Op Fl n
@@ -15,6 +17,7 @@
 .Op Fl h
 .Nm
 .Op Fl v
+.\" ==================================================================
 .Sh DESCRIPTION
 .Nm
 is a package management utility that helps you merge files that were
@@ -46,6 +49,7 @@ Print version and exit.
 .It Fl h , Fl -help
 Print help and exit.
 .El
+.\" ==================================================================
 .Sh ENVIRONMENT
 If the following environment variable exists it will be utilized by
 .Nm
@@ -60,6 +64,7 @@ if unset.
 .Pa /bin/more
 if unset.
 .El
+.\" ==================================================================
 .Sh FILES
 .Bl -tag -width Ds
 .It Pa /etc/rejmerge.conf
@@ -67,8 +72,10 @@ Configuration file.
 .It Pa /var/lib/pkg/rejected/
 Directory where rejected files are stored.
 .El
+.\" ==================================================================
 .Sh SEE ALSO
 .Xr rejmerge.conf 5
+.\" ==================================================================
 .Sh AUTHORS
 The original implementation of
 .Nm
@@ -85,6 +92,7 @@ This implementation was extensively re-worked for
 .Lk http://zeppel.ink Zeppe-Lin
 by
 .An Alexandr Savca Aq Mt alexandr.savca89@gmail.com .
+.\" ==================================================================
 .Sh CAVEATS
 While only root can merge system files, the
 .Sy -n Ns / Ns Sy --dry-run
