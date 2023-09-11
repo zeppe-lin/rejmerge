@@ -8,12 +8,12 @@ install:
 	mkdir -p ${DESTDIR}${PREFIX}/sbin
 	mkdir -p ${DESTDIR}${MANPREFIX}/man5
 	mkdir -p ${DESTDIR}${MANPREFIX}/man8
-	sed "s/^\.Os/.Os ${NAME} ${VERSION}/" rejmerge > \
-		${DESTDIR}${PREFIX}/sbin/rejmerge
-	sed "s/^\.Os/.Os ${NAME} ${VERSION}/" rejmerge.conf.5 > \
-		${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
-	sed "s/^\.Os/.Os ${NAME} ${VERSION}/" rejmerge.8 > \
-		${DESTDIR}${MANPREFIX}/man8/rejmerge.8
+	sed "s/@VERSION@/${VERSION}/" rejmerge \
+		> ${DESTDIR}${PREFIX}/sbin/rejmerge
+	sed "s/^\.Os/.Os ${NAME} ${VERSION}/" rejmerge.conf.5 \
+		> ${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
+	sed "s/^\.Os/.Os ${NAME} ${VERSION}/" rejmerge.8 \
+		> ${DESTDIR}${MANPREFIX}/man8/rejmerge.8
 	chmod 0755 ${DESTDIR}${PREFIX}/sbin/rejmerge
 	chmod 0644 ${DESTDIR}${MANPREFIX}/man5/rejmerge.conf.5
 	chmod 0644 ${DESTDIR}${MANPREFIX}/man8/rejmerge.8
