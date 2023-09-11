@@ -7,8 +7,8 @@ This rejmerge distribution is a fork of CRUX' rejmerge utility (which
 is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
 17 2018) with the following differences:
 - POSIX sh(1p) instead of bash
-- man page in mdoc(7) format
-- split rejmerge(8) into rejmerge(8) and rejmerge.conf(5)
+- manual pages in mdoc(7) format
+- split rejmerge(8) manual page into rejmerge(8) and rejmerge.conf(5)
 - command-line options/usage in GNU style
 - new `-c/-config` option to specify an alternate config file
 - new `-n/-dry-run` option to print the diffs without any action
