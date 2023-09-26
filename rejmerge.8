@@ -53,19 +53,24 @@ Print help and exit.
 .El
 .\" ==================================================================
 .Sh ENVIRONMENT
-If the following environment variable exists it will be utilized by
-.Nm
-(unless
-.Pa /etc/rejmerge.conf
-overrides them):
+The following environment variables affect the execution of
+.Nm :
 .Bl -tag -width Ds
 .It Ev EDITOR
-.Pa /bin/vi
-if unset.
+The editor to use instead of
+.Xr vi 1 .
 .It Ev PAGER
-.Pa /bin/more
-if unset.
+The pager to use instead of
+.Xr more 1 .
+.It Ev TMPDIR
+Directory in which to place temporary files.
+If unset or set but unavailable,
+.Pa /tmp
+is used.
 .El
+.Pp
+Note that all the above variables may be overriden in
+.Pa /etc/rejmerge.conf .
 .\" ==================================================================
 .Sh FILES
 .Bl -tag -width "/var/lib/pkg/rejected/" -compact
