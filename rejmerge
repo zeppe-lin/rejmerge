@@ -367,8 +367,8 @@ trap "atexit"      EXIT
 export LC_ALL=POSIX
 readonly LOPTS="config:,dry-run,root:,version,help"
 readonly SOPTS="c:nr:vh"
-EDITOR=/bin/vi
-PAGER=/bin/more
+EDITOR=${EDITOR:-/bin/vi}
+PAGER=${PAGER:-/bin/more}
 DRYRUN=0
 ROOT=""
 CONF=/etc/rejmerge.conf
