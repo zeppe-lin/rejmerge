@@ -1,14 +1,16 @@
 OVERVIEW
 --------
-This directory contains rejmerge, a package management utility that
-helps to merge files that were rejected during package upgrades.
+This directory contains rejmerge, a package management utility
+that helps to merge files that were rejected during package
+upgrades.
 
-This rejmerge distribution is a fork of CRUX' rejmerge utility (which
-is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
-17 2018) with the following differences:
+This rejmerge distribution is a fork of CRUX' rejmerge utility
+(which is part of CRUX' pkgutils distribution) as of commit
+9ca0da6 (Sat Nov 17 2018) with the following differences:
 - POSIX sh(1p) instead of bash
 - manual pages in mdoc(7) format
-- split rejmerge(8) manual page into rejmerge(8) and rejmerge.conf(5)
+- split rejmerge(8) manual page into rejmerge(8) and
+  rejmerge.conf(5)
 - command-line options/usage in GNU style
 - new `-c/-config` option to specify an alternate config file
 - new `-n/-dry-run` option to print the diffs without any action
@@ -36,16 +38,16 @@ REQUIREMENTS
 
 INSTALL
 -------
-The shell command `make install` should install this package.  The
-shell command `make install_bashcomp` should install bash completion
-script.
+The shell command `make install` should install this package.
+The shell command `make install_bashcomp` should install bash
+completion script.
 
 See `config.mk` file for configuration parameters.
 
 
 LICENSE
 -------
-rejmerge is licensed through the GNU General Public License v2 or
-later <https://gnu.org/licenses/gpl.html>.
+rejmerge is licensed through the GNU General Public License v2
+or later <https://gnu.org/licenses/gpl.html>.
 Read the COPYING file for copying conditions.
 Read the COPYRIGHT file for copyright notices.
