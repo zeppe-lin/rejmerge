@@ -59,6 +59,7 @@ interrupted() {
 	# Get back normal I/O processing if rejmerge was interrupted
 	# on readch().
 	stty icanon echo
+
 	exit 1
 }
 
