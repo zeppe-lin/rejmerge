@@ -12,8 +12,8 @@ This rejmerge distribution is a fork of CRUX' rejmerge utility
 - split rejmerge(8) manual page into rejmerge(8) and
   rejmerge.conf(5)
 - command-line options/usage in GNU style
-- new `-c/-config` option to specify an alternate config file
-- new `-n/-dry-run` option to print the diffs without any action
+- new `-c/--config` option to specify an alternate config file
+- new `-n/--dry-run` option to print the diffs without any action
 - bash completion
 
 See git log for complete/further differences.
