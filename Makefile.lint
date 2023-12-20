@@ -36,8 +36,7 @@ mancheck:
 
 shellcheck:
 	@echo "=======> Check shell scripts for syntax errors"
-	@grep -m1 -Irl '^#\s*!/bin/sh' --exclude-dir=.git* \
-		| xargs -L10 -r shellcheck -s sh
+	@shellcheck -s sh rejmerge
 
 longlines:
 	@echo "=======> Check for long lines"
