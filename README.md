@@ -36,6 +36,7 @@ REQUIREMENTS
 - GNU getopt(1) from util-linux package
 - mktemp(1)
 
+
 INSTALL
 -------
 The shell command `make install` should install this package.
