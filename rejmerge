@@ -36,13 +36,6 @@ info() {
 	echo
 }
 
-# Print error message to stderr and terminate the program.
-#   arg $1: message
-fatal() {
-	echo "rejmerge: $1" 1>&2
-	exit 1
-}
-
 ######################################################################
 # Exit hooks.                                                        #
 ######################################################################
@@ -316,13 +309,15 @@ main() {
 
 	_rejected_dir="$ROOT/var/lib/pkg/rejected"
 	if [ ! -d "$_rejected_dir" ]; then
-		fatal "directory '$_rejected_dir' not found"
+		echo "rejmerge: directory '$_rejected_dir' not found" 1>&2
+		exit 1
 	fi
 
 	# Only root can merge rejected files.  However, allow to run
 	# rejmerge as a non-root if dry-run option was specified.
 	if [ "$DRYRUN" = 0 ] && [ "$(id -u)" != 0 ]; then
-		fatal "only root can merge rejected files"
+		echo "rejmerge: only root can merge rejected files" 1>&2
+		exit 1
 	fi
 
 	# https://tldp.org/LDP/abs/html/exitcodes.html
