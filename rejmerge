@@ -235,11 +235,11 @@ file_menu() {
 #   arg $1: installed file
 #   arg $2: rejected file
 rejmerge_action() {
-	_STAT_FILE1=$(stat -c '%A %U %G' "$1")
-	_STAT_FILE2=$(stat -c '%A %U %G' "$2")
+	_stat_file1=$(stat -c '%A %U %G' "$1")
+	_stat_file2=$(stat -c '%A %U %G' "$2")
 
 	# Check permissions differences.
-	if [ "$_STAT_FILE1" != "$_STAT_FILE2" ]; then
+	if [ "$_stat_file1" != "$_stat_file2" ]; then
 		REJECTED_FILES_FOUND="yes"
 		permissions_menu "$1" "$2"
 	fi
