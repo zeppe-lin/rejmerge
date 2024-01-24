@@ -286,7 +286,7 @@ print_version() {
 
 parse_options() {
 	if ! _opts=$(getopt -a -n rejmerge -l "$LOPTS" -o "$SOPTS" -- "$@"); then
-		echo "Try 'rejmerge --help' for more information." >&2
+		echo "Try 'rejmerge --help' for more information." 1>&2
 		exit 1
 	fi
 	eval set -- "$_opts"; unset _opts
