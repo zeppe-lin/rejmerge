@@ -314,9 +314,9 @@ main() {
 		. "$CONF"
 	fi
 
-	_REJECTED_DIR="$ROOT/var/lib/pkg/rejected"
-	if [ ! -d "$_REJECTED_DIR" ]; then
-		fatal "directory '$_REJECTED_DIR' not found"
+	_rejected_dir="$ROOT/var/lib/pkg/rejected"
+	if [ ! -d "$_rejected_dir" ]; then
+		fatal "directory '$_rejected_dir' not found"
 	fi
 
 	# Only root can merge rejected files.  However, allow to run
@@ -333,26 +333,26 @@ main() {
 	REJECTED_FILES_FOUND="no"
 	# FIXME https://www.shellcheck.net/wiki/SC2044
 	# shellcheck disable=2044
-	for _REJECTED_FILE in $(find "$_REJECTED_DIR" ! -type d); do
+	for _rejected_file in $(find "$_rejected_dir" ! -type d); do
 
 		# Intentional pattern matching.
 		# https://www.shellcheck.net/wiki/SC2295
 		# shellcheck disable=2295
-		_INSTALLED_FILE="${ROOT}${_REJECTED_FILE##$_REJECTED_DIR}"
+		_installed_file="${ROOT}${_rejected_file##$_rejected_dir}"
 
 		# Remove rejected file if there is no installed version.
-		if [ ! -e "$_INSTALLED_FILE" ]; then
-			rm -f "$_REJECTED_FILE"
+		if [ ! -e "$_installed_file" ]; then
+			rm -f "$_rejected_file"
 			continue
 		fi
 
-		rejmerge_action "$_INSTALLED_FILE" "$_REJECTED_FILE"
+		rejmerge_action "$_installed_file" "$_rejected_file"
 	done
 
 	# Remove empty directories.
-	find "$_REJECTED_DIR" -depth -type d | while read -r _DIR; do
-		if [ "$_DIR" != "$_REJECTED_DIR" ]; then
-			rmdir "$_DIR" >/dev/null 2>&1
+	find "$_rejected_dir" -depth -type d | while read -r _dir; do
+		if [ "$_dir" != "$_rejected_dir" ]; then
+			rmdir "$_dir" >/dev/null 2>&1
 		fi
 	done
 
