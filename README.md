@@ -7,15 +7,14 @@ merge files that were rejected during package upgrades.
 This rejmerge distribution is a fork of CRUX' rejmerge utility (which is part
 of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov 17 2018) with the
 following differences:
-
-- POSIX sh(1p) instead of bash
-- suckless' sbase support
-- manual pages in mdoc(7) format
-- split rejmerge(8) manual page into rejmerge(8) & rejmerge.conf(5)
-- GNU-style options/help/usage
-- new `-c/--config` option to specify an alternate config file
-- new `-n/--dry-run` option to print the diffs without any action
-- bash completion
+* POSIX sh(1p) instead of bash
+* suckless' sbase support
+* manual pages in mdoc(7) format
+* split rejmerge(8) manual page into rejmerge(8) & rejmerge.conf(5)
+* GNU-style options/help/usage
+* new `-c/--config` option to specify an alternate config file
+* new `-n/--dry-run` option to print the diffs without any action
+* bash completion
 
 See git log for complete/further differences.
 
@@ -33,13 +32,13 @@ Build time
 
 Runtime
 -------
-- POSIX sh(1p) and "mandatory utilities"
-- POSIX vi(1) and more(1) (can be redefined)
-- GNU coreutils OR suckless' sbase
+* POSIX sh(1p) and "mandatory utilities"
+* POSIX vi(1) and more(1) (can be redefined)
+* GNU coreutils OR suckless' sbase
   (apply `suckless_sbase.patch` for suckless' sbase support)
-- GNU diff(1) from diffutils package
-- GNU getopt(1) from util-linux package
-- mktemp(1)
+* GNU diff(1) from diffutils package
+* GNU getopt(1) from util-linux package
+* mktemp(1)
 
 
 INSTALL
