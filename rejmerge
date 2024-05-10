@@ -259,9 +259,7 @@ rejmerge_action() {
 
 print_help() {
 	cat <<EOF
-Usage: rejmerge [-n] [-c conffile] [-r rootdir]
-       rejmerge [-h]
-       rejmerge [-v]
+Usage: rejmerge [-hnv] [-c conffile] [-r rootdir]
 Merge files that were rejected during package upgrades.
 
 Mandatory arguments to long options are mandatory for short options too.
