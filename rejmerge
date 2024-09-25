@@ -26,6 +26,7 @@ readch() {
 # Print info message to stdout without newline.
 #   arg $1: message
 info_n() {
+	tput sgr0 # Turn off all attributes (reset colors).
 	printf "=======> %s" "$1"
 }
 
