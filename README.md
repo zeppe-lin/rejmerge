@@ -1,12 +1,12 @@
 OVERVIEW
 ========
 
-This directory contains rejmerge, a package management utility that helps to
-merge files that were rejected during package upgrades.
+This directory contains rejmerge, a package management utility that
+helps to merge files that were rejected during package upgrades.
 
-This rejmerge distribution is a fork of CRUX' rejmerge utility (which is part
-of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov 17 2018) with the
-following differences:
+This rejmerge distribution is a fork of CRUX' rejmerge utility (which is
+part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov 17
+2018) with the following differences:
   * POSIX sh(1p) instead of bash
   * suckless' sbase support
   * manual pages in mdoc(7) format
