@@ -2,6 +2,7 @@
 # /etc/rejmerge.conf: rejmerge(8) configuration
 #
 # See rejmerge.conf(5) for more information.
+#
 
 export PATH="/sbin:/usr/sbin:/bin:/usr/bin"
 
