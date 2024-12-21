@@ -33,8 +33,8 @@ Runtime
 -------
   * POSIX sh(1p) and "mandatory utilities"
   * POSIX vi(1) and more(1) (can be redefined)
-  * GNU coreutils OR suckless' sbase (apply `suckless_sbase.patch` for
-    suckless' sbase support)
+  * GNU coreutils OR suckless' sbase (apply `extra/suckless_sbase.patch`
+    for suckless' sbase support)
   * GNU diff(1) from diffutils package
   * GNU getopt(1) from util-linux package
   * mktemp(1)
