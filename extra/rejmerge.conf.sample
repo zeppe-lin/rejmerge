@@ -13,12 +13,13 @@ rejmerge_diff() { diff -u --color=always "$1" "$2" > "$3"; }
 EDITOR="vim"
 
 # Use less(1) as default pager instead of more(1).
-# The option '-R' is required since the diff(1) produces raw control chars.
+# The option '-R' is required since the diff(1) produces raw control
+# chars.
 # The option '-X' disables sending the termcap initialization and
-# deinitialization strings to the terminal.  This is sometimes desireable if
-# the deinitialization string does something unnecessary, like clearing the
-# screen.
+# deinitialization strings to the terminal.  This is sometimes
+# desireable if the deinitialization string does something
+# unnecessary, like clearing the screen.
 PAGER="less -RX -Prejmerge"
 
-# vim: ft=sh
+# vim: ft=sh cc=72 tw=70
 # End of file.
