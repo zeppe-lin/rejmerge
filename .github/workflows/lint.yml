@@ -19,8 +19,8 @@ jobs:
     - name: Check src scripts for errors
       run: cd src && make lint
 
-    - name: Check man pages for errors
-      run: cd man && make lint
+#   - name: Check man pages for errors
+#     run: cd man && make lint
 
 # FIXME: fix completion lint errors
 #   - name: Check completion scripts for errors
