@@ -3,6 +3,15 @@
 # See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
+# Error codes.                                                       #
+######################################################################
+
+# https://tldp.org/LDP/abs/html/exitcodes.html
+readonly E_GENERAL=1     # Generic error code
+readonly E_CMDEXEC=126   # Command invoked cannot execute
+readonly E_INTERRUPT=130 # Script interrupted or terminated by CTRL+C
+
+######################################################################
 # Compatibility helpers.                                             #
 ######################################################################
 
@@ -54,7 +63,7 @@ interrupted() {
 	# on readch().
 	stty icanon echo
 
-	exit 1
+	exit $E_INTERRUPT
 }
 
 # shellcheck disable=2317
@@ -279,7 +288,7 @@ print_version() {
 parse_options() {
 	if ! _opts=$(getopt -a -n rejmerge -l "$LOPTS" -o "$SOPTS" -- "$@"); then
 		echo "Try 'rejmerge --help' for more information." 1>&2
-		exit 1
+		exit $E_GENERAL
 	fi
 	eval set -- "$_opts"; unset _opts
 	while true; do
@@ -309,19 +318,17 @@ main() {
 	_rejected_dir="$ROOT/var/lib/pkg/rejected"
 	if [ ! -d "$_rejected_dir" ]; then
 		echo "rejmerge: directory '$_rejected_dir' not found" 1>&2
-		exit 1
+		exit $E_GENERAL
 	fi
 
 	# Only root can merge rejected files.  However, allow to run
 	# rejmerge as a non-root if dry-run option was specified.
 	if [ "$DRYRUN" = 0 ] && [ "$(id -u)" != 0 ]; then
 		echo "rejmerge: only root can merge rejected files" 1>&2
-		exit 1
+		exit $E_GENERAL
 	fi
 
-	# https://tldp.org/LDP/abs/html/exitcodes.html
-	# 126 - Command invoked cannot execute.
-	TMPFILE=$(mktemp) || exit 126
+	TMPFILE=$(mktemp) || exit $E_CMDEXEC
 
 	# Rejmerge files.
 	REJECTED_FILES_FOUND="no"
