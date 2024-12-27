@@ -4,9 +4,9 @@ OVERVIEW
 This directory contains rejmerge, a package management utility that
 helps to merge files that were rejected during package upgrades.
 
-This rejmerge distribution is a fork of CRUX' rejmerge utility (which is
-part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov 17
-2018) with the following differences:
+This rejmerge distribution is a fork of CRUX' rejmerge utility (which
+is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
+17 2018) with the following differences:
   * POSIX sh(1p) instead of bash
   * suckless' sbase support
   * manual pages in mdoc(7) format
@@ -33,8 +33,8 @@ Runtime
 -------
   * POSIX sh(1p) and "mandatory utilities"
   * POSIX vi(1) and more(1) (can be redefined)
-  * GNU coreutils OR suckless' sbase (apply `extra/suckless_sbase.patch`
-    for suckless' sbase support)
+  * GNU coreutils OR suckless' sbase (apply
+    `extra/suckless_sbase.patch` for suckless' sbase support)
   * GNU diff(1) from diffutils package
   * GNU getopt(1) from util-linux package
   * mktemp(1)
@@ -51,7 +51,7 @@ See `config.mk` file for configuration parameters.
 LICENSE
 =======
 
-rejmerge is licensed through the GNU General Public License v2 or later
-<https://gnu.org/licenses/gpl.html>.
+rejmerge is licensed through the GNU General Public License v2 or
+later <https://gnu.org/licenses/gpl.html>.
 Read the COPYING file for copying conditions.
 Read the COPYRIGHT file for copyright notices.
