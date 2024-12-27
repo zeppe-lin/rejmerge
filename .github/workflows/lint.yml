@@ -22,7 +22,6 @@ jobs:
 #   - name: Check man pages for errors (requires mandoc)
 #     run: cd man && make lint
 
-# FIXME: fix completion lint errors
 #   - name: Check completion scripts for errors
 #     run: cd completion && make lint
 
