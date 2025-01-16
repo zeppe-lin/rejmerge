@@ -1,7 +1,7 @@
 OVERVIEW
 ========
 
-This directory contains rejmerge, a package management utility that
+This repository contains rejmerge, a package management utility that
 helps to merge files that were rejected during package upgrades.
 
 This rejmerge distribution is a fork of CRUX' rejmerge utility (which
