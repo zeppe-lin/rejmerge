@@ -48,6 +48,17 @@ The shell command `make install` should install this package.
 See `config.mk` file for configuration parameters.
 
 
+DOCUMENTATION
+=============
+
+Online documentation
+--------------------
+
+Manual pages:
+- [rejmerge.8](https://zeppe-lin.github.io/rejmerge.8.html)
+- [rejmerge.conf.5](https://zeppe-lin.github.io/rejmerge.conf.5.html)
+
+
 LICENSE
 =======
 
