@@ -15,12 +15,15 @@ readonly E_INTERRUPT=130 # Script interrupted or terminated by C-c
 # Compatibility helpers.                                             #
 ######################################################################
 
-# Implementation of non-POSIX `read -n1`.  See read(1p) for
-# limitations.
+# Implementation of non-POSIX `read -n1`.  Read from standard input
+# into shell variable.  See read(1p) for POSIX limitations.
 #   arg $1: variable name
 readch() {
 	if [ "$DRYRUN" = 1 ]; then
-		eval "$1=S" # set arg to [S]kip all actions
+		# If rejmerge started with -n/--dry-run option then
+		# do not read anything, just set variable to "S", that
+		# means "Skip all actions".
+		eval "$1=S"
 	else
 		stty -icanon -echo
 		eval "$1=\$(dd bs=1 count=1 2>/dev/null)"
