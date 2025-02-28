@@ -37,7 +37,9 @@ Runtime
     `extra/suckless_sbase.patch` for suckless' sbase support)
   * GNU diff(1) from diffutils package
   * GNU getopt(1) from util-linux package
-  * mktemp(1)
+  * mktemp(1): both BSD and GNU (coreutils) as well as suckless sbase
+    have a mktemp(1) that wraps mktemp(3) and mkdtemp(3); POSIX do
+    not.
 
 
 INSTALL
