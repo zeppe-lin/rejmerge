@@ -1,0 +1,120 @@
+REJMERGE.CONF(5)
+
+# NAME
+
+rejmerge.conf - configuration file for rejmerge
+
+# SYNOPSIS
+
+*/etc/rejmerge.conf*
+
+# DESCRIPTION
+
+This manual page describes how to customize the behavior of
+*rejmerge*(8) by using the _/etc/rejmerge.conf_ file.  You can change
+how *rejmerge* shows file differences and performs merges by defining
+your own versions of specific shell functions and variables within
+this configuration file.
+
+## Functions
+
+You can redefine the following shell functions to alter how *rejmerge*
+works:
+
+*rejmerge_diff*
+	This function is called by *rejmerge* to display the
+	differences between the installed version of a file and the
+	rejected version (the version with merge conflicts).
+
+	*rejmerge_diff* takes the following arguments:
+
+		*$1*: The path to the installed file.
+
+		*$2*: The path to the rejected file.
+
+		*$3*: The path to a temporary file where your function
+		*must* write the output of the comparison between *$1*
+		and *$2*.  The content of this temporary file will
+		then be shown to the user.
+
+	Essentially, your *rejmerge_diff* function should take the two
+	files, compare them, and save the comparison result (usually
+	in a diff format) into the file specified by *$3*.
+
+*rejmerge_merge*
+	This function is executed when the user chooses to merge the
+	installed and rejected files.
+
+	*rejmerge_merge* takes the following arguments:
+
+		*$1*: The path to the installed file.
+
+		*$2*: The path to the rejected file.
+
+		*$3*: The path to a temporary file where your function
+		*must* write the result of the merge operation.  The
+		content of this temporary file will then be presented
+		to the user as the merged file.
+
+	Your *rejmerge_merge* function should attempt to combine the
+	contents of the installed file (*$1*) and the rejected file
+	(*$2*), resolving the conflicts, and save the merged content
+	into the file specified by *$3*.
+
+	*Optional Variable*:
+	Inside your *rejmerge_merge* function, you can optionally set
+	the variable *REJMERGE_MERGE_INFO*.  If you set this variable
+	to a string, its content will be displayed to the user as
+	informational text after the merge operation is performed.
+	This is useful for providing a summary of the merge, such as
+	the number of conflicts found.
+
+## Variables
+
+You can redefine the following shell variables to change the tools
+used by *rejmerge*:
+
+*EDITOR*
+	This variable allows you to specify a text editor that
+	*rejmerge_merge* will use instead of the editor defined by the
+	standard *EDITOR* environment variable, or *vi*(1) if
+	environment variable is unset.  If you set *EDITOR* in this
+	configuration file, *rejmerge* will prioritize this setting.
+
+*PAGER*
+	This variable allows you to specify a pager program (like
+	*less* or *more*) that *rejmerge_diff* and *rejmerge_merge*
+	will use to display output instead of the pager defined by the
+	standard *PAGER* environment variable, or *more*(1) if
+	environment variable is unset.  If you set *PAGER* in
+	this configuration file, *rejmerge* will use this setting.
+
+# FILES
+
+_/etc/rejmerge.conf_
+	Default location for the configuration file.
+
+# EXAMPLES
+
+To display a side-by-side diff output, add this to your configuration
+file:
+```
+rejmerge_diff() { diff -y $1 $2 > $3 ; }
+```
+
+To get a unified and colorized diff output, use:
+```
+rejmerge_diff() { diff -u --color=always $1 $2 > $3 ; }
+```
+
+To use *sdiff*(1) for merging instead of the default merge method,
+try:
+```
+rejmerge_merge() { sdiff -o $3 $1 $2 ; }
+```
+
+# SEE ALSO
+
+*rejmerge*(8)
+
+; vim: ft=scdoc cc=72 tw=70
