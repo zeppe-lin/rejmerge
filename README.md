@@ -9,7 +9,7 @@ is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
 17 2018) with the following differences:
   * POSIX sh(1p) instead of bash
   * suckless' sbase support
-  * manual pages in mdoc(7) format
+  * manual pages in scdoc(7) format
   * split rejmerge(8) manual page into rejmerge(8) & rejmerge.conf(5)
   * GNU-style options/help/usage
   * new `-c/--config` option to specify an alternate config file
@@ -28,6 +28,7 @@ REQUIREMENTS
 Build time
 ----------
   * POSIX sh(1p), make(1p) and "mandatory utilities"
+  * scdoc to build manual pages
 
 Runtime
 -------
@@ -56,9 +57,8 @@ DOCUMENTATION
 Online documentation
 --------------------
 
-Manual pages:
-- [rejmerge.8](https://zeppe-lin.github.io/rejmerge.8.html)
-- [rejmerge.conf.5](https://zeppe-lin.github.io/rejmerge.conf.5.html)
+Refer to the human-readable manual pages located in the `/man`
+directory.
 
 
 LICENSE
