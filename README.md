@@ -9,7 +9,7 @@ is part of CRUX' pkgutils distribution) as of commit 9ca0da6 (Sat Nov
 17 2018) with the following differences:
   * POSIX sh(1p) instead of bash
   * suckless' sbase support
-  * manual pages in scdoc(7) format
+  * manual pages in scdoc(5) format
   * split rejmerge(8) manual page into rejmerge(8) & rejmerge.conf(5)
   * GNU-style options/help/usage
   * new `-c/--config` option to specify an alternate config file
@@ -28,7 +28,7 @@ REQUIREMENTS
 Build time
 ----------
   * POSIX sh(1p), make(1p) and "mandatory utilities"
-  * scdoc to build manual pages
+  * scdoc(1) to build manual pages
 
 Runtime
 -------
