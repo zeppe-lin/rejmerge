@@ -46,20 +46,17 @@ Runtime
 INSTALL
 =======
 
-The shell command `make install` should install this package.
+To install this package, run:
 
-See `config.mk` file for configuration parameters.
+    make install
+
+See config.mk file for configuration parameters.
 
 
 DOCUMENTATION
 =============
 
-Online documentation
---------------------
-
-Refer to the human-readable manual pages located in the `/man`
-directory.
-
+See /man directory for manual pages.
 
 LICENSE
 =======
