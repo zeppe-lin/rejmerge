@@ -22,7 +22,7 @@ You can redefine the following shell functions to alter how *rejmerge*
 works:
 
 *rejmerge_diff*
-	This function is called by *rejmerge* to display the
+	This function is called by *rejmerge*(8) to display the
 	differences between the installed version of a file and the
 	rejected version (the version with merge conflicts).
 
@@ -72,7 +72,7 @@ works:
 ## Variables
 
 You can redefine the following shell variables to change the tools
-used by *rejmerge*:
+used by *rejmerge*(8):
 
 *EDITOR*
 	This variable allows you to specify a text editor that
