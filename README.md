@@ -52,6 +52,8 @@ To install this package, run:
 
 See config.mk file for configuration parameters.
 
+**Notes for sbase/ubase users**:
+See `extra/suckless_sbase.patch`.
 
 DOCUMENTATION
 =============
