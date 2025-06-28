@@ -2,8 +2,7 @@ HACKING
 =======
 
 This file attempts to describe the rules and notes to use when hacking
-the rejmerge sources cloned from the Zeppe-Lin's source code
-repository.
+the `rejmerge` sources cloned from the Zeppe-Lin's source code repository.
 
 
 Coding style
