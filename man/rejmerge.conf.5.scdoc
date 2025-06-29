@@ -12,14 +12,14 @@ rejmerge.conf - configuration file for rejmerge
 
 This manual page describes how to customize the behavior of
 *rejmerge*(8) by using the _/etc/rejmerge.conf_ file.  You can change
-how *rejmerge* shows file differences and performs merges by defining
-your own versions of specific shell functions and variables within
-this configuration file.
+how *rejmerge*(8) shows file differences and performs merges by
+defining your own versions of specific shell functions and variables
+within this configuration file.
 
 ## Functions
 
-You can redefine the following shell functions to alter how *rejmerge*
-works:
+You can redefine the following shell functions to alter how
+*rejmerge*(8) works:
 
 *rejmerge_diff*
 	This function is called by *rejmerge*(8) to display the
@@ -79,7 +79,8 @@ used by *rejmerge*(8):
 	*rejmerge_merge* will use instead of the editor defined by the
 	standard *EDITOR* environment variable, or *vi*(1) if
 	environment variable is unset.  If you set *EDITOR* in this
-	configuration file, *rejmerge* will prioritize this setting.
+	configuration file, *rejmerge*(8) will prioritize this
+	setting.
 
 *PAGER*
 	This variable allows you to specify a pager program (like
@@ -87,7 +88,7 @@ used by *rejmerge*(8):
 	will use to display output instead of the pager defined by the
 	standard *PAGER* environment variable, or *more*(1) if
 	environment variable is unset.  If you set *PAGER* in
-	this configuration file, *rejmerge* will use this setting.
+	this configuration file, *rejmerge*(8) will use this setting.
 
 # FILES
 
