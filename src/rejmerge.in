@@ -272,15 +272,15 @@ rejmerge_action() {
 
 print_help() {
 	cat <<EOF
-Usage: rejmerge [-hnv] [-c conffile] [-r rootdir]
-Merge files that were rejected during package upgrades.
+Usage: rejmerge [-hnv] [-c FILE] [-r DIR]
+Merge files rejected during package upgrades.
 
 Mandatory arguments to long options are mandatory for short options too.
-  -c, --config=conffile  specify an alternate configuration file
-  -n, --dry-run          dry run, no execution
-  -r, --root=rootdir     specify an alternate root directory
-  -v, --version          print version and exit
-  -h, --help             print help and exit
+  -c, --config=FILE  Use FILE instead of /etc/rejmerge.conf configuration
+  -n, --dry-run      Show differences but do not execute any actions
+  -r, --root=DIR     Use DIR instead of '/', useful for chroot or alt root
+  -v, --version      Print version and exit
+  -h, --help         Print help and exit
 EOF
 }
 
