@@ -2,37 +2,31 @@ REJMERGE(8)
 
 # NAME
 
-rejmerge - merge files that were rejected during package upgrades
+rejmerge - merge files rejected during package upgrades
 
 # SYNOPSIS
 
-*rejmerge* [*-hnv*] [*-c* _conffile_] [*-r* _rootdir_]
+*rejmerge* [*-hnv*] [*-c* _FILE_] [*-r* _DIR_]
 
 # DESCRIPTION
 
-*rejmerge* is a package management utility, which merges files that
-were rejected during package upgrades.
+*rejmerge* merges files rejected during package upgrades.
 
-For each rejected file found in _/var/lib/pkg/rejected/_, *rejmerge*
-will display difference between installed version and the rejected
-version.  The user can the choose to keep the installed version,
-upgrade to the rejected or perform a merge of the two.
+For each file in _/var/lib/pkg/rejected_, it shows the difference
+between the installed and rejected versions.  The user may keep the
+installed file, replaced it with the rejected one, or perform a merge.
 
 The options are as follows:
 
-*-c* _conffile_, *--config*=_conffile_
-	Specify an alternate configuration file instead of the default
-	_/etc/rejmerge.conf_.
+*-c* _FILE_, *--config*=_FILE_
+	Use _FILE_ instead of _/etc/rejmerge.conf_ configuration.
 
 *-n*, *--dry-run*
-	Print the differences between an installed version and
-	rejected one, but do not execute any actions.
+	Show differences but do not execute any actions.
 
-*-r* _rootdir_, *--root*=_rootdir_
-	Specify an alternate root directory instead of the default
-	'*/*'.  This should be used if you want to merge rejected
-	files on a temporary mounted partition, which is "owned" by
-	another system.
+*-r* _DIR_, *--root*=_DIR_
+	Use _DIR_ instead of '*/*'.  Useful for operating on a chroot
+	or alternate root.
 
 *-v*, *--version*
 	Print version and exit.
@@ -42,35 +36,31 @@ The options are as follows:
 
 # ENVIRONMENT
 
-The following environment variables affect the execution of
-*rejmerge*:
-
 *EDITOR*
-	The editor to use instead of *vi*(1).
-*PAGER*
-	The pager to use instead of *more*(1).
-*TMPDIR*
-	Directory in which to place temporary files.  If unset or set
-	but unavailable, _/tmp_ is used.
+	Editor to use (default: *vi*(1)).
 
-*Important*:
-	All the above variables may be overridden in
-	_/etc/rejmerge.conf_.
+*PAGER*
+	Pager to use (default: *more*(1)).
+
+*TMPDIR*
+	Directory for temporary files (default: _/tmp_).
+
+These variables may also be set in _/etc/rejmerge.conf_.
 
 # FILES
 
 _/etc/rejmerge.conf_
-	Default *rejmerge* configuration file.
+	Default configuration file.
 
 _/var/lib/pkg/rejected/_
-	Directory where rejected files are stored.
+	Directory containing rejected files.
 
 # EXIT STATUS
 
-*0*    No error occurred.++
-*>0*   Generic error code.++
+*0*    Success.++
+*>0*   Generic error.++
 *126*  Command invoked cannot execute.++
-*130*  Script interrupted or terminated by *C-c*.
+*130*  Interrupted or terminated by *C-c*.
 
 # SEE ALSO
 
@@ -78,30 +68,16 @@ _/var/lib/pkg/rejected/_
 
 # AUTHORS
 
-Originally written by Per Lidén <per@fukt.bth.se> as part of
-*pkgutils* for CRUX: http://crux.nu.
+Originally written by Per Lidén <per@fukt.bth.se> for CRUX *pkgutils*
+(https://crux.nu).
 
-This implementation was extensively re-worked for Zeppe-Lin by
-Alexandr Savca <alexandr.savca89@gmail.com>.
+Reworked for Zeppe-Lin by Alexandr Savca <alexandr.savca89@gmail.com>.
 
 # BUGS
 
-While only root can merge system files, the *-n*/*--dry-run* option
-allows running *rejmerge* as a regular user to view the differences
-between installed and rejected files without making any changes.
-
-Note that you may encounter the situation when the rejected file has
-very strict permissions (e.g., 0400) that prohibit regular users from
-reading its content.  For example:
-
-```
-$ PAGER=cat rejmerge -n
-diff: /var/lib/pkg/rejected/etc/tor/torrc: Permission denied
-=======> /etc/tor/torrc
-=======> [K]eep [U]pgrade [M]erge [D]iff [S]kip?
-```
-
-Just run *rejmerge -n* as root if you still want to view the diffs
-without executing any actions.
+Only root can merge system files.  The *-n* option allows non-root
+users to view differences, but rejected files may have restrictive
+permissions (e.g. 0400) that prevent reading.  In that case, run
+*rejmerge -n* as root.
 
 ; vim: ft=scdoc cc=72 tw=70
