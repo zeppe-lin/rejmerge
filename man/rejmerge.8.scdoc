@@ -28,16 +28,16 @@ The options are as follows:
 	Read configuration from _conffile_ instead of
 	_/etc/rejmerge.conf_.
 
-*-n*, *--dry-run*
-	Show differences but do not perform any actions or modify the
-	file system.
-
 *-r* _rootdir_, *--root*=_rootdir_
 	Use _rootdir_ as the root directory instead of */*.
 	The installed tree is read from and written to under
 	_rootdir_, and rejected files are read from
 	_rootdir/var/lib/pkg/rejected_.
 	Useful for operating on a chroot or alternate root.
+
+*-n*, *--dry-run*
+	Show differences but do not perform any actions or modify the
+	file system.
 
 *-v*, *--version*
 	Print version and exit.
