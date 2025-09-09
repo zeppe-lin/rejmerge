@@ -10,32 +10,36 @@ rejmerge.conf - configuration file for rejmerge
 
 # DESCRIPTION
 
-_rejmerge.conf_ customizes *rejmerge*(8) by redefining shell functions
-and variables.
+The _rejmerge.conf_ file customizes *rejmerge*(8) by redefining shell
+functions and variables.
+It is sourced at startup.
 
-## Functions
+# FILE FORMAT
 
-*rejmerge_diff*
-	Compare installed and rejected files.
+*Functions*
+	*rejmerge_diff*
+		Compare installed and rejected files.
+		Arguments: *$1* installed file, *$2* rejected file,
+		and *$3* output file.
+		The default uses *diff -u* to produce a unified diff.
 
-	Arguments: *$1* installed file, *$2* rejected file, *$3*
-	output file.
+	*rejmerge_merge*
+		Merge installed and rejected files.
+		Arguments: *$1* installed file, *$2* rejected file,
+		and *$3* output file.
+		May set *REJMERGE_MERGE_INFO* variable to
+		display a merge summary.
+		The default uses *diff* with custom formats
+		to produce '<<<<<' merge conflict markers.
 
-*rejmerge_merge*
-	Merge installed and rejected files.
+*Variables*
+	*EDITOR*
+		Editor to use for merging files.
+		Overrides the *EDITOR* environment variable.
 
-	Arguments: *$1* installed file, *$2* rejected file, *$3*
-	output file.
-
-	May set *REJMERGE_MERGE_INFO* to display a merge summary.
-
-## Variables
-
-*EDITOR*
-	Editor to use instead of $EDITOR (default: *vi*(1)).
-
-*PAGER*
-	Pager to use instead of $PAGER (default: *more*(1)).
+	*PAGER*
+		Pager to use for viewing differences.
+		Overrides the *PAGER* environment variable.
 
 # FILES
 
@@ -43,6 +47,9 @@ _/etc/rejmerge.conf_
 	Default configuration file.
 
 # EXAMPLES
+
+The following examples demonstrate how to customize *rejmerge*'s
+behaviour in _/etc/rejmerge.conf_:
 
 Side-by-side diff:
 ```
@@ -61,6 +68,8 @@ rejmerge_merge() { sdiff -o $3 $1 $2 ; }
 
 # SEE ALSO
 
-*rejmerge*(8)
+*rejmerge*(8),
+*diff*(1),
+*sdiff*(1)
 
 ; vim: ft=scdoc cc=72 tw=70
