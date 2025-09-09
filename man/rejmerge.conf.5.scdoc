@@ -16,30 +16,32 @@ It is sourced at startup.
 
 # FILE FORMAT
 
-*Functions*
-	*rejmerge_diff*
-		Compare installed and rejected files.
-		Arguments: *$1* installed file, *$2* rejected file,
-		and *$3* output file.
-		The default uses *diff -u* to produce a unified diff.
+The following functions are recognized:
 
-	*rejmerge_merge*
-		Merge installed and rejected files.
-		Arguments: *$1* installed file, *$2* rejected file,
-		and *$3* output file.
-		May set *REJMERGE_MERGE_INFO* variable to
-		display a merge summary.
-		The default uses *diff* with custom formats
-		to produce '<<<<<' merge conflict markers.
+*rejmerge_diff*
+	Compare installed and rejected files.
+	Arguments: *$1* installed file, *$2* rejected file,
+	and *$3* output file.
+	The default uses *diff -u* to produce a unified diff.
 
-*Variables*
-	*EDITOR*
-		Editor to use for merging files.
-		Overrides the *EDITOR* environment variable.
+*rejmerge_merge*
+	Merge installed and rejected files.
+	Arguments: *$1* installed file, *$2* rejected file,
+	and *$3* output file.
+	May set *REJMERGE_MERGE_INFO* variable to
+	display a merge summary.
+	The default uses *diff* with custom formats
+	to produce '<<<<<' merge conflict markers.
 
-	*PAGER*
-		Pager to use for viewing differences.
-		Overrides the *PAGER* environment variable.
+The following variables are recognized:
+
+*EDITOR*
+	Editor used for merging files.
+	Overrides the *EDITOR* environment variable.
+
+*PAGER*
+	Pager used for viewing differences.
+	Overrides the *PAGER* environment variable.
 
 # FILES
 

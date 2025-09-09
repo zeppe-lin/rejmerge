@@ -6,16 +6,16 @@ rejmerge - merge files rejected during package upgrades
 
 # SYNOPSIS
 
-*rejmerge* [*-hnv*] [*-c* _conffile_] [*-r* _rootdir_]
+*rejmerge* [*-hnv*] [*-c* _config-file_] [*-r* _root-dir_]
 
 # DESCRIPTION
 
-The *rejmerge* utility inspects and merges files rejected during
-package upgrades.
-For each file in _/var/lib/pkg/rejected/_, it shows the differences
-between the installed and rejected versions.
-The user is then prompted to keep the installed file, replace it with
-the new version, or perform a merge.
+The *rejmerge* utility inspects and merges files that were rejected
+during package upgrades.
+For each file in _/var/lib/pkg/rejected/_, it shows differences
+between the installed and rejected versions, then prompts the user to
+keep the installed file, replace it with the new version, or perform a
+manual merge.
 
 Rejected files without a corresponding installed file are removed
 automatically.
@@ -24,16 +24,19 @@ processing.
 
 The options are as follows:
 
-*-c* _conffile_, *--config*=_conffile_
-	Read configuration from _conffile_ instead of
-	_/etc/rejmerge.conf_.
+*-c* _config-file_, *--config*=_config-file_
+	Use an alternate configuration file.
 
-*-r* _rootdir_, *--root*=_rootdir_
-	Use _rootdir_ as the root directory instead of */*.
-	The installed tree is read from and written to under
-	_rootdir_, and rejected files are read from
-	_rootdir/var/lib/pkg/rejected_.
+	Default: _/etc/rejmerge.conf_.
+
+*-r* _root-dir_, *--root*=_root-dir_
+	Use an alternate root directory.
+	The installed tree is read from and written under _root-dir_,
+	and rejected files are read from
+	_root-dir/var/lib/pkg/rejected_.
 	Useful for operating on a chroot or alternate root.
+
+	Default: */*.
 
 *-n*, *--dry-run*
 	Show differences but do not perform any actions or modify the
@@ -47,22 +50,24 @@ The options are as follows:
 
 # ENVIRONMENT
 
-The following environment variables can be used to customize
-*rejmerge*'s behaviour:
+The following environment variables influence *rejmerge*:
 
 *EDITOR*
-	The editor to use for merging files.
-	Defaults to *vi*(1).
+	Editor used for merging files.
+
+	Default: *vi*(1).
 
 *PAGER*
-	The pager to use for viewing file differences.
-	Defaults to *more*(1).
+	Pager used for viewing differences.
+
+	Default: *more*(1).
 
 *TMPDIR*
-	The directory for temporary files.
-	Defaults to _/tmp_.
+	Directory for temporary files.
 
-These variables may also be set in the _/etc/rejmerge.conf_ file.
+	Default: _/tmp_.
+
+These variables may also be set in the _/etc/rejmerge.conf_.
 
 # FILES
 
@@ -74,10 +79,16 @@ _/var/lib/pkg/rejected/_
 
 # EXIT STATUS
 
-*0*    Success.++
-*>0*   Generic error.++
-*126*  Command invoked cannot execute.++
-*130*  Interrupted or terminated by *C-c*.
+The *rejmerge* utility exits with one of the following codes:
+
+*0*
+	Success.
+*>0*
+	Generic error.
+*126*
+	Command invoked cannot execute.
+*130*
+	Interrupted or terminated by *C-c*.
 
 # EXAMPLES
 
@@ -105,7 +116,7 @@ rejmerge -r /mnt
 Originally written by Per Lidén <per@fukt.bth.se> for CRUX pkgutils.
 Reworked for Zeppe-Lin by Alexandr Savca <alexandr.savca89@gmail.com>.
 
-# BUGS
+# CAVEATS
 
 Merging system files requires superuser privileges.
 The *-n* option allows non-root users to view differences, but
