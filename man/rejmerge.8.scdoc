@@ -111,17 +111,6 @@ rejmerge -r /mnt
 
 *rejmerge.conf*(5)
 
-# HISTORY
-
-The *rejmerge* utility first appeared in pkgutils, developed by
-Per Lidén <per@fukt.bth.se> for CRUX.
-
-pkgutils was maintained for many years by CRUX team <https://crux.nu>.
-
-This implementation was reworked for Zeppe-Lin by Alexandr Savca
-<alexandr.savca89@gmail.com> and is maintained by Zeppe-Lin Team
-<https://zeppe-lin.github.io>.
-
 # CAVEATS
 
 Merging system files requires superuser privileges.
