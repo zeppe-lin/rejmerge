@@ -10,11 +10,23 @@ rejmerge.conf - configuration file for rejmerge
 
 # DESCRIPTION
 
-The _rejmerge.conf_ file customizes *rejmerge*(8) by redefining shell
-functions and variables.
-It is sourced at startup.
+The _rejmerge.conf_ file is a POSIX *sh*(1p) script read by
+*rejmerge*(8) at startup.
+It customises *rejmerge*(8) by redefining shell functions and
+variables.
 
 # FILE FORMAT
+
+The file consists of shell function definitions and variable
+assignments.
+Comments begin with a hash ('*#*') and extend to the end of the line.
+
+Since _rejmerge.conf_ is interpreted by the shell, normal shell syntax
+may be used.
+This includes variable expansion, command substitution, and
+conditional statements such as 'case' or 'if'.
+Functions, loops, and other POSIX *sh*(1p) constructs are also
+permitted.
 
 The following shell functions may be defined to override *rejmerge*(8)
 defaults.
