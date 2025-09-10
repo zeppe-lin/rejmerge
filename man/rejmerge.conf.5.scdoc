@@ -16,22 +16,52 @@ It is sourced at startup.
 
 # FILE FORMAT
 
-The following functions are recognized:
+The following shell functions may be defined to override *rejmerge*(8)
+defaults.
+They are executed by *rejmerge* with the arguments described below,
+and their output is written to the file named by the third argument.
 
 *rejmerge_diff*
-	Compare installed and rejected files.
-	Arguments: *$1* installed file, *$2* rejected file,
-	and *$3* output file.
-	The default uses *diff -u* to produce a unified diff.
+	Compare an installed file to its rejected version.
+
+	Arguments:
+
+	*$1*
+		Path to the installed file.
+	*$2*
+		Path to the rejected file.
+	*$3*
+		Path to a temporary output file for the diff result.
+
+	The contents of the output file are shown to the user as the
+	difference between the two files.
+
+	Default: *diff -u* to produce a unified diff.
 
 *rejmerge_merge*
-	Merge installed and rejected files.
-	Arguments: *$1* installed file, *$2* rejected file,
-	and *$3* output file.
-	May set *REJMERGE_MERGE_INFO* variable to
-	display a merge summary.
-	The default uses *diff* with custom formats
-	to produce '<<<<<' merge conflict markers.
+	Merge an installed file with its rejected version.
+
+	Arguments:
+
+	*$1*
+		Path to the installed file.
+	*$2*
+		Path to the rejected file.
+	*$3*
+		Path to a temporary output file for the merge result.
+
+	The contents of the output file are shown to the user as the
+	merge result.
+
+	This function may set the variable *REJMERGE_MERGE_INFO*
+	to a string displayed after the merge, for example:
+
+	```
+	5 merge conflicts found
+	```
+
+	Default: *diff* with custom formats to produce '<<<<<' merge
+	conflict markers.
 
 The following variables are recognized:
 
@@ -50,28 +80,40 @@ _/etc/rejmerge.conf_
 
 # EXAMPLES
 
-The following examples demonstrate how to customize *rejmerge*'s
-behaviour in _/etc/rejmerge.conf_:
+The following is an example _/etc/rejmerge.conf_ illustrating common
+customizations.
 
-Side-by-side diff:
 ```
-rejmerge_diff() { diff -y $1 $2 > $3 ; }
-```
+#
+# /etc/rejmerge.conf: configuration for rejmerge(8)
+#
 
-Unified color diff:
-```
-rejmerge_diff() { diff -u --color=always $1 $2 > $3 ; }
-```
+# Use diff(1) to produce side-by-side output when comparing files.
+rejmerge_diff() {
+	diff -y "$1" "$2" > "$3"
+}
 
-Merge with *sdiff*(1):
-```
-rejmerge_merge() { sdiff -o $3 $1 $2 ; }
+# Use sdiff(1) to perform an interactive merge of two files.
+rejmerge_merge() {
+	sdiff -o "$3" "$1" "$2"
+}
+
+# Example: unified diff with colour output.  Uncomment to enable.
+#rejmerge_diff() {
+#	diff -u --color=always "$1" "$2" > "$3"
+#}
+
+# Set preferred editor for merging and pager for viewing diffs.
+EDITOR=vim
+PAGER=less
+
+# End of file.
 ```
 
 # SEE ALSO
 
-*rejmerge*(8),
 *diff*(1),
-*sdiff*(1)
+*sdiff*(1),
+*rejmerge*(8)
 
 ; vim: ft=scdoc cc=72 tw=70
