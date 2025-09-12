@@ -1,5 +1,5 @@
 #!/bin/sh
-# rejmerge - merge files that were rejected during package upgrades
+# rejmerge - merge files rejected during package upgrades
 # See COPYING and COPYRIGHT files for corresponding information.
 
 ######################################################################
