@@ -22,9 +22,8 @@ assignments.
 Comments begin with a hash ('*#*') and extend to the end of the line.
 
 Since _rejmerge.conf_ is interpreted by the shell, normal shell syntax
-may be used.
-This includes variable expansion, command substitution, and
-conditional statements such as 'case' or 'if'.
+may be used, including variable expansion, command substitution, and
+conditional statements such as *case* or *if*.
 Functions, loops, and other POSIX *sh*(1p) constructs are also
 permitted.
 
