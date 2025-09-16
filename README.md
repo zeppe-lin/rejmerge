@@ -14,7 +14,7 @@ It is a fork of CRUX `rejmerge` (from `pkgutils`) at commit `9ca0da6`
   * New `-n/--dry-run` option to print the diffs without any action
   * Bash completion
 
-See git log for the full history.
+See git log for full history.
 
 Original sources: https://git.crux.nu/tools/pkgutils.git
 
