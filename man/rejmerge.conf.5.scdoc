@@ -89,6 +89,18 @@ The following variables are recognized:
 _/etc/rejmerge.conf_
 	Default configuration file.
 
+# NOTES
+
+The _rejmerge.conf_ file customises only the behaviour of
+*rejmerge*(8).
+It does not alter package archives or the package database.
+Functions defined here are executed with the arguments provided by
+*rejmerge*(8) and must produce valid output for merging or diff
+display.
+For consistent results, always build packages with *pkgmk*(8) and
+install them with *pkgadd*(8) so that rejected files are tracked
+correctly.
+
 # EXAMPLES
 
 The following is an example _/etc/rejmerge.conf_ illustrating common
@@ -123,8 +135,16 @@ PAGER=less
 
 # SEE ALSO
 
+*rejmerge*(8),
+*pkgadd*(8),
+*pkgadd.conf*(5),
+*pkgrm*(8),
+*pkginfo*(1),
+*pkgmk*(8),
+*pkgmk.conf*(5),
+*packages*(7),
+*packaging*(7),
 *diff*(1),
-*sdiff*(1),
-*rejmerge*(8)
+*sdiff*(1)
 
 ; vim: ft=scdoc cc=72 tw=70

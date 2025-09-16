@@ -90,6 +90,14 @@ The *rejmerge* utility exits with one of the following codes:
 *130*
 	Interrupted or terminated by *C-c*.
 
+# NOTES
+
+*rejmerge*(8) operates only on files rejected by *pkgadd*(8) during
+upgrades.
+It does not modify package archives or the package database.
+Rejected files are preserved under _/var/lib/pkg/rejected/_ until
+explicitly merged or removed.
+
 # EXAMPLES
 
 Review and merge rejected files:
@@ -109,7 +117,15 @@ rejmerge -r /mnt
 
 # SEE ALSO
 
-*rejmerge.conf*(5)
+*rejmerge.conf*(5),
+*pkgadd*(8),
+*pkgadd.conf*(5),
+*pkgrm*(8),
+*pkginfo*(1),
+*pkgmk*(8),
+*pkgmk.conf*(5),
+*packages*(7),
+*packaging*(7)
 
 # CAVEATS
 
