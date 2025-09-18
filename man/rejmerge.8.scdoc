@@ -46,7 +46,7 @@ The options are as follows:
 	Print version and exit.
 
 *-h*, *--help*
-	Print usage information and exit.
+	Print usage and exit.
 
 # ENVIRONMENT
 
@@ -84,7 +84,7 @@ The *rejmerge* utility exits with one of the following codes:
 *0*
 	Success.
 *>0*
-	Generic error.
+	General error.
 *126*
 	Command invoked cannot execute.
 *130*
