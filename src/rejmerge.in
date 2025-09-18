@@ -281,7 +281,7 @@ Mandatory arguments to long options are mandatory for short options too.
   -r, --root=root-dir   Use an alternate root directory
   -n, --dry-run         Show differences but do not execute any actions
   -v, --version         Print version and exit
-  -h, --help            Print this message and exit
+  -h, --help            Print this help and exit
 EOF
 }
 
