@@ -45,16 +45,20 @@ readch() {
 # Functions for displaying formatted messages to the user.           #
 ######################################################################
 
-# info_n - Print a formatted message to standard output without a
-# newline.
+# info_n - Print a formatted message without newline.
+# Resets terminal formatting only if stdout is a terminal.
 # Args:
 #   $1: Message.
 info_n() {
-	tput sgr0 # Turn off all attributes (reset colors).
+	if [ -t 1 ]; then
+		# Interactive only.
+		# Turn off all attributes (reset colors).
+		tput sgr0
+	fi
 	printf "=======> %s" "$1"
 }
 
-# info - Print a formatted message to standard output, followed by a
+# info - Print a formatted message with newline.
 # newline.
 # Args:
 #   $1: Message.
