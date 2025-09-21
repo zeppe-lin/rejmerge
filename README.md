@@ -1,7 +1,8 @@
 OVERVIEW
 ========
 
-`rejmerge` merges files rejected during package upgrades.
+The `rejmerge` utility inspects and merges files rejected during
+package upgrades.
 
 It is a fork of CRUX `rejmerge` (from `pkgutils`) at commit `9ca0da6`
 (Sat Nov 17 2018), with the following changes:
