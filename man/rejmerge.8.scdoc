@@ -11,16 +11,18 @@ rejmerge - merge files rejected during package upgrades
 # DESCRIPTION
 
 The *rejmerge* utility inspects and merges files that were rejected
-during package upgrades.
-For each file in _/var/lib/pkg/rejected/_, it shows differences
-between the installed and rejected versions, then prompts the user to
-keep the installed file, replace it with the new version, or perform a
-manual merge.
+by *pkgadd*(8) during package upgrades, according to the rules in
+*pkgadd.conf*(5).
+Rejected files are placed under _/var/lib/pkg/rejected_ until they are
+merged or removed.
 
+For each rejected file, *rejmerge* shows the difference between the
+installed and rejected versions, then prompts the user to keep the
+installed file, replace it with the new version, or perform a manual
+merge.
 Rejected files without a corresponding installed file are removed
-automatically.
-Empty directories under the rejected-files directory are removed after
-processing.
+automatically, and empty directories under the rejected-files
+directory are cleaned up after processing.
 
 The options are as follows:
 
@@ -39,8 +41,7 @@ The options are as follows:
 	Default: */*.
 
 *-n*, *--dry-run*
-	Show differences but do not perform any actions or modify the
-	file system.
+	Show differences but make no changes.
 
 *-v*, *--version*
 	Print version and exit.
@@ -67,12 +68,12 @@ The following environment variables influence *rejmerge*:
 
 	Default: _/tmp_.
 
-These variables may also be set in the _/etc/rejmerge.conf_.
+These variables may also be set in *rejmerge.conf*(5).
 
 # FILES
 
 _/etc/rejmerge.conf_
-	Default configuration file.
+	Configuration file.
 
 _/var/lib/pkg/rejected/_
 	Directory containing rejected files.
@@ -89,14 +90,6 @@ The *rejmerge* utility exits with one of the following codes:
 	Command invoked cannot execute.
 *130*
 	Interrupted or terminated by *C-c*.
-
-# NOTES
-
-*rejmerge*(8) operates only on files rejected by *pkgadd*(8) during
-upgrades.
-It does not modify package archives or the package database.
-Rejected files are preserved under _/var/lib/pkg/rejected/_ until
-explicitly merged or removed.
 
 # EXAMPLES
 
@@ -132,7 +125,7 @@ rejmerge -r /mnt
 Merging system files requires superuser privileges.
 The *-n* option allows non-root users to view differences, but
 rejected files may have restrictive permissions (e.g., 0400) that
-prevent reading.
-In such cases, run *rejmerge -n* as root.
+prevent access.
+In such cases, run *rejmerge -n* as root if necessary.
 
 ; vim: ft=scdoc cc=72 tw=70

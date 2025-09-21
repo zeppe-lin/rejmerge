@@ -10,61 +10,51 @@ rejmerge.conf - configuration file for rejmerge
 
 # DESCRIPTION
 
-The _rejmerge.conf_ file is a POSIX *sh*(1p) script read by
-*rejmerge*(8) at startup.
-It customises *rejmerge*(8) by redefining shell functions and
-variables.
+The _rejmerge.conf_ file provides a way to customize the behaviour of
+the *rejmerge*(8) utility, which is used to manage and merge files
+rejected during package upgrades.
 
 # FILE FORMAT
 
-The file consists of shell function definitions and variable
-assignments.
-Comments begin with a hash ('*#*') and extend to the end of the line.
+The file is a POSIX *sh*(1p) script.
+It can contain variable assignments and function definitions to
+override the default behavior of *rejmerge*(8).
+Lines beginning with '*#*' are treated as comments.
 
-Since _rejmerge.conf_ is interpreted by the shell, normal shell syntax
-may be used, including variable expansion, command substitution, and
-conditional statements such as *case* or *if*.
-Functions, loops, and other POSIX *sh*(1p) constructs are also
-permitted.
+## Functions
 
-The following shell functions may be defined to override *rejmerge*(8)
-defaults.
-They are executed by *rejmerge* with the arguments described below,
-and their output is written to the file named by the third argument.
+The following shell functions can be defined in _rejmerge.conf_ to
+override the default file comparison and merging behavior.
 
 *rejmerge_diff*
-	Compare an installed file to its rejected version.
-
-	Arguments:
+	This function compares an installed file to its rejected
+	version.
+	The output is written to a temporary file, which is then shown
+	to the user.
 
 	*$1*
 		Path to the installed file.
 	*$2*
 		Path to the rejected file.
 	*$3*
-		Path to a temporary output file for the diff result.
-
-	The contents of the output file are shown to the user as the
-	difference between the two files.
+		Path to a temporary file for the diff output.
 
 	Default: *diff -u* to produce a unified diff.
 
 *rejmerge_merge*
-	Merge an installed file with its rejected version.
-
-	Arguments:
+	This function merges an installed file with its rejected
+	version.
+	The merge result is written to a temporary file, which is then
+	shown to the user.
 
 	*$1*
 		Path to the installed file.
 	*$2*
 		Path to the rejected file.
 	*$3*
-		Path to a temporary output file for the merge result.
+		Path to a temporary file for the merge output.
 
-	The contents of the output file are shown to the user as the
-	merge result.
-
-	This function may set the variable *REJMERGE_MERGE_INFO*
+	This function may set the *REJMERGE_MERGE_INFO* variable
 	to a string displayed after the merge, for example:
 
 	```
@@ -74,7 +64,10 @@ and their output is written to the file named by the third argument.
 	Default: *diff* with custom formats to produce '<<<<<' merge
 	conflict markers.
 
-The following variables are recognized:
+## Variables
+
+The following variables are recognized for customizing the
+*rejmerge*(8) environment.
 
 *EDITOR*
 	Editor used for merging files.
@@ -89,22 +82,10 @@ The following variables are recognized:
 _/etc/rejmerge.conf_
 	Default configuration file.
 
-# NOTES
-
-The _rejmerge.conf_ file customises only the behaviour of
-*rejmerge*(8).
-It does not alter package archives or the package database.
-Functions defined here are executed with the arguments provided by
-*rejmerge*(8) and must produce valid output for merging or diff
-display.
-For consistent results, always build packages with *pkgmk*(8) and
-install them with *pkgadd*(8) so that rejected files are tracked
-correctly.
-
 # EXAMPLES
 
-The following is an example _/etc/rejmerge.conf_ illustrating common
-customizations.
+The following example illustrates how to customize _rejmerge.conf_
+with common configurations.
 
 ```
 #
@@ -146,5 +127,18 @@ PAGER=less
 *packaging*(7),
 *diff*(1),
 *sdiff*(1)
+
+# CAVEATS
+
+The _rejmerge.conf_ file customises only the behavior of
+*rejmerge*(8).
+It does not alter package archives or the package database.
+Functions defined here are executed with the fixed arguments provided
+by *rejmerge*(8) and must produce valid output for merging or diff
+display.
+
+For reliable results, packages should be built with *pkgmk*(8) and
+installed with *pkgadd*(8) so that rejected files are tracked
+correctly.
 
 ; vim: ft=scdoc cc=72 tw=70
