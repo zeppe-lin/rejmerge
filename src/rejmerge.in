@@ -41,7 +41,7 @@ readch() {
 }
 
 ######################################################################
-# Notification helpers.                                              #
+# Section: Notification helpers                                      #
 # Functions for displaying formatted messages to the user.           #
 ######################################################################
 
@@ -65,18 +65,21 @@ info() {
 
 ######################################################################
 # Section: Exit hooks                                                #
-# Functions to handle script termination (interrupts, exit)          #
+# Functions to handle script termination (interrupts, exit).         #
 ######################################################################
 
-# Shellcheck's SC2317 warning is disabled here because 'interrupted'
-# and 'atexit' are valid functions called by traps, but shellcheck
-# can't always detect this.
+# Make shellcheck don't warn about unreachable commands and unused
+# functions here.  These a valid functions called by traps.
+# See trap(1p) for more information.
 
+# interrupted - Handle script interruption signals (HUP, INT, QUIT,
+# TERM).  Print a formatted interruption message to standard error,
+# then exit.
 # https://www.shellcheck.net/wiki/SC2317
 # shellcheck disable=2317
 interrupted() {
-	echo ""
-	info "Interrupted." 1>&2
+	echo "" 1>&2
+	info "=======> Interrupted." 1>&2
 
 	# Ensure the terminal's I/O settings are restored to normal in
 	# case the script was interrupted during 'readch()'.
@@ -85,6 +88,8 @@ interrupted() {
 	exit $E_INTERRUPT
 }
 
+# atexit - Cleanup function to be executed on script exit: delete
+# temporary file.
 # shellcheck disable=2317
 atexit() {
 	if [ -e "$TMPFILE" ]; then
@@ -399,7 +404,7 @@ EOF
 
 # print_version - Print the script's version number.
 print_version() {
-	echo "rejmerge @VERSION@"
+	echo "rejmerge @VERSION@" # Placeholder for version string.
 }
 
 # parse_options - Parse command-line options using `getopt` and set
