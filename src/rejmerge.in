@@ -23,7 +23,7 @@ readonly E_INTERRUPT=130 # Script interrupted or terminated by C-c
 # Args:
 #   $1: variable name to store the character
 readch() {
-	if [ "$DRYRUN" = 1 ]; then
+	if [ "$DRY_RUN" = 1 ]; then
 		# If rejmerge is in dry-run mode, force the "skip all"
 		# command to prevent user interaction.
 		eval "$1=S"
@@ -419,9 +419,9 @@ parse_options() {
 
 	while true; do
 		case $1 in
-		-c| --config) CONF=$2       ; shift  ;;
-		-n|--dry-run) DRYRUN=1               ;;
-		-r|   --root) ROOT=$2       ; shift  ;;
+		-c| --config) CONFIG_FILE=$2; shift  ;;
+		-n|--dry-run) DRY_RUN=1              ;;
+		-r|   --root) ROOT_DIR=$2   ; shift  ;;
 		-v|--version) print_version ; exit 0 ;;
 		-h|   --help) print_help    ; exit 0 ;;
 		          --) shift         ; break  ;;
@@ -439,14 +439,14 @@ main() {
 
 	# Read configuration file if it exists.
 	# shellcheck source=/etc/rejmerge.conf
-	if [ -f "$CONF" ]; then
+	if [ -f "$CONFIG_FILE" ]; then
 		# Ignore 'file not found' shellcheck warnings.
 		# https://www.shellcheck.net/wiki/SC1091
 		# shellcheck disable=SC1091
-		. "$CONF"
+		. "$CONFIG_FILE"
 	fi
 
-	_rejected_dir="$ROOT/var/lib/pkg/rejected"
+	_rejected_dir="${ROOT_DIR}/var/lib/pkg/rejected"
 
 	# Check if the rejected files directory exists.
 	if [ ! -d "$_rejected_dir" ]; then
@@ -455,7 +455,7 @@ main() {
 	fi
 
 	# Require root privileges unless a dry-run is specified.
-	if [ "$DRYRUN" = 0 ] && [ "$(id -u)" != 0 ]; then
+	if [ "$DRY_RUN" = 0 ] && [ "$(id -u)" != 0 ]; then
 		echo "rejmerge: only root can merge rejected files" 1>&2
 		exit $E_GENERAL
 	fi
@@ -474,7 +474,7 @@ main() {
 		# handles the path stripping.
 		# https://www.shellcheck.net/wiki/SC2295
 		# shellcheck disable=2295
-		_installed_file="${ROOT}${_rejected_file##$_rejected_dir}"
+		_installed_file="${ROOT_DIR}${_rejected_file##$_rejected_dir}"
 
 		# IF there's no corresponding installed file, remove
 		# the rejected one.
@@ -525,13 +525,13 @@ EDITOR=${EDITOR:-/bin/vi}
 PAGER=${PAGER:-/bin/more}
 
 # Whether to show differences but make no changes.
-DRYRUN=0
+DRY_RUN=0
 
 # Alternate root directory.
-ROOT=""
+ROOT_DIR=""
 
 # Configuration file.
-CONF=/etc/rejmerge.conf
+CONFIG_FILE=/etc/rejmerge.conf
 
 ######################################################################
 # Section: Script execution                                          #
