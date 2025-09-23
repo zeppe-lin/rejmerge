@@ -55,18 +55,15 @@ The following environment variables influence *rejmerge*:
 
 *EDITOR*
 	Editor used for merging files.
-
-	Default: *vi*(1).
+	If unset, *vi*(1) is used.
 
 *PAGER*
 	Pager used for viewing differences.
-
-	Default: *more*(1).
+	If unset, *more*(1) is used.
 
 *TMPDIR*
 	Directory for temporary files.
-
-	Default: _/tmp_.
+	If unset, _/tmp_ is used.
 
 These variables may also be set in *rejmerge.conf*(5).
 
