@@ -1,6 +1,6 @@
 #!/bin/sh
 # rejmerge - merge files rejected during package upgrades
-# See COPYING and COPYRIGHT files for corresponding information.
+# See COPYING for license terms and COPYRIGHT for notices.
 
 ######################################################################
 # Section: Error codes                                               #
@@ -9,9 +9,9 @@
 
 # Standard exit codes based on tldp.org's Advanced Bash-Scripting
 # Guide: https://tldp.org/LDP/abs/html/exitcodes.html
-readonly E_GENERAL=1     # Generic error
-readonly E_CMDEXEC=126   # Command invoked cannot execute
-readonly E_INTERRUPT=130 # Script interrupted or terminated by C-c
+readonly E_GENERAL=1      # General error
+readonly E_CMDEXEC=126    # Command invoked cannot execute
+readonly E_INTERRUPT=130  # Interrupted or terminated by C-c
 
 ######################################################################
 # Section: Compatibility helpers                                     #
