@@ -61,6 +61,7 @@ Manual pages are in `/man`.
 LICENSE
 =======
 
-`rejmerge` is licensed through the GNU General Public License v2 or
-later <https://gnu.org/licenses/gpl.html>.
-See `COPYING` for terms and `COPYRIGHT` for notices.
+`rejmerge` is licensed through the
+[GNU General Public License v2 or later](https://gnu.org/licenses/gpl.html).
+
+See `COPYING` for license terms and `COPYRIGHT` for notices.
