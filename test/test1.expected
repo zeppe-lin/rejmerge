@@ -1,0 +1,12 @@
+=======> Access permissions ./rejmerge-fakeroot/etc/example.conf
+-rw-r--r--  me me  ./rejmerge-fakeroot/etc/example.conf
+-rw-------  me me  ./rejmerge-fakeroot/var/lib/pkg/rejected/etc/example.conf
+=======> [K]eep [U]pgrade [D]iff [S]kip? 
+=======> ./rejmerge-fakeroot/etc/example.conf
+--- ./rejmerge-fakeroot/etc/example.conf
++++ ./rejmerge-fakeroot/var/lib/pkg/rejected/etc/example.conf
+@@ -1,2 +1,2 @@
+ # Comment
+-x=1
++x=2
+=======> [K]eep [U]pgrade [M]erge [D]iff [S]kip? 
