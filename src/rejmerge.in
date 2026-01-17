@@ -397,8 +397,7 @@ Usage: rejmerge [-hnv] [-c config-file] [-r root-dir]
 Merge files rejected during package upgrades.
 
 Mandatory arguments to long options are mandatory for short options too.
-  -c, --config=config-file
-                       Use an alternate configuration file
+  -c, --config=config-file  Use an alternate configuration file
   -r, --root=root-dir  Use an alternate root directory
   -n, --dry-run        Show differences but do not execute any actions
   -v, --version        Print version and exit
