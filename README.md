@@ -7,7 +7,7 @@ package upgrades.
 It is a fork of CRUX `rejmerge` (from `pkgutils`) at commit `9ca0da6`
 (Sat Nov 17 2018), with the following changes:
   * POSIX `sh(1p)` instead of `bash(1)`
-  * Support of suckless `sbase`
+  * Support of suckless `sbase` (see `extra/suckless_sbase.patch`)
   * Manual pages in `scdoc(5)` format
     * Split into `rejmerge(8)` and `rejmerge.conf(5)`
   * GNU-style options, help, and usage output
@@ -45,7 +45,10 @@ INSTALLATION
 
 To install this package, run:
 
-    make install
+```sh
+# as root
+make install
+```
 
 Configuration parameters are in `config.mk`.
 
