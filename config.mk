@@ -1,6 +1,6 @@
 # project metadata
 NAME        = rejmerge
-VERSION     = 5.47
+VERSION     = 5.47.1
 
 # paths
 PREFIX      = /usr
