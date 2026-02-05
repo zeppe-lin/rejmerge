@@ -59,7 +59,8 @@ For `sbase`/`ubase` support, see `extra/suckless_sbase.patch`.
 DOCUMENTATION
 =============
 
-See manual pages in `/man`.
+Manual pages are provided in `/man` and installed under the system
+manual hierarchy.
 
 ---
 
