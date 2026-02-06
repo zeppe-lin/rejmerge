@@ -1,11 +1,10 @@
 OVERVIEW
 ========
 
-The `rejmerge` utility inspects and merges files rejected during
-package upgrades.
+`rejmerge` inspects and merges files rejected during package upgrades.
 
-It is a fork of CRUX `rejmerge` (from `pkgutils`) at commit `9ca0da6`
-(Sat Nov 17 2018), with the following changes:
+This distribution is a fork of CRUX `rejmerge` (from `pkgutils`) at
+commit `9ca0da6` (Sat Nov 17 2018), with the following changes:
   * Rewritten in POSIX `sh(1p)` instead of `bash(1)`
   * Added support of suckless `sbase` (see `extra/suckless_sbase.patch`)
   * Manual pages in `scdoc(5)` format
@@ -15,8 +14,10 @@ It is a fork of CRUX `rejmerge` (from `pkgutils`) at commit `9ca0da6`
   * New `-n/--dry-run` option to show diffs without applying changes
   * Bash completion support
 
-See the git log for full history.  
-Original sources: https://git.crux.nu/tools/pkgutils.git
+See the git log for full history.
+
+Original sources:
+  * https://git.crux.nu/tools/pkgutils.git
 
 ---
 
@@ -37,7 +38,7 @@ Runtime
   * GNU `diff(1)` from `diffutils`
   * GNU `getopt(1)` from `util-linux`
   * `mktemp(1)` (provided by BSD, GNU `coreutils`, or suckless
-    `sbase`; not part of POSIX yet)
+    `sbase`; not yet part of POSIX)
 
 ---
 
